@@ -2,53 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Samuel Damon Barnhurst — Portfolio Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samuel Damon Barnhurst — Portfolio</title>
   <style>
     :root {
-      --bg: #121212;
-      --panel: #1f1f1f;
-      --text: #eaeaea;
-      --muted: #b6b6b6;
+      --bg: #0d1117;
+      --panel: #161b22;
+      --text: #e6edf3;
+      --muted: #8b949e;
       --accent: #00ffff;
       --accent-hover: #00b3b3;
-      --border: #2a2a2a;
+      --border: #30363d;
     }
+    * { box-sizing: border-box; }
     body {
+      margin: 0;
       font-family: system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
-      margin: 0;
-      line-height: 1.6;
       scroll-behavior: smooth;
     }
-    /* Sticky Nav */
-    nav.topnav {
+    /* Navigation */
+    nav {
       position: sticky;
       top: 0;
-      background: rgba(18, 18, 18, 0.95);
-      padding: 0.8em;
+      background: rgba(13, 17, 23, 0.95);
       display: flex;
       justify-content: center;
       gap: 1em;
+      padding: 0.8em 1em;
       border-bottom: 1px solid var(--border);
       z-index: 1000;
     }
-    nav.topnav a {
+    nav a {
       color: var(--text);
       text-decoration: none;
       font-weight: 500;
-      padding: 0.5em 1em;
+      padding: 0.6em 1em;
       border-radius: 6px;
-      transition: background 0.2s;
+      transition: all 0.3s ease;
     }
-    nav.topnav a:hover {
+    nav a:hover {
       background: var(--accent-hover);
+      color: #fff;
     }
     /* Hero */
     header.hero {
       text-align: center;
-      padding: 5em 1em;
-      background: linear-gradient(160deg, #1f1f1f, #121212);
+      padding: 6em 1em;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('images/photo1.jpg') center/cover no-repeat;
+      color: #fff;
     }
     header.hero h1 {
       font-size: 3em;
@@ -56,10 +60,25 @@
       color: var(--accent);
     }
     header.hero p {
-      color: var(--muted);
       font-size: 1.3em;
-      max-width: 700px;
-      margin: 1em auto 0;
+      margin-top: 0.5em;
+      color: #fff;
+    }
+    /* Typing effect */
+    .typing {
+      display: inline-block;
+      border-right: 2px solid var(--accent);
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 4s steps(30, end), blink 1s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: var(--accent) }
     }
     /* Sections */
     main {
@@ -76,7 +95,7 @@
       margin-bottom: 1em;
       font-size: 1.8em;
     }
-    /* Gallery */
+    /* Gallery with lightbox */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -84,14 +103,30 @@
     }
     .gallery img {
       width: 100%;
-      border-radius: 12px;
+      border-radius: 10px;
       border: 2px solid var(--border);
-      object-fit: cover;
-      max-height: 400px;
+      cursor: pointer;
       transition: transform 0.3s ease;
     }
     .gallery img:hover {
       transform: scale(1.05);
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+    }
+    .lightbox:target {
+      display: flex;
     }
     /* Projects */
     .projects {
@@ -116,56 +151,50 @@
       margin-top: 0;
     }
     /* Skills */
-    .skills {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1em;
-      text-align: center;
+    .skillbar {
+      margin: 1em 0;
     }
-    .skill {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 1em;
-      border-radius: 10px;
-      transition: background 0.2s;
+    .skillbar span {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.3em;
     }
-    .skill:hover {
-      background: var(--accent-hover);
+    .bar {
+      background: #222;
+      border-radius: 8px;
+      overflow: hidden;
     }
-    /* Timeline */
-    .timeline {
-      border-left: 2px solid var(--accent);
-      padding-left: 1.5em;
+    .bar-fill {
+      display: block;
+      height: 12px;
+      background: var(--accent);
+      width: 0;
+      animation: load 2s forwards;
     }
-    .timeline-item {
-      margin-bottom: 2em;
-      position: relative;
-    }
-    .timeline-item::before {
-      content: "●";
-      color: var(--accent);
-      position: absolute;
-      left: -1.2em;
-      font-size: 1.2em;
+    @keyframes load {
+      from { width: 0; }
+      to { width: var(--target-width); }
     }
     /* Contact */
     .contact {
       text-align: center;
     }
-    .contact a {
+    .contact a, .contact button {
       display: inline-block;
       margin: 0.5em;
       padding: 0.8em 1.5em;
       border-radius: 8px;
       background: var(--panel);
       color: var(--text);
+      border: none;
+      cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.3s;
     }
-    .contact a:hover {
+    .contact a:hover, .contact button:hover {
       background: var(--accent-hover);
+      color: #fff;
     }
-    /* Footer */
     footer {
       text-align: center;
       padding: 2em 1em;
@@ -175,12 +204,11 @@
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="topnav">
+  <!-- Nav -->
+  <nav>
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
     <a href="#skills">Skills</a>
-    <a href="#timeline">Timeline</a>
     <a href="#contact">Contact</a>
     <a href="index.html">Curriculum</a>
     <a href="games.html">Games</a>
@@ -190,7 +218,7 @@
   <!-- Hero -->
   <header class="hero">
     <h1>Samuel Damon Barnhurst</h1>
-    <p>Software Engineer · Lifelong Learner · Builder of Things</p>
+    <p class="typing">Software Engineer · Lifelong Learner · Builder of Things</p>
   </header>
 
   <main>
@@ -203,24 +231,34 @@
         Alongside, I’m creating projects, tools, and experimental spaces like 
         <em>Games</em> and a <em>Dictionary of Concepts</em>.
       </p>
-      <div class="gallery" id="gallery"></div>
+      <div class="gallery">
+        <a href="#img1"><img src="images/photo1.jpg" alt="Photo 1"></a>
+        <a href="#img2"><img src="images/photo2.jpg" alt="Photo 2"></a>
+        <a href="#img3"><img src="images/photo3.jpg" alt="Photo 3"></a>
+        <a href="#img4"><img src="images/photo4.jpg" alt="Photo 4"></a>
+      </div>
+      <!-- Lightboxes -->
+      <div id="img1" class="lightbox"><img src="images/photo1.jpg"></div>
+      <div id="img2" class="lightbox"><img src="images/photo2.jpg"></div>
+      <div id="img3" class="lightbox"><img src="images/photo3.jpg"></div>
+      <div id="img4" class="lightbox"><img src="images/photo4.jpg"></div>
     </section>
 
     <!-- Projects -->
     <section id="projects">
-      <h2>💡 Featured Projects</h2>
+      <h2>💡 Projects</h2>
       <div class="projects">
         <div class="project-card">
           <h3>📘 HTML Zero → Mastery</h3>
-          <p>A 600-lesson HTML curriculum designed to go from ground zero to advanced mastery. Each lesson is self-contained and practical.</p>
+          <p>A 600-lesson HTML curriculum designed to go from ground zero to advanced mastery.</p>
         </div>
         <div class="project-card">
           <h3>🤖 AI Development Guide</h3>
-          <p>Experiments and learnings around building with AI tools, frameworks, and integrating them into real-world workflows.</p>
+          <p>Experiments and learnings around building with AI tools, frameworks, and real-world workflows.</p>
         </div>
         <div class="project-card">
           <h3>🌍 Reality Simulation</h3>
-          <p>A long-term project modeling physics, time, and interactions in simulated environments. A sandbox for creativity and science.</p>
+          <p>A long-term project modeling physics, time, and interactions in simulated environments.</p>
         </div>
       </div>
     </section>
@@ -228,44 +266,31 @@
     <!-- Skills -->
     <section id="skills">
       <h2>🛠 Skills</h2>
-      <div class="skills">
-        <div class="skill">HTML</div>
-        <div class="skill">CSS</div>
-        <div class="skill">JavaScript</div>
-        <div class="skill">Python</div>
-        <div class="skill">C++</div>
-        <div class="skill">Rust</div>
-        <div class="skill">Git & GitHub</div>
-        <div class="skill">Node.js</div>
+      <div class="skillbar">
+        <span>HTML & CSS</span>
+        <div class="bar"><div class="bar-fill" style="--target-width:90%"></div></div>
       </div>
-    </section>
-
-    <!-- Timeline -->
-    <section id="timeline">
-      <h2>📅 My Journey</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <h3>2025</h3>
-          <p>Launched HTML Zero → Mastery with 600+ lessons and personal curriculum hub.</p>
-        </div>
-        <div class="timeline-item">
-          <h3>2024</h3>
-          <p>Developed InfinitEditor — my own offline-first coding environment with live previews.</p>
-        </div>
-        <div class="timeline-item">
-          <h3>Earlier</h3>
-          <p>Began my journey in software engineering, experimenting with projects, games, and AI systems.</p>
-        </div>
+      <div class="skillbar">
+        <span>JavaScript</span>
+        <div class="bar"><div class="bar-fill" style="--target-width:80%"></div></div>
+      </div>
+      <div class="skillbar">
+        <span>Python</span>
+        <div class="bar"><div class="bar-fill" style="--target-width:85%"></div></div>
+      </div>
+      <div class="skillbar">
+        <span>Rust & C++</span>
+        <div class="bar"><div class="bar-fill" style="--target-width:70%"></div></div>
       </div>
     </section>
 
     <!-- Contact -->
     <section id="contact">
-      <h2>📬 Contact Me</h2>
+      <h2>📬 Contact</h2>
       <div class="contact">
         <a href="mailto:your.email@example.com">✉️ Email</a>
         <a href="https://github.com/Sambarnhurst" target="_blank">💻 GitHub</a>
-        <a href="#">🔗 LinkedIn (add link)</a>
+        <a href="#">🔗 LinkedIn</a>
       </div>
     </section>
   </main>
@@ -273,23 +298,5 @@
   <footer>
     © 2025 · Built by Samuel Damon Barnhurst · Works Offline
   </footer>
-
-  <script>
-    // Auto-generated gallery images
-    const photos = [
-      "photo1.jpg",
-      "photo2.jpg",
-      "photo3.jpg",
-      "photo4.jpg"
-      // 👉 Add more filenames here when you upload new photos
-    ];
-    const gallery = document.getElementById("gallery");
-    photos.forEach(file => {
-      const img = document.createElement("img");
-      img.src = "images/" + file;
-      img.alt = file;
-      gallery.appendChild(img);
-    });
-  </script>
 </body>
 </html>
