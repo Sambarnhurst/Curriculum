@@ -18,73 +18,69 @@
       background: var(--bg);
       color: var(--text);
       margin: 0;
-      padding: 0;
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
-    /* Hero Section */
-    header {
-      text-align: center;
-      padding: 4em 1em 3em;
-      background: linear-gradient(160deg, #1f1f1f, #121212);
+    /* Sticky Nav */
+    nav.topnav {
+      position: sticky;
+      top: 0;
+      background: rgba(18, 18, 18, 0.95);
+      padding: 0.8em;
+      display: flex;
+      justify-content: center;
+      gap: 1em;
       border-bottom: 1px solid var(--border);
+      z-index: 1000;
     }
-    header h1 {
-      color: var(--accent);
-      margin: 0;
-      font-size: 3em;
-    }
-    header p {
-      color: var(--muted);
-      font-size: 1.3em;
-      margin-top: 0.6em;
-      max-width: 750px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    nav {
-      margin-top: 2em;
-    }
-    nav a {
-      display: inline-block;
-      margin: 0.5em;
-      padding: 0.9em 1.8em;
-      border-radius: 8px;
-      background: var(--panel);
+    nav.topnav a {
       color: var(--text);
       text-decoration: none;
-      font-size: 1em;
       font-weight: 500;
-      transition: background 0.2s, transform 0.2s;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      transition: background 0.2s;
     }
-    nav a:hover {
+    nav.topnav a:hover {
       background: var(--accent-hover);
-      transform: translateY(-3px);
     }
+    /* Hero */
+    header.hero {
+      text-align: center;
+      padding: 5em 1em;
+      background: linear-gradient(160deg, #1f1f1f, #121212);
+    }
+    header.hero h1 {
+      font-size: 3em;
+      margin: 0;
+      color: var(--accent);
+    }
+    header.hero p {
+      color: var(--muted);
+      font-size: 1.3em;
+      max-width: 700px;
+      margin: 1em auto 0;
+    }
+    /* Sections */
     main {
       max-width: 1100px;
-      margin: 3em auto;
-      padding: 0 1.5em;
+      margin: 0 auto;
+      padding: 2em 1.5em;
     }
     section {
-      margin-bottom: 5em;
+      margin: 5em 0;
     }
     section h2 {
       color: var(--accent);
-      margin-bottom: 1em;
       text-align: center;
+      margin-bottom: 1em;
       font-size: 1.8em;
     }
-    /* About Me */
-    .about p {
-      font-size: 1.1em;
-      text-align: center;
-      color: var(--muted);
-    }
+    /* Gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1em;
-      margin-top: 2em;
     }
     .gallery img {
       width: 100%;
@@ -102,7 +98,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5em;
-      margin-top: 2em;
     }
     .project-card {
       background: var(--panel);
@@ -110,7 +105,7 @@
       border-radius: 14px;
       padding: 1.5em;
       box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, border 0.2s;
     }
     .project-card:hover {
       transform: translateY(-4px);
@@ -120,43 +115,89 @@
       color: var(--accent);
       margin-top: 0;
     }
-    footer {
-      margin-top: 3em;
-      padding: 2em 1em;
+    /* Skills */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1em;
       text-align: center;
-      font-size: 0.9em;
+    }
+    .skill {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 1em;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    .skill:hover {
+      background: var(--accent-hover);
+    }
+    /* Timeline */
+    .timeline {
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5em;
+    }
+    .timeline-item {
+      margin-bottom: 2em;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: "●";
+      color: var(--accent);
+      position: absolute;
+      left: -1.2em;
+      font-size: 1.2em;
+    }
+    /* Contact */
+    .contact {
+      text-align: center;
+    }
+    .contact a {
+      display: inline-block;
+      margin: 0.5em;
+      padding: 0.8em 1.5em;
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .contact a:hover {
+      background: var(--accent-hover);
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2em 1em;
       color: var(--muted);
       border-top: 1px solid var(--border);
-    }
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <header>
+  <!-- Navigation -->
+  <nav class="topnav">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#contact">Contact</a>
+    <a href="index.html">Curriculum</a>
+    <a href="games.html">Games</a>
+    <a href="dictionary.html">Dictionary</a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
     <h1>Samuel Damon Barnhurst</h1>
-    <p>
-      Software Engineer · Lifelong Learner · Builder of Things.  
-      This hub brings together my full curriculum, experiments, and personal projects.
-    </p>
-    <nav>
-      <a href="index.html">🚀 Curriculum</a>
-      <a href="games.html">🎮 Games</a>
-      <a href="dictionary.html">📖 Dictionary</a>
-      <a href="#about">👋 About Me</a>
-    </nav>
+    <p>Software Engineer · Lifelong Learner · Builder of Things</p>
   </header>
 
   <main>
     <!-- About -->
-    <section class="about" id="about">
-      <h2>About Me</h2>
-      <p>
+    <section id="about">
+      <h2>👋 About Me</h2>
+      <p style="text-align:center;max-width:700px;margin:auto;">
         Hi, I’m Samuel Damon Barnhurst. I’m building a structured, offline-first curriculum 
         to take learners from <strong>zero to mastery</strong> in software engineering.  
         Alongside, I’m creating projects, tools, and experimental spaces like 
@@ -166,8 +207,8 @@
     </section>
 
     <!-- Projects -->
-    <section>
-      <h2>Featured Projects</h2>
+    <section id="projects">
+      <h2>💡 Featured Projects</h2>
       <div class="projects">
         <div class="project-card">
           <h3>📘 HTML Zero → Mastery</h3>
@@ -183,11 +224,54 @@
         </div>
       </div>
     </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2>🛠 Skills</h2>
+      <div class="skills">
+        <div class="skill">HTML</div>
+        <div class="skill">CSS</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">Python</div>
+        <div class="skill">C++</div>
+        <div class="skill">Rust</div>
+        <div class="skill">Git & GitHub</div>
+        <div class="skill">Node.js</div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section id="timeline">
+      <h2>📅 My Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>2025</h3>
+          <p>Launched HTML Zero → Mastery with 600+ lessons and personal curriculum hub.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>2024</h3>
+          <p>Developed InfinitEditor — my own offline-first coding environment with live previews.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Earlier</h3>
+          <p>Began my journey in software engineering, experimenting with projects, games, and AI systems.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>📬 Contact Me</h2>
+      <div class="contact">
+        <a href="mailto:your.email@example.com">✉️ Email</a>
+        <a href="https://github.com/Sambarnhurst" target="_blank">💻 GitHub</a>
+        <a href="#">🔗 LinkedIn (add link)</a>
+      </div>
+    </section>
   </main>
 
   <footer>
-    © 2025 · Built by Samuel Damon Barnhurst · Works Offline · 
-    <a href="mailto:your.email@example.com">Contact Me</a>
+    © 2025 · Built by Samuel Damon Barnhurst · Works Offline
   </footer>
 
   <script>
@@ -199,7 +283,6 @@
       "photo4.jpg"
       // 👉 Add more filenames here when you upload new photos
     ];
-
     const gallery = document.getElementById("gallery");
     photos.forEach(file => {
       const img = document.createElement("img");
