@@ -57,12 +57,19 @@
     let gameEnded = false;
     let bossActive = false;
 
+    // Load images
+    const playerImg = new Image(); playerImg.src = "assets/player.png";
+    const alienImg = new Image(); alienImg.src = "assets/alien.png";
+    const bossImg = new Image(); bossImg.src = "assets/boss.png";
+    const bulletImg = new Image(); bulletImg.src = "assets/bullet.png";
+    const alienBulletImg = new Image(); alienBulletImg.src = "assets/alien-bullet.png";
+
     // Player
     const player = {
-      x: canvas.width / 2 - 20,
-      y: canvas.height - 50,
-      width: 40,
-      height: 20,
+      x: canvas.width / 2 - 25,
+      y: canvas.height - 70,
+      width: 50,
+      height: 50,
       speed: 6,
       bullets: []
     };
@@ -71,15 +78,15 @@
     const alienRows = 4;
     const alienCols = 8;
     const aliens = [];
-    const alienSize = 30;
+    const alienSize = 40;
     let alienDirection = 1;
     let alienSpeed = 0.5;
 
     for (let r = 0; r < alienRows; r++) {
       for (let c = 0; c < alienCols; c++) {
         aliens.push({
-          x: 80 + c * 60,
-          y: 50 + r * 50,
+          x: 80 + c * 70,
+          y: 50 + r * 60,
           width: alienSize,
           height: alienSize,
           alive: true
@@ -92,10 +99,10 @@
 
     // Boss
     const boss = {
-      x: canvas.width / 2 - 60,
+      x: canvas.width / 2 - 80,
       y: 50,
-      width: 120,
-      height: 60,
+      width: 160,
+      height: 80,
       hp: 30,
       speed: 2,
       direction: 1,
@@ -108,43 +115,37 @@
     document.addEventListener("keyup", e => keys[e.code] = false);
 
     function drawPlayer() {
-      ctx.fillStyle = "#00ffff";
-      ctx.fillRect(player.x, player.y, player.width, player.height);
+      ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
     }
 
     function drawAliens() {
-      ctx.fillStyle = "#ff6b6b";
       aliens.forEach(alien => {
         if (alien.alive) {
-          ctx.fillRect(alien.x, alien.y, alien.width, alien.height);
+          ctx.drawImage(alienImg, alien.x, alien.y, alien.width, alien.height);
         }
       });
     }
 
     function drawBullets() {
-      ctx.fillStyle = "#57e389";
       player.bullets.forEach(bullet => {
-        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+        ctx.drawImage(bulletImg, bullet.x, bullet.y, bullet.width, bullet.height);
       });
 
-      ctx.fillStyle = "#ffbf69";
       alienBullets.forEach(bullet => {
-        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+        ctx.drawImage(alienBulletImg, bullet.x, bullet.y, bullet.width, bullet.height);
       });
 
-      ctx.fillStyle = "#ff4de1";
       boss.bullets.forEach(bullet => {
-        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+        ctx.drawImage(alienBulletImg, bullet.x, bullet.y, bullet.width, bullet.height);
       });
     }
 
     function drawBoss() {
       if (bossActive) {
-        ctx.fillStyle = "#ff4de1";
-        ctx.fillRect(boss.x, boss.y, boss.width, boss.height);
+        ctx.drawImage(bossImg, boss.x, boss.y, boss.width, boss.height);
         ctx.fillStyle = "#fff";
         ctx.font = "20px Arial";
-        ctx.fillText("Boss HP: " + boss.hp, boss.x + 10, boss.y - 10);
+        ctx.fillText("Boss HP: " + boss.hp, boss.x + 20, boss.y - 10);
       }
     }
 
@@ -152,19 +153,21 @@
       ctx.fillStyle = "#e6edf3";
       ctx.font = "20px Arial";
       ctx.fillText("Score: " + score, 10, 20);
-      ctx.fillText("Lives: " + lives, canvas.width - 100, 20);
+      ctx.fillText("Lives: " + lives, canvas.width - 120, 20);
     }
 
     function updatePlayer() {
-      if (keys["ArrowLeft"] && player.x > 0) {
-        player.x -= player.speed;
-      }
-      if (keys["ArrowRight"] && player.x < canvas.width - player.width) {
-        player.x += player.speed;
-      }
+      if (keys["ArrowLeft"] && player.x > 0) player.x -= player.speed;
+      if (keys["ArrowRight"] && player.x < canvas.width - player.width) player.x += player.speed;
       if (keys["Space"]) {
         if (!player.shooting) {
-          player.bullets.push({ x: player.x + player.width / 2 - 2, y: player.y, width: 4, height: 10, speed: 7 });
+          player.bullets.push({
+            x: player.x + player.width / 2 - 6,
+            y: player.y,
+            width: 12,
+            height: 24,
+            speed: 7
+          });
           player.shooting = true;
         }
       } else {
@@ -178,7 +181,6 @@
         bullet.y -= bullet.speed;
         if (bullet.y < 0) player.bullets.splice(index, 1);
 
-        // Hit aliens
         aliens.forEach(alien => {
           if (alien.alive &&
               bullet.x < alien.x + alien.width &&
@@ -191,7 +193,6 @@
           }
         });
 
-        // Hit boss
         if (bossActive &&
             bullet.x < boss.x + boss.width &&
             bullet.x + bullet.width > boss.x &&
@@ -239,7 +240,7 @@
     }
 
     function updateAliens() {
-      if (bossActive) return; // stop aliens when boss fight starts
+      if (bossActive) return;
 
       let edgeReached = false;
       aliens.forEach(alien => {
@@ -256,7 +257,6 @@
         aliens.forEach(alien => alien.y += 20);
       }
 
-      // Random alien shooting
       if (Math.random() < 0.02) {
         const shooters = aliens.filter(a => a.alive);
         if (shooters.length > 0) {
@@ -264,34 +264,28 @@
           alienBullets.push({
             x: alien.x + alien.width / 2 - 2,
             y: alien.y + alien.height,
-            width: 4,
-            height: 10,
+            width: 8,
+            height: 16,
             speed: 4
           });
         }
       }
 
-      // If all aliens dead → spawn boss
-      if (aliens.every(a => !a.alive) && !bossActive) {
-        bossActive = true;
-      }
+      if (aliens.every(a => !a.alive) && !bossActive) bossActive = true;
     }
 
     function updateBoss() {
       if (!bossActive) return;
 
       boss.x += boss.direction * boss.speed;
-      if (boss.x < 0 || boss.x + boss.width > canvas.width) {
-        boss.direction *= -1;
-      }
+      if (boss.x < 0 || boss.x + boss.width > canvas.width) boss.direction *= -1;
 
-      // Boss shooting
       if (Math.random() < 0.05) {
         boss.bullets.push({
-          x: boss.x + boss.width / 2 - 3,
+          x: boss.x + boss.width / 2 - 6,
           y: boss.y + boss.height,
-          width: 6,
-          height: 14,
+          width: 12,
+          height: 24,
           speed: 6
         });
       }
@@ -312,9 +306,7 @@
     function checkGameOver() {
       if (!bossActive) {
         for (let alien of aliens) {
-          if (alien.alive && alien.y + alien.height >= player.y) {
-            return true;
-          }
+          if (alien.alive && alien.y + alien.height >= player.y) return true;
         }
       }
       return false;
@@ -335,17 +327,13 @@
         drawBullets();
         drawHUD();
 
-        if (checkGameOver()) {
-          gameEnded = true;
-        }
+        if (checkGameOver()) gameEnded = true;
 
         requestAnimationFrame(gameLoop);
       } else {
-        if (bossActive && boss.hp <= 0) {
-          winGame();
-        } else {
-          gameOver();
-        }
+        if (!bossActive && aliens.every(a => !a.alive)) winGame();
+        else if (bossActive && boss.hp <= 0) winGame();
+        else gameOver();
       }
     }
 
