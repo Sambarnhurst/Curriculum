@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Curriculum — 600 Lessons</title>
+  <title>Curriculum — Lessons</title>
   <style>
     body {
       font-family: system-ui, sans-serif;
@@ -32,12 +32,12 @@
     }
     main {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: .7em;
       margin-top: 1em;
     }
-    /* 3D style shared by buttons and lessons */
-    .button, .lesson {
+    /* Style all links inside <main> as 3D buttons */
+    main a {
       display: block;
       padding: 0.6em 1em;
       border-radius: 8px;
@@ -50,7 +50,7 @@
       box-shadow: 3px 3px 8px #0d0d0d, -3px -3px 8px #2e2e2e;
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
     }
-    .button:hover, .lesson:hover {
+    main a:hover {
       background: linear-gradient(145deg, #00b3b3, #008c8c);
       color: white;
       transform: translateY(-3px);
@@ -60,19 +60,15 @@
   </style>
 </head>
 <body>
-  <h1>📘 Curriculum — 600 Lessons</h1>
+  <h1>📘 Curriculum — Lessons</h1>
 
-  <!-- Back to Home button -->
   <div class="top-bar">
-    <a href="home.html" class="button">⬅ Back to Home</a>
+    <a href="home.html">⬅ Back to Home</a>
   </div>
 
-  <!-- Search bar -->
   <input id="search" type="text" placeholder="Search lessons...">
 
-  <!-- Lesson links -->
   <main id="lessons">
-    <!-- === LESSON LINKS START === -->
     <a href="lessons/lesson1.html">Lesson 1: What is HTML? (Concept & role)</a>
     <a href="lessons/lesson2.html">Lesson 2: HTML vs CSS vs JavaScript</a>
     <a href="lessons/lesson3.html">Lesson 3: Browsers and how they read HTML</a>
@@ -673,8 +669,7 @@
     <a href="lessons/lesson598.html">Lesson 598: Contribute to MDN</a>
     <a href="lessons/lesson599.html">Lesson 599: Interview prep</a>
     <a href="lessons/lesson600.html">Lesson 600: Graduation checklist & next steps</a>
-    <!-- === LESSON LINKS END === -->
-  </main>
+ </main>
 
   <script>
     // Simple search filter
