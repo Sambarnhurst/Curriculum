@@ -10,30 +10,29 @@
       color: #eee;
       margin: 0;
       padding: 0;
-    }
-    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      min-height: 100vh;
       text-align: center;
-      padding: 3em 1em 2em;
     }
-    header h1 {
+    h1 {
       color: #00ffff;
-      margin: 0;
       font-size: 2.5em;
+      margin: 0;
+      padding: 0 1em;
     }
-    header p {
+    p {
       color: #b6b6b6;
       font-size: 1.2em;
-      margin-top: 0.5em;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 600px;
+      margin: 0.5em 1em;
+      line-height: 1.6;
     }
-    .button-bar {
-      margin-top: 2em;
-    }
-    .button-bar a {
+    a.button {
       display: inline-block;
-      margin: 0.5em;
+      margin-top: 2em;
       padding: 1em 2em;
       border-radius: 8px;
       background: #1f1f1f;
@@ -42,81 +41,29 @@
       font-size: 1em;
       transition: background 0.2s, color 0.2s;
     }
-    .button-bar a:hover {
+    a.button:hover {
       background: #00b3b3;
       color: white;
     }
-    section {
-      max-width: 1000px;
-      margin: 3em auto;
-      padding: 0 1.5em;
-    }
-    section h2 {
-      color: #00ffff;
-      margin-bottom: 1em;
-      text-align: center;
-    }
-    .about p {
-      font-size: 1.1em;
-      line-height: 1.6;
-      text-align: center;
-      color: #ddd;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1em;
-      margin-top: 2em;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 10px;
-      border: 2px solid #1f1f1f;
-      object-fit: cover;
-      max-height: 400px;
-    }
     footer {
       margin-top: 3em;
-      padding: 1.5em;
-      text-align: center;
       font-size: 0.85em;
       color: #777;
-      border-top: 1px solid #222;
+      padding: 1em;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to My Curriculum Hub</h1>
-    <p>
-      I’m Samuel Damon Barnhurst — this project is my personal journey to becoming a full-stack
-      software engineer, building 600+ structured lessons and projects along the way.
-    </p>
-    <div class="button-bar">
-      <a href="index.html">🚀 Curriculum</a>
-      <a href="games.html">🎮 Games</a>
-      <a href="dictionary.html">📖 Dictionary</a>
-    </div>
-  </header>
-
-  <section class="about">
-    <h2>About Me</h2>
-    <p>
-      Outside of coding, I’m passionate about learning, creating, and exploring.  
-      Here are some snapshots of my life — moments, adventures, and memories.  
-      This portfolio isn’t just about the curriculum, but about the person behind it.
-    </p>
-
-    <div class="gallery">
-      <img src="E4FB84F1-956F-4902-8E9F-EC9561F0A386.jpeg" alt="Photo 1">
-      <img src="7440EA68-100A-4F62-85B6-DBFBDD9C93E2.jpeg" alt="Photo 2">
-      <img src="64DCF92B-95BE-428F-88BF-C72070C324AC.jpeg" alt="Photo 3">
-      <img src="B4B6BB86-AB86-49A9-88AB-AB47DF0A4CEC.jpeg" alt="Photo 4">
-    </div>
-  </section>
+  <h1>Welcome to the HTML Zero → Mastery Curriculum</h1>
+  <p>
+    This project is a complete step-by-step path to learn and master software engineering.
+    It begins with HTML, CSS, and JavaScript, and expands to 600 lessons covering core computer science
+    and advanced development.
+  </p>
+  <a href="index.html" class="button">🚀 Enter Curriculum</a>
 
   <footer>
-    © 2025 · Samuel Damon Barnhurst · Built with ❤️ and curiosity
+    © 2025 · Samuel Damon Barnhurst · Built Offline
   </footer>
 </body>
 </html>
