@@ -14,12 +14,16 @@
 
 ---
 
-## 📂 Quick Links  
+## 🌐 Live Pages  
 
-- 📘 [Curriculum Repository](https://github.com/Sambarnhurst/Curriculum)  
-- ⚡ InfinitEditor *(coming soon)*  
-- 🛡️ Cyber Defense Game *(in development)*  
-- 📚 Knowledge Library *(offline-first resource hub)*  
+- 🏠 [Home](https://sambarnhurst.github.io/Curriculum/home.html)  
+- 📘 [Curriculum Index](https://sambarnhurst.github.io/Curriculum/index.html)  
+- 📖 [Lesson 1: What is HTML?](https://sambarnhurst.github.io/Curriculum/lessons/lesson1.html)  
+- 📖 [Lesson 2: HTML vs CSS vs JavaScript](https://sambarnhurst.github.io/Curriculum/lessons/lesson2.html)  
+- 📖 [Lesson 3: Browsers & How They Read HTML](https://sambarnhurst.github.io/Curriculum/lessons/lesson3.html)  
+- 🎮 [Game Hub](https://sambarnhurst.github.io/Curriculum/games.html)  
+- 🏓 [Pong](https://sambarnhurst.github.io/Curriculum/arcade-pong.html)  
+- 👾 [Space Invaders](https://sambarnhurst.github.io/Curriculum/arcade-space-invaders.html)  
 
 ---
 
