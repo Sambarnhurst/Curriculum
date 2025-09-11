@@ -20,17 +20,23 @@
       font-weight: 400;
       color: #b6b6b6;
     }
-    section {
-      margin-bottom: 2em;
-      padding: 1.5em;
-      border-radius: 12px;
-      background: #1f1f1f;
-      border: 1px solid #2a2a2a;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    .top-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1em;
     }
-    section h3 {
-      margin-top: 0;
-      color: #00ffff;
+    .button {
+      display: inline-block;
+      padding: .7em 1.5em;
+      border-radius: 8px;
+      background: #00b3b3;
+      color: white;
+      text-decoration: none;
+      font-size: 1em;
+      transition: background .2s;
+    }
+    .button:hover {
+      background: #008c8c;
     }
     #search {
       width: 100%;
@@ -48,7 +54,7 @@
       gap: .7em;
       margin-top: 1em;
     }
-    a {
+    a.lesson {
       display: block;
       padding: 1em;
       border-radius: 8px;
@@ -59,7 +65,7 @@
       transition: background 0.2s;
       font-size: .9em;
     }
-    a:hover {
+    a.lesson:hover {
       background: #00b3b3;
       color: white;
     }
@@ -70,29 +76,14 @@
   <h1>Full Free Curriculum By Samuel Damon Barnhurst</h1>
   <h2>This is a project for a complete curriculum to learn and develop software engineering skills</h2>
 
-  <!-- Home Section -->
-  <section>
-    <h3>Welcome</h3>
-    <p>
-      Welcome to the <strong>HTML Zero → Mastery Curriculum</strong>.  
-      This project is a complete self-paced guide to becoming a software engineer, covering 
-      <em>HTML, CSS, JavaScript, computer science foundations, and advanced topics</em>.
-    </p>
-    <p>
-      ✅ <strong>Currently available:</strong> Initial lessons are being built.  
-      📌 The full site will eventually include <strong>600 structured lessons</strong>.
-    </p>
-    <p>
-      Use the search and curriculum section below to jump into the available lessons.
-    </p>
-  </section>
+  <div class="top-bar">
+    <a href="home.html" class="button">⬅ Back to Home</a>
+  </div>
 
-  <!-- Curriculum Section -->
-  <section>
-    <h3>Curriculum — Lessons</h3>
-    <input id="search" type="text" placeholder="Search lessons...">
-    <main id="lessons">
-      <!-- === LESSON LINKS START === -->
+  <input id="search" type="text" placeholder="Search lessons...">
+
+  <main id="lessons">
+    <!-- === LESSON LINKS START === -->
     <a href="lessons/lesson1.html">Lesson 1: What is HTML? (Concept & role)</a>
     <a href="lessons/lesson2.html">Lesson 2: HTML vs CSS vs JavaScript</a>
     <a href="lessons/lesson3.html">Lesson 3: Browsers and how they read HTML</a>
@@ -694,9 +685,8 @@
     <a href="lessons/lesson599.html">Lesson 599: Interview prep</a>
     <a href="lessons/lesson600.html">Lesson 600: Graduation checklist & next steps</a>
 
-      <!-- === LESSON LINKS END === -->
-    </main>
-  </section>
+    <!-- === LESSON LINKS END === -->
+  </main>
 
   <script>
     // Simple search filter
