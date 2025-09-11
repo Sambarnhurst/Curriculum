@@ -35,22 +35,31 @@
       font-size: 1.2em;
       margin-top: 0.5em;
     }
-    main {
-      max-width: 900px;
+    section {
       margin: 3em auto;
-      padding: 0 1.5em;
+      max-width: 1100px;
+      padding: 0 1em;
+    }
+    section h2 {
+      color: var(--accent);
+      margin-bottom: 1em;
+      font-size: 1.6em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: .3em;
+    }
+    .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5em;
+      gap: 1em;
     }
     a.game-button {
       display: block;
-      padding: 2em 1em;
+      padding: 1.2em;
       border-radius: 12px;
       background: var(--panel);
       border: 1px solid var(--border);
       color: var(--text);
-      font-size: 1.2em;
+      font-size: 1em;
       font-weight: bold;
       text-decoration: none;
       transition: all 0.25s ease;
@@ -88,16 +97,133 @@
 <body>
   <header>
     <h1>🎮 Game Hub</h1>
-    <p>Select a category to explore games</p>
+    <p>Explore 90+ categories of games — from classics to engineering simulations</p>
   </header>
 
-  <main>
-    <a href="classic.html" class="game-button">🕹 Classic Browser Games</a>
-    <a href="simulation.html" class="game-button">🌍 Simulation & Sandbox</a>
-    <a href="adventure.html" class="game-button">🚀 Adventure & Exploration</a>
-    <a href="ai-games.html" class="game-button">🤖 AI & Coding Games</a>
-    <a href="quickfun.html" class="game-button">⚡ Quick Fun Games</a>
-  </main>
+  <!-- Arcade Classics -->
+  <section>
+    <h2>🕹 Arcade & Classic Games</h2>
+    <div class="grid">
+      <a href="arcade-pong.html" class="game-button">🏓 Pong</a>
+      <a href="arcade-invaders.html" class="game-button">👾 Space Invaders</a>
+      <a href="arcade-asteroids.html" class="game-button">🔺 Asteroids</a>
+      <a href="arcade-breakout.html" class="game-button">🧱 Breakout</a>
+      <a href="arcade-snake.html" class="game-button">🐍 Snake</a>
+      <a href="arcade-tetris.html" class="game-button">🧩 Tetris</a>
+      <a href="arcade-flappy.html" class="game-button">🐦 Flappy Bird</a>
+      <a href="arcade-memory.html" class="game-button">🃏 Memory Match</a>
+      <a href="arcade-brick.html" class="game-button">🔨 Brick Breaker</a>
+      <a href="arcade-target.html" class="game-button">🎯 Target Shooter</a>
+    </div>
+  </section>
+
+  <!-- Simulation & Sandbox -->
+  <section>
+    <h2>🌍 Simulation & Sandbox</h2>
+    <div class="grid">
+      <a href="sim-city.html" class="game-button">🏙 City Builder</a>
+      <a href="sim-farm.html" class="game-button">🌾 Farming Game</a>
+      <a href="sim-ecosystem.html" class="game-button">🐟 Ecosystem Sim</a>
+      <a href="sim-physics.html" class="game-button">⚡ Physics Playground</a>
+      <a href="sim-survival.html" class="game-button">🌲 Survival</a>
+      <a href="sim-sandbox.html" class="game-button">🧱 Sandbox</a>
+      <a href="sim-universe.html" class="game-button">🌌 Universe Sim</a>
+      <a href="sim-particles.html" class="game-button">💨 Particle Sim</a>
+    </div>
+  </section>
+
+  <!-- Adventure & Exploration -->
+  <section>
+    <h2>🚀 Adventure & Exploration</h2>
+    <div class="grid">
+      <a href="adv-maze.html" class="game-button">🧭 Maze Explorer</a>
+      <a href="adv-platformer.html" class="game-button">🦸 Platformer</a>
+      <a href="adv-dungeon.html" class="game-button">🏰 Dungeon Crawler</a>
+      <a href="adv-space.html" class="game-button">🚀 Space Shooter</a>
+      <a href="adv-treasure.html" class="game-button">🪙 Treasure Hunt</a>
+      <a href="adv-escape.html" class="game-button">🕵 Escape Room</a>
+    </div>
+  </section>
+
+  <!-- Puzzle & Logic -->
+  <section>
+    <h2>🧩 Puzzle & Logic Games</h2>
+    <div class="grid">
+      <a href="puzzle-sudoku.html" class="game-button">🧩 Sudoku</a>
+      <a href="puzzle-minesweeper.html" class="game-button">💣 Minesweeper</a>
+      <a href="puzzle-sliding.html" class="game-button">🟦 Sliding Puzzle</a>
+      <a href="puzzle-hanoi.html" class="game-button">🪜 Tower of Hanoi</a>
+      <a href="puzzle-wordsearch.html" class="game-button">🔠 Word Search</a>
+      <a href="puzzle-crossword.html" class="game-button">📝 Crossword</a>
+      <a href="puzzle-math.html" class="game-button">➕ Math Puzzles</a>
+      <a href="puzzle-logic.html" class="game-button">🧠 Logic Grids</a>
+    </div>
+  </section>
+
+  <!-- Coding & AI -->
+  <section>
+    <h2>🤖 Coding, AI & Tech Games</h2>
+    <div class="grid">
+      <a href="ai-coding.html" class="game-button">💻 Coding Puzzles</a>
+      <a href="ai-hacker.html" class="game-button">📟 Hacker Sim</a>
+      <a href="ai-algorithm.html" class="game-button">🔄 Algorithm Visualizer</a>
+      <a href="ai-pathfinding.html" class="game-button">🧭 Pathfinding Game</a>
+      <a href="ai-aiopponent.html" class="game-button">♟ AI Opponent</a>
+      <a href="ai-encryption.html" class="game-button">🔐 Encryption Puzzles</a>
+    </div>
+  </section>
+
+  <!-- Quick Fun -->
+  <section>
+    <h2>⚡ Quick Fun & Mini-Games</h2>
+    <div class="grid">
+      <a href="quick-clicker.html" class="game-button">🖱 Clicker Game</a>
+      <a href="quick-reaction.html" class="game-button">⚡ Reaction Test</a>
+      <a href="quick-rps.html" class="game-button">✊ Rock Paper Scissors</a>
+      <a href="quick-number.html" class="game-button">🔢 Number Guess</a>
+      <a href="quick-trivia.html" class="game-button">❓ Trivia Quiz</a>
+      <a href="quick-dice.html" class="game-button">🎲 Dice Games</a>
+      <a href="quick-stack.html" class="game-button">🧱 Stack Tower</a>
+      <a href="quick-endless.html" class="game-button">🏃 Endless Runner</a>
+    </div>
+  </section>
+
+  <!-- Engineering & Simulation -->
+  <section>
+    <h2>⚙ Engineering & Simulation</h2>
+    <div class="grid">
+      <a href="eng-physics.html" class="game-button">⚡ Physics Engine Demos</a>
+      <a href="eng-mechanic.html" class="game-button">🔩 Mechanic Simulator</a>
+      <a href="eng-vehicle.html" class="game-button">🛞 Vehicle Simulator</a>
+      <a href="eng-construction.html" class="game-button">🏗 Construction Sim</a>
+      <a href="eng-electronics.html" class="game-button">💡 Electronics Sim</a>
+      <a href="eng-chemistry.html" class="game-button">🧪 Chemistry Sim</a>
+      <a href="eng-geology.html" class="game-button">🌋 Geology Sim</a>
+      <a href="eng-water.html" class="game-button">🌊 Water & Fluid Sim</a>
+      <a href="eng-weather.html" class="game-button">🌤 Weather Sim</a>
+      <a href="eng-biology.html" class="game-button">🧬 Biology Sim</a>
+      <a href="eng-space.html" class="game-button">🚀 Rocket & Space Sim</a>
+    </div>
+  </section>
+
+  <!-- Extra Categories -->
+  <section>
+    <h2>✨ More Categories</h2>
+    <div class="grid">
+      <a href="edu.html" class="game-button">📚 Educational</a>
+      <a href="story.html" class="game-button">🎭 Story & Narrative</a>
+      <a href="music.html" class="game-button">🎼 Music & Rhythm</a>
+      <a href="board.html" class="game-button">🎲 Board Games</a>
+      <a href="card.html" class="game-button">🃏 Card Games</a>
+      <a href="sports.html" class="game-button">🏆 Sports</a>
+      <a href="retro.html" class="game-button">👾 Retro Games</a>
+      <a href="horror.html" class="game-button">🧟 Horror & Survival</a>
+      <a href="creative.html" class="game-button">🎨 Creative & Building</a>
+      <a href="multiplayer.html" class="game-button">🧑‍🤝‍🧑 Multiplayer</a>
+      <a href="experimental.html" class="game-button">🧪 Experimental</a>
+      <a href="strategy.html" class="game-button">🌋 Strategy & Management</a>
+    </div>
+  </section>
 
   <div>
     <a href="home.html" class="back">⬅ Back to Home</a>
