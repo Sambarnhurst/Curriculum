@@ -233,7 +233,9 @@
             bullet.y + bullet.height > player.y) {
           alienBullets.splice(index, 1);
           lives--;
-          if (lives <= 0) gameEnded = true;
+          if (lives <= 0) {
+            gameEnded = true;
+          }
         }
       });
 
@@ -248,7 +250,9 @@
             bullet.y + bullet.height > player.y) {
           boss.bullets.splice(index, 1);
           lives--;
-          if (lives <= 0) gameEnded = true;
+          if (lives <= 0) {
+            gameEnded = true;
+          }
         }
       });
     }
@@ -354,6 +358,7 @@
 
         if (checkGameOver()) {
           gameEnded = true;
+          gameOver();
         }
 
         requestAnimationFrame(gameLoop);
@@ -373,8 +378,6 @@
     }
     restartBtn.addEventListener("click", () => {
       location.reload();
-    });
-
     });
 
     gameLoop();
