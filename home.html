@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home — Curriculum Hub</title>
+  <title>Samuel Damon Barnhurst — Curriculum Hub</title>
   <style>
     body {
       font-family: system-ui, sans-serif;
@@ -10,60 +10,133 @@
       color: #eee;
       margin: 0;
       padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      min-height: 100vh;
+    }
+    header {
       text-align: center;
+      padding: 3em 1em 2em;
+      background: #1f1f1f;
+      border-bottom: 1px solid #2a2a2a;
     }
-    h1 {
+    header h1 {
       color: #00ffff;
-      font-size: 2.5em;
       margin: 0;
-      padding: 0 1em;
+      font-size: 2.8em;
     }
-    p {
+    header p {
       color: #b6b6b6;
       font-size: 1.2em;
-      max-width: 600px;
-      margin: 0.5em 1em;
-      line-height: 1.6;
+      margin-top: 0.5em;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    a.button {
-      display: inline-block;
+    .button-bar {
       margin-top: 2em;
+    }
+    .button-bar a {
+      display: inline-block;
+      margin: 0.5em;
       padding: 1em 2em;
       border-radius: 8px;
       background: #1f1f1f;
       color: #eee;
       text-decoration: none;
       font-size: 1em;
+      font-weight: 500;
       transition: background 0.2s, color 0.2s;
     }
-    a.button:hover {
+    .button-bar a:hover {
       background: #00b3b3;
       color: white;
     }
+    main {
+      max-width: 1000px;
+      margin: 3em auto;
+      padding: 0 1.5em;
+    }
+    section {
+      margin-bottom: 4em;
+    }
+    section h2 {
+      color: #00ffff;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+    .about p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      text-align: center;
+      color: #ddd;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1em;
+      margin-top: 2em;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #1f1f1f;
+      object-fit: cover;
+      max-height: 400px;
+    }
     footer {
       margin-top: 3em;
+      padding: 1.5em;
+      text-align: center;
       font-size: 0.85em;
       color: #777;
-      padding: 1em;
+      border-top: 1px solid #222;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to the HTML Zero → Mastery Curriculum</h1>
-  <p>
-    This project is a complete step-by-step path to learn and master software engineering.
-    It begins with HTML, CSS, and JavaScript, and expands to 600 lessons covering core computer science
-    and advanced development.
-  </p>
-  <a href="index.html" class="button">🚀 Enter Curriculum</a>
+  <header>
+    <h1>Samuel Damon Barnhurst</h1>
+    <p>
+      Software Engineer · Lifelong Learner · Builder of Things.  
+      This hub brings together my full curriculum, experiments, and personal projects.
+    </p>
+    <div class="button-bar">
+      <a href="index.html">🚀 Curriculum</a>
+      <a href="games.html">🎮 Games</a>
+      <a href="dictionary.html">📖 Dictionary</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- About -->
+    <section class="about">
+      <h2>👋 About Me</h2>
+      <p>
+        Hi, I’m Samuel Damon Barnhurst. I’m building a structured, offline-first curriculum 
+        to take learners from <strong>zero to mastery</strong> in software engineering.  
+        Alongside, I’m creating projects, tools, and experimental spaces like 
+        <em>Games</em> and a <em>Dictionary of Concepts</em>.
+      </p>
+
+      <div class="gallery">
+        <img src="images/photo1.jpg" alt="Photo 1">
+        <img src="images/photo2.jpg" alt="Photo 2">
+        <img src="images/photo3.jpg" alt="Photo 3">
+        <img src="images/photo4.jpg" alt="Photo 4">
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section>
+      <h2>💡 Featured Projects</h2>
+      <ul>
+        <li>📘 <strong>HTML Zero → Mastery</strong> — A 600-lesson HTML curriculum designed to go from ground zero to advanced mastery.</li>
+        <li>🤖 <strong>AI Development Guide</strong> — Experiments and learnings around building with AI tools and frameworks.</li>
+        <li>🌍 <strong>Reality Simulation</strong> — A long-term project modeling physics, time, and interactions in simulated environments.</li>
+      </ul>
+    </section>
+  </main>
 
   <footer>
-    © 2025 · Samuel Damon Barnhurst · Built Offline
+    © 2025 · Built by Samuel Damon Barnhurst · Works Offline
   </footer>
 </body>
 </html>
