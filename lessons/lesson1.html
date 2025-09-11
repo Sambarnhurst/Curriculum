@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lesson 1 – Introduction to Programming</title>
+  <title>Lesson 1 – HTML Foundations</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,10 +17,7 @@
       padding: 20px;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-      color: #121212;
-    }
+    header h1 { margin: 0; color: #121212; }
     nav {
       background: #1f1f1f;
       padding: 10px;
@@ -74,148 +71,132 @@
 </head>
 <body>
   <header>
-    <h1>Lesson 1: Introduction to Programming</h1>
-    <p>From zero to first steps in coding</p>
+    <h1>Lesson 1: HTML Foundations</h1>
+    <p>Understanding the roots of the web</p>
   </header>
+
   <nav>
-    <a href="#part1">Part 1</a>
-    <a href="#part2">Part 2</a>
-    <a href="#part3">Part 3</a>
-    <a href="#part4">Part 4</a>
-    <a href="#part5">Part 5</a>
-    <a href="#part6">Part 6</a>
-    <a href="#part7">Part 7</a>
-    <a href="#part8">Part 8</a>
-    <a href="#part9">Part 9</a>
-    <a href="#part10">Part 10</a>
+    <a href="#part1">1. What is HTML?</a>
+    <a href="#part2">2. HTML vs CSS vs JS</a>
+    <a href="#part3">3. Browsers & Rendering</a>
+    <a href="#part4">4. First HTML File</a>
+    <a href="#part5">5. Doctype & Root</a>
+    <a href="#part6">6. Head Section</a>
+    <a href="#part7">7. Body Section</a>
+    <a href="#part8">8. Headings & Paragraphs</a>
+    <a href="#part9">9. Comments & Clean Code</a>
+    <a href="#part10">10. Mini Project</a>
   </nav>
 
   <main>
     <!-- Part 1 -->
     <section id="part1">
-      <h2>Part 1: What is Programming?</h2>
-      <p>Programming is the art of giving instructions to a computer. These instructions are written in a <b>programming language</b>, which the computer can interpret and execute.</p>
-      <p>An <b>algorithm</b> is a step-by-step plan for solving a problem — much like a recipe in cooking.</p>
-      <ul>
-        <li>Algorithms must be clear and precise.</li>
-        <li>Programs are algorithms written in code.</li>
-      </ul>
+      <h2>Part 1: What is HTML?</h2>
+      <p><b>HTML (HyperText Markup Language)</b> is the standard language used to create web pages. It structures the content of the page: text, images, links, and layout.</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;body&gt;
+    Hello World!
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <p><b>Practice:</b> Write down three things you already knew (or just learned) about HTML.</p>
     </section>
 
     <!-- Part 2 -->
     <section id="part2">
-      <h2>Part 2: Your First Program</h2>
-      <p>The classic first program is <code>Hello, World!</code>. It simply outputs text to the screen.</p>
-      <pre><code>print("Hello, World!")</code></pre>
-      <p>Try changing the text inside the quotes to print your name.</p>
-      <p>Interactive example (JavaScript):</p>
-      <textarea id="editor">console.log("Hello, World!");</textarea>
-      <button onclick="runCode()">Run Code</button>
-      <div id="output"></div>
+      <h2>Part 2: HTML vs CSS vs JavaScript</h2>
+      <ul>
+        <li><b>HTML:</b> Structure (the skeleton)</li>
+        <li><b>CSS:</b> Style (the clothing)</li>
+        <li><b>JavaScript:</b> Behavior (the brain)</li>
+      </ul>
+      <p>Together they make the modern web.</p>
     </section>
 
     <!-- Part 3 -->
     <section id="part3">
-      <h2>Part 3: Variables and Data Types</h2>
-      <p>Variables store values. Examples in JavaScript:</p>
-      <pre><code>let name = "Alice";
-let age = 25;
-let isStudent = true;</code></pre>
-      <p>Types include: Strings, Numbers, Booleans, Arrays, and Objects.</p>
+      <h2>Part 3: Browsers & Rendering</h2>
+      <p>Browsers (Chrome, Firefox, Safari) read HTML and render it visually.</p>
+      <p>They parse the HTML into a <b>DOM (Document Object Model)</b>.</p>
     </section>
 
     <!-- Part 4 -->
     <section id="part4">
-      <h2>Part 4: Operators and Expressions</h2>
-      <p>Operators let you perform calculations and logic:</p>
-      <pre><code>let x = 10, y = 3;
-console.log(x + y); // 13
-console.log(x % y); // 1
-console.log(x > y); // true</code></pre>
-      <p>Remember: <code>=</code> assigns, while <code>==</code> compares.</p>
+      <h2>Part 4: Writing Your First HTML File</h2>
+      <p>Every HTML file ends with <code>.html</code>. Example:</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Hello, World!
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
     </section>
 
     <!-- Part 5 -->
     <section id="part5">
-      <h2>Part 5: Input and Output</h2>
-      <p>Programs interact using input and output.</p>
-      <pre><code>let name = prompt("What is your name?");
-console.log("Hello, " + name);</code></pre>
-      <p><i>(Run this in a browser console to see prompts.)</i></p>
+      <h2>Part 5: The Doctype & Root Element</h2>
+      <p><code>&lt;!DOCTYPE html&gt;</code> tells the browser: “This is HTML5.”</p>
+      <p><code>&lt;html&gt;</code> wraps the entire document.</p>
     </section>
 
     <!-- Part 6 -->
     <section id="part6">
-      <h2>Part 6: Conditionals</h2>
-      <p>Conditionals let programs make decisions:</p>
-      <pre><code>let age = 20;
-if (age >= 18) {
-  console.log("You can vote!");
-} else {
-  console.log("Too young to vote.");
-}</code></pre>
+      <h2>Part 6: The Head Section</h2>
+      <p>The <code>&lt;head&gt;</code> contains metadata, links, scripts, and the title.</p>
+      <pre><code>&lt;head&gt;
+  &lt;title&gt;My First Page&lt;/title&gt;
+  &lt;meta charset="UTF-8"&gt;
+&lt;/head&gt;</code></pre>
     </section>
 
     <!-- Part 7 -->
     <section id="part7">
-      <h2>Part 7: Loops</h2>
-      <p>Loops repeat actions until a condition is met.</p>
-      <pre><code>// For loop
-for (let i = 1; i <= 5; i++) {
-  console.log(i);
-}
-
-// While loop
-let count = 5;
-while (count > 0) {
-  console.log(count);
-  count--;
-}</code></pre>
+      <h2>Part 7: The Body Section</h2>
+      <p>Visible content (text, images, links, etc.) goes inside <code>&lt;body&gt;</code>.</p>
+      <pre><code>&lt;body&gt;
+  &lt;h1&gt;Welcome to my page&lt;/h1&gt;
+  &lt;p&gt;This is my first paragraph.&lt;/p&gt;
+&lt;/body&gt;</code></pre>
     </section>
 
     <!-- Part 8 -->
     <section id="part8">
-      <h2>Part 8: Arrays and Lists</h2>
-      <p>Arrays hold multiple values:</p>
-      <pre><code>let fruits = ["Apple", "Banana", "Cherry"];
-console.log(fruits[0]); // Apple
-fruits[1] = "Blueberry";
-console.log(fruits);</code></pre>
+      <h2>Part 8: Headings & Paragraphs</h2>
+      <p>HTML offers 6 levels of headings:</p>
+      <pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;h2&gt;Subtitle&lt;/h2&gt;
+&lt;h3&gt;Sub-subtitle&lt;/h3&gt;</code></pre>
+      <p>Paragraphs are made with <code>&lt;p&gt;</code>.</p>
     </section>
 
     <!-- Part 9 -->
     <section id="part9">
-      <h2>Part 9: Functions</h2>
-      <p>Functions organize reusable code:</p>
-      <pre><code>function add(a, b) {
-  return a + b;
-}
-console.log(add(3, 4)); // 7</code></pre>
+      <h2>Part 9: Comments & Clean Code</h2>
+      <p>Comments help explain code:</p>
+      <pre><code>&lt;!-- This is a comment --&gt;</code></pre>
+      <p>Always indent nested elements for readability.</p>
     </section>
 
     <!-- Part 10 -->
     <section id="part10">
-      <h2>Part 10: Debugging</h2>
-      <p>Common bug types:</p>
-      <ul>
-        <li><b>Syntax errors:</b> typos or missing symbols</li>
-        <li><b>Runtime errors:</b> invalid operations (like divide by zero)</li>
-        <li><b>Logic errors:</b> code runs but gives wrong results</li>
-      </ul>
-      <p>Debugging tips: read error messages, print variables, test small pieces of code, and work step by step.</p>
+      <h2>Part 10: Mini Project – Personal Bio Page</h2>
+      <p>Try building a simple bio page:</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Bio&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Your Name&lt;/h1&gt;
+    &lt;p&gt;A short paragraph about you.&lt;/p&gt;
+    &lt;!-- Add a fun fact --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <p><b>Challenge:</b> Add headings, paragraphs, and a comment. Save it as <code>bio.html</code> and open it in your browser.</p>
     </section>
   </main>
-
-  <script>
-    function runCode() {
-      const code = document.getElementById("editor").value;
-      try {
-        let result = eval(code);
-        document.getElementById("output").innerText = result !== undefined ? result : "Code ran successfully.";
-      } catch(e) {
-        document.getElementById("output").innerText = "Error: " + e.message;
-      }
-    }
-  </script>
 </body>
 </html>
