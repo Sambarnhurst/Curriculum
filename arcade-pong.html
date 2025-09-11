@@ -113,6 +113,10 @@
     let leftScore = 0;
     let rightScore = 0;
 
+    // Frame counter for bot reaction delay
+    let frames = 0;
+    let botTargetY = canvas.height / 2;
+
     function drawRect(x, y, w, h, color) {
       ctx.fillStyle = color;
       ctx.fillRect(x, y, w, h);
@@ -167,7 +171,7 @@
         let angle = (Math.PI / 4) * collidePoint;
         ball.dx = ball.speed * Math.cos(angle);
         ball.dy = ball.speed * Math.sin(angle);
-        ball.dx = Math.abs(ball.dx); // always to the right
+        ball.dx = Math.abs(ball.dx);
         ball.speed += 0.3;
       }
 
@@ -182,7 +186,7 @@
         let angle = (Math.PI / 4) * collidePoint;
         ball.dx = -ball.speed * Math.cos(angle);
         ball.dy = ball.speed * Math.sin(angle);
-        ball.dx = -Math.abs(ball.dx); // always to the left
+        ball.dx = -Math.abs(ball.dx);
         ball.speed += 0.3;
       }
 
@@ -211,13 +215,26 @@
           rightPaddle.y += rightPaddle.dy;
         }
       } else {
-        let botSpeed = 1.5;
-        if (modeSelect.value === "bot-medium") botSpeed = 3.5;
-        if (modeSelect.value === "bot-hard") botSpeed = 4;
+        // Bot difficulty speeds
+        let botSpeed = 1.7; // Easy
+        if (modeSelect.value === "bot-medium") botSpeed = 3;
+        if (modeSelect.value === "bot-hard") botSpeed = 3.8;
 
-        if (ball.y < rightPaddle.y + rightPaddle.height / 2 && rightPaddle.y > 0) {
+        // Reaction delay (updates every N frames)
+        let reactionDelay = 10;
+        if (modeSelect.value === "bot-medium") reactionDelay = 6;
+        if (modeSelect.value === "bot-hard") reactionDelay = 3;
+
+        if (frames % reactionDelay === 0) {
+          botTargetY = ball.y;
+        }
+
+        // Dead zone to prevent jitter
+        const deadZone = 15;
+
+        if (botTargetY < rightPaddle.y + rightPaddle.height / 2 - deadZone && rightPaddle.y > 0) {
           rightPaddle.y -= botSpeed;
-        } else if (ball.y > rightPaddle.y + rightPaddle.height / 2 && rightPaddle.y < canvas.height - rightPaddle.height) {
+        } else if (botTargetY > rightPaddle.y + rightPaddle.height / 2 + deadZone && rightPaddle.y < canvas.height - rightPaddle.height) {
           rightPaddle.y += botSpeed;
         }
       }
@@ -234,6 +251,7 @@
     }
 
     function gameLoop() {
+      frames++;
       update();
       render();
     }
