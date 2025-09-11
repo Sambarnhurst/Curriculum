@@ -51,9 +51,8 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 
 ## 📅 Current Focus  
 
-- 📚 Reading: *Computer Networking: A Top-Down Approach*  
+- 📚 study: *Softwware Engineering lessons*  
 - 🧩 Building: Expanding my **Curriculum Project** with 600+ lessons  
-- 🎯 Goal of the Month: Finish first **InfinitEditor** release  
 
 ---
 
@@ -110,6 +109,14 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 - 📖 **Books I’m Reading**: *Structure and Interpretation of Computer Programs*, *Operating Systems: Three Easy Pieces*, *Introduction to the Theory of Computation*  
 - 🎥 **Online Courses**: MIT OpenCourseWare, FreeCodeCamp, Harvard CS50  
 - 📰 **Inspirations**: Open-source education projects, communities like Free Software Foundation, and educators who believe in **knowledge for all**  
+
+---
+
+## ⚡ Me  
+
+- 🕹️ I enjoy creating gamified coding challenges  
+- 🎵 I sometimes code while listening to classical music  
+- 🌌 I’m fascinated by simulations of physics & reality in software  
 
 ---
 
