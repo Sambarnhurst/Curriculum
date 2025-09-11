@@ -653,7 +653,15 @@
     <a href="lessons/lesson598.html">Lesson 598: Contribute to MDN</a>
     <a href="lessons/lesson599.html">Lesson 599: Interview prep</a>
     <a href="lessons/lesson600.html">Lesson 600: Graduation checklist & next steps</a>
-    <!-- === LESSON LINKS END === -->
-  </main>
+    // Simple search filter
+    const search = document.getElementById('search');
+    const container = document.getElementById('lessons');
+    search.addEventListener('input', () => {
+      const term = search.value.toLowerCase();
+      [...container.children].forEach(a => {
+        a.classList.toggle('hidden', !a.textContent.toLowerCase().includes(term));
+      });
+    });
+  </script>
 </body>
 </html>
