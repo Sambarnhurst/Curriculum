@@ -17,30 +17,36 @@
       height: 100vh;
       text-align: center;
     }
-    h1 { color: #00ffff; margin-bottom: .5em; }
-    p { color: #b6b6b6; max-width: 600px; }
-    a.button {
+    h1 {
+      color: #00ffff;
+      margin-bottom: 0.5em;
+    }
+    h2 {
+      color: #b6b6b6;
+      font-weight: 400;
+      margin-bottom: 2em;
+    }
+    /* Flat button same as lessons */
+    a {
       display: inline-block;
-      margin-top: 2em;
       padding: 1em 2em;
       border-radius: 8px;
+      background: #1f1f1f;
+      color: #eee;
+      text-decoration: none;
+      font-size: 1em;
+      transition: background 0.2s, color 0.2s;
+    }
+    a:hover {
       background: #00b3b3;
       color: white;
-      text-decoration: none;
-      font-size: 1.1em;
-      transition: background .2s;
-    }
-    a.button:hover {
-      background: #008c8c;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to the HTML Zero → Mastery Curriculum</h1>
-  <p>
-    This project is a complete step-by-step path to learn and master software engineering.  
-    It begins with HTML, CSS, and JavaScript, and expands to 600 lessons covering core CS and advanced development.
-  </p>
-  <a class="button" href="index.html">🚀 Enter Curriculum</a>
+  <h1>📘 Welcome to the Curriculum</h1>
+  <h2>A complete journey to mastering software engineering skills</h2>
+
+  <a href="index.html">🚀 Enter Curriculum</a>
 </body>
 </html>
