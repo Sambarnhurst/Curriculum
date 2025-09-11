@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home — Curriculum Hub</title>
+  <title>Samuel Damon Barnhurst — Portfolio Hub</title>
   <style>
     body {
       font-family: system-ui, sans-serif;
@@ -12,31 +12,47 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
       min-height: 100vh;
-      text-align: center;
     }
     header {
-      margin-bottom: 2em;
+      text-align: center;
+      padding: 3em 1em 2em;
+      background: #1f1f1f;
+      border-bottom: 1px solid #2a2a2a;
     }
-    h1 {
+    header h1 {
       color: #00ffff;
-      font-size: 2.2em;
-      margin-bottom: 0.3em;
+      margin: 0;
+      font-size: 2.5em;
+    }
+    header p {
+      margin-top: .5em;
+      color: #b6b6b6;
+      font-size: 1.2em;
+    }
+    main {
+      flex: 1;
+      padding: 2em 1em;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    section {
+      margin-bottom: 3em;
+    }
+    h2 {
+      color: #00ffff;
+      margin-bottom: .5em;
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: .3em;
     }
     p {
-      color: #b6b6b6;
-      font-size: 1.1em;
-      margin-top: 0;
+      line-height: 1.6;
     }
     .button-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1em;
-      width: 100%;
-      max-width: 700px;
-      padding: 0 1em;
+      margin-top: 1.5em;
     }
     /* Flat buttons */
     a {
@@ -48,6 +64,7 @@
       text-decoration: none;
       font-size: 1em;
       font-weight: 500;
+      text-align: center;
       transition: background 0.2s, color 0.2s;
     }
     a:hover {
@@ -55,26 +72,57 @@
       color: white;
     }
     footer {
-      margin-top: 3em;
-      font-size: 0.85em;
+      text-align: center;
+      padding: 1em;
+      background: #1f1f1f;
+      border-top: 1px solid #2a2a2a;
       color: #777;
+      font-size: .9em;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>📘 Curriculum Hub</h1>
-    <p>A complete journey to mastering software engineering — with tools and extras</p>
+    <h1>Samuel Damon Barnhurst</h1>
+    <p>Software Engineering · Full Curriculum · Projects & More</p>
   </header>
 
-  <div class="button-grid">
-    <a href="index.html">🚀 Enter Curriculum</a>
-    <a href="games.html">🎮 Games</a>
-    <a href="dictionary.html">📖 Dictionary</a>
-  </div>
+  <main>
+    <!-- About Section -->
+    <section>
+      <h2>👋 About Me</h2>
+      <p>
+        Welcome to my portfolio hub. This site serves as a central place for my complete
+        software engineering curriculum, experimental projects, and tools. 
+        I'm building a structured path to learn from <strong>zero to mastery</strong>, 
+        while also sharing games, utilities, and a full dictionary of concepts.
+      </p>
+    </section>
+
+    <!-- Navigation Section -->
+    <section>
+      <h2>📂 Explore</h2>
+      <div class="button-grid">
+        <a href="index.html">🚀 Curriculum</a>
+        <a href="games.html">🎮 Games</a>
+        <a href="dictionary.html">📖 Dictionary</a>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section>
+      <h2>💡 Featured Projects</h2>
+      <p>Here are a few projects and learning tracks I’m working on:</p>
+      <ul>
+        <li>📘 <strong>HTML Zero → Mastery</strong> — A complete 600-lesson HTML curriculum.</li>
+        <li>🤖 <strong>AI Development Guide</strong> — Learning and experimenting with AI tools.</li>
+        <li>🌍 <strong>Reality Simulation</strong> — A long-term project to model time, physics, and interactions.</li>
+      </ul>
+    </section>
+  </main>
 
   <footer>
-    Made by Samuel Damon Barnhurst · Works Offline
+    © 2025 · Built by Samuel Damon Barnhurst · Works Offline
   </footer>
 </body>
 </html>
