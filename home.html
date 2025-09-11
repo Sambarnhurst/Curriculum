@@ -2,51 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home — Curriculum</title>
+  <title>Home — Curriculum Hub</title>
   <style>
     body {
       font-family: system-ui, sans-serif;
       background: #121212;
       color: #eee;
       margin: 0;
-      padding: 2em;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       text-align: center;
+    }
+    header {
+      margin-bottom: 2em;
     }
     h1 {
       color: #00ffff;
-      margin-bottom: 0.5em;
+      font-size: 2.2em;
+      margin-bottom: 0.3em;
     }
-    h2 {
+    p {
       color: #b6b6b6;
-      font-weight: 400;
-      margin-bottom: 2em;
+      font-size: 1.1em;
+      margin-top: 0;
     }
-    /* Flat button same as lessons */
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+      width: 100%;
+      max-width: 700px;
+      padding: 0 1em;
+    }
+    /* Flat buttons */
     a {
-      display: inline-block;
-      padding: 1em 2em;
+      display: block;
+      padding: 1em;
       border-radius: 8px;
       background: #1f1f1f;
       color: #eee;
       text-decoration: none;
       font-size: 1em;
+      font-weight: 500;
       transition: background 0.2s, color 0.2s;
     }
     a:hover {
       background: #00b3b3;
       color: white;
     }
+    footer {
+      margin-top: 3em;
+      font-size: 0.85em;
+      color: #777;
+    }
   </style>
 </head>
 <body>
-  <h1>📘 Welcome to the Curriculum</h1>
-  <h2>A complete journey to mastering software engineering skills</h2>
+  <header>
+    <h1>📘 Curriculum Hub</h1>
+    <p>A complete journey to mastering software engineering — with tools and extras</p>
+  </header>
 
-  <a href="index.html">🚀 Enter Curriculum</a>
+  <div class="button-grid">
+    <a href="index.html">🚀 Enter Curriculum</a>
+    <a href="games.html">🎮 Games</a>
+    <a href="dictionary.html">📖 Dictionary</a>
+  </div>
+
+  <footer>
+    Made by Samuel Damon Barnhurst · Works Offline
+  </footer>
 </body>
 </html>
