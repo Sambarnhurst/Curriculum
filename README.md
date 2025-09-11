@@ -1,55 +1,39 @@
-# 👋 Hi, I’m Samuel Damon Barnhurst  
+<!-- Banner -->
+<h1 align="center">👋 Hi, I’m <span style="color:#00bcd4;">Samuel Damon Barnhurst</span></h1>
+<h3 align="center">Aspiring Software Engineer | Builder | Mentor-in-Progress</h3>
 
-![Profile Views](https://komarev.com/ghpvc/?username=Sambarnhurst&label=Profile%20Views&color=blue&style=flat)
-[![GitHub followers](https://img.shields.io/github/followers/Sambarnhurst?style=social)](https://github.com/Sambarnhurst)
+<p align="center">
+  <a href="mailto:samueldbarnhurst@gmail.com">
+    <img src="https://img.shields.io/badge/Email-Contact%20Me-blue?style=flat&logo=gmail" alt="Email"/>
+  </a>
+  <a href="https://sambarnhurst.github.io/Curriculum/index.html">
+    <img src="https://img.shields.io/badge/Website-Curriculum-success?style=flat&logo=google-chrome" alt="Website"/>
+  </a>
+  <img src="https://komarev.com/ghpvc/?username=Sambarnhurst&label=Profile%20Views&color=blue&style=flat" alt="Profile Views"/>
+</p>
 
 ---
 
 ## 🌟 About Me  
-I am an aspiring **software engineer** with a passion for building, learning, and sharing knowledge. My long-term vision is to not only master software engineering and its related fields but also to **make education accessible to everyone**.  
+I am an aspiring **software engineer** passionate about building, learning, and sharing knowledge.  
+My mission goes beyond personal mastery — I want to **make education free and accessible** to everyone.  
 
-I believe technology should empower people, and I want to help create systems that give anyone the ability to learn, grow, and build a career — regardless of background or resources.  
+Technology has the power to empower lives, and my vision is to build a system where **anyone, anywhere** can learn, grow, and build a career in software engineering.  
 
 ---
 
 ## 🚀 Goals  
-- 🌱 Learn and master **software engineering**, from fundamentals to advanced systems.  
-- 🧑‍🏫 Grow into a **teacher and mentor**, sharing my journey and helping others succeed.  
-- 🏗️ Build a **credible system** that offers free, high-quality education and degrees in software engineering.  
-- 🌍 Contribute meaningful tools and projects to the programming community.  
-- 🛠️ Continuously improve my skills in computer science, programming languages, AI, and real-world software development.  
+- 🌱 Master software engineering from fundamentals to advanced systems  
+- 🧑‍🏫 Become a teacher & mentor to help others succeed  
+- 🏗️ Build a **credible, free education system** that grants real opportunities  
+- 🌍 Contribute projects that benefit the programming community  
+- 🛠️ Advance in AI, systems, and real-world software development  
 
 ---
 
 ## 🔧 Skills I’m Developing  
-- **Languages:** Python, C, C++, Rust, JavaScript  
-- **Web Development:** HTML, CSS, Node.js, Electron  
-- **Core CS:** Algorithms, Data Structures, Operating Systems  
-- **Future Interests:** AI, Game Engines, Reality Simulation  
-
----
-
-## 📊 GitHub Stats  
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Sambarnhurst&show_icons=true&theme=tokyonight)  
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Sambarnhurst&layout=compact&theme=tokyonight)  
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=Sambarnhurst&theme=tokyonight)  
-
----
-
-## 📌 Featured Projects  
-- 🎓 **[Curriculum Project](https://github.com/Sambarnhurst/Curriculum)** – A structured journey from zero to mastery in software engineering.  
-- ⚡ **InfinitEditor** – An offline, self-contained coding environment built with Electron.  
-- 🛡️ **Cyber Defense Game** – A PowerShell-based game teaching hacking defense strategies.  
-
----
-
-## 🌐 Connect With Me  
-- 📧 Email: **your.email@example.com**  
-- 💼 [LinkedIn](https://linkedin.com/in/YOUR-LINKEDIN)  
-- 🐦 [Twitter](https://twitter.com/YOUR-TWITTER)  
-- 🌍 [Personal Website/Portfolio](https://YOUR-WEBSITE.com)  
-
----
-
-💡 *This is more than just a career path for me — it’s a mission to give back to the community that has given me so much inspiration.*  
+```text
+Languages:        Python, C, C++, Rust, JavaScript
+Web Development:  HTML, CSS, Node.js, Electron
+Core CS:          Algorithms, Data Structures, Operating Systems
+Future Interests: Artificial Intelligence, Game Engines, Reality Simulation
