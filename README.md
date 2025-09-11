@@ -49,9 +49,17 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 
 ---
 
+## 📅 Current Focus  
+
+- 📚 Reading: *Computer Networking: A Top-Down Approach*  
+- 🧩 Building: Expanding my **Curriculum Project** with 600+ lessons  
+- 🎯 Goal of the Month: Finish first **InfinitEditor** release  
+
+---
+
 ## 📚 Currently Learning / Working On  
 
-- 🔹 Building my **52-module Master Curriculum** → [Curriculum Project](https://github.com/Sambarnhurst/Curriculum)  
+- 🔹 Building my **Master Curriculum** → [Curriculum Project](https://github.com/Sambarnhurst/Curriculum)  
 - 🔹 Developing **InfinitEditor**, an offline, self-contained coding IDE with auto-save & live previews  
 - 🔹 Exploring **AI & Cybersecurity** through gamified projects like the *Cyber Defense Game*  
 - 🔹 Expanding my **offline knowledge library** (books, resources, PDFs) for computer science mastery  
@@ -94,15 +102,6 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 <p align="center">
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=Sambarnhurst&theme=tokyo-night&hide_border=true" alt="Activity Graph"/>
 </p>
-
----
-
-## 📌 Featured Projects  
-
-- 🎓 **[Curriculum Project](https://github.com/Sambarnhurst/Curriculum)** – A structured journey from zero to mastery in software engineering  
-- ⚡ **InfinitEditor** – An offline, self-contained coding environment built with Electron  
-- 🛡️ **Cyber Defense Game** – A PowerShell-based game teaching hacking defense strategies  
-- 📘 **Primary Survival Library** – A growing offline-first collection of CS textbooks and resources  
 
 ---
 
