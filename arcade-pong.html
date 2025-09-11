@@ -211,9 +211,9 @@
           rightPaddle.y += rightPaddle.dy;
         }
       } else {
-        let botSpeed = 3;
-        if (modeSelect.value === "bot-medium") botSpeed = 5;
-        if (modeSelect.value === "bot-hard") botSpeed = 7;
+        let botSpeed = 1.5;
+        if (modeSelect.value === "bot-medium") botSpeed = 3.5;
+        if (modeSelect.value === "bot-hard") botSpeed = 4;
 
         if (ball.y < rightPaddle.y + rightPaddle.height / 2 && rightPaddle.y > 0) {
           rightPaddle.y -= botSpeed;
