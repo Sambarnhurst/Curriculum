@@ -14,6 +14,15 @@
 
 ---
 
+## 📂 Quick Links  
+
+- 📘 [Curriculum Repository](https://github.com/Sambarnhurst/Curriculum)  
+- ⚡ InfinitEditor *(coming soon)*  
+- 🛡️ Cyber Defense Game *(in development)*  
+- 📚 Knowledge Library *(offline-first resource hub)*  
+
+---
+
 ## 🌟 About Me  
 
 I am an aspiring **software engineer** passionate about learning, building, and sharing knowledge.  
@@ -51,8 +60,9 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 
 ## 📅 Current Focus  
 
-- 📚 study: *Softwware Engineering lessons*  
+- 📚 Studying: *Software Engineering principles and lessons*  
 - 🧩 Building: Expanding my **Curriculum Project** with 600+ lessons  
+- 🎯 Preparing: First **InfinitEditor** release  
 
 ---
 
@@ -112,7 +122,7 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 
 ---
 
-## ⚡ Me  
+## ⚡ Fun Facts  
 
 - 🕹️ I enjoy creating gamified coding challenges  
 - 🎵 I sometimes code while listening to classical music  
