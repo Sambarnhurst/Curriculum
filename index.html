@@ -1,24 +1,77 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Curriculum — Lessons</title>
+  <title>Curriculum — 600 Lessons</title>
   <style>
-    body { font-family: system-ui, sans-serif; background: #121212; color: #eee; padding: 2em; }
-    h1 { color: #00ffff; text-align: center; }
-    main { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1em; margin-top: 2em; }
-    a { display: block; padding: 1em; border-radius: 8px; background: #1f1f1f; color: #eee; text-decoration: none; text-align: center; transition: background 0.2s; }
-    a:hover { background: #00b3b3; color: white; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #121212;
+      color: #eee;
+      margin: 0;
+      padding: 2em;
+    }
+    h1 {
+      color: #00ffff;
+      text-align: center;
+    }
+    #search {
+      width: 100%;
+      padding: .7em;
+      margin: 1em 0;
+      font-size: 1em;
+      border-radius: 6px;
+      border: none;
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: .7em;
+      margin-top: 1em;
+    }
+    a {
+      display: block;
+      padding: 1em;
+      border-radius: 8px;
+      background: #1f1f1f;
+      color: #eee;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+      font-size: .9em;
+    }
+    a:hover {
+      background: #00b3b3;
+      color: white;
+    }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
-  <h1>📘 Curriculum Lessons</h1>
-  <main>
-    <a href="lessons/lesson1.html">Lesson 1: What is HTML?</a>
-    <a href="lessons/lesson2.html">Lesson 2: HTML vs CSS vs JS</a>
-    <a href="lessons/lesson3.html">Lesson 3: How Browsers Read HTML</a>
-    <a href="lessons/lesson4.html">Lesson 4: Installing VS Code</a>
-    <a href="lessons/lesson5.html">Lesson 5: Writing index.html</a>
-  </main>
+  <h1>📘 Curriculum — 600 Lessons</h1>
+  <input id="search" type="text" placeholder="Search lessons...">
+  <main id="lessons"></main>
+
+  <script>
+    const totalLessons = 600;
+    const container = document.getElementById('lessons');
+
+    // Generate lesson buttons automatically
+    for (let i = 1; i <= totalLessons; i++) {
+      const link = document.createElement('a');
+      link.href = `lessons/lesson${i}.html`;
+      link.textContent = `Lesson ${i}`;
+      container.appendChild(link);
+    }
+
+    // Simple search filter
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const term = search.value.toLowerCase();
+      [...container.children].forEach(a => {
+        a.classList.toggle('hidden', !a.textContent.toLowerCase().includes(term));
+      });
+    });
+  </script>
 </body>
 </html>
