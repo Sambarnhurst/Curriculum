@@ -54,7 +54,6 @@
       gap: 1.2em;
       margin-top: 1.5em;
     }
-    /* Flat buttons */
     a {
       display: block;
       padding: 1em;
@@ -71,8 +70,18 @@
       background: #00b3b3;
       color: white;
     }
-    ul {
-      line-height: 1.7;
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1em;
+      margin-top: 1em;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid #2a2a2a;
+      object-fit: cover;
     }
     footer {
       text-align: center;
@@ -111,6 +120,13 @@
         Alongside, I’m creating projects, tools, and experimental spaces like 
         <em>Games</em> and a <em>Dictionary of Concepts</em> for developers.
       </p>
+
+      <div class="gallery">
+        <img src="images/photo1.jpg" alt="Personal photo 1">
+        <img src="images/photo2.jpg" alt="Personal photo 2">
+        <img src="images/photo3.jpg" alt="Personal photo 3">
+        <img src="images/photo4.jpg" alt="Personal photo 4">
+      </div>
     </section>
 
     <!-- Projects -->
