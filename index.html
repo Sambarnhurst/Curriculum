@@ -62,7 +62,7 @@
   </div>
 
   <main id="lessons">
-    <!-- === ONE LESSON BUTTON === -->
+    <!-- === LESSON BUTTONS === -->
     <a href="lessons/lesson1.html">Lesson 1: What is HTML? (Concept & role)</a>
     <a href="lessons/lesson2.html">Lesson 2: HTML vs CSS vs JavaScript</a>
     <a href="lessons/lesson3.html">Lesson 3: Browsers and how they read HTML</a>
@@ -665,17 +665,5 @@
     <a href="lessons/lesson600.html">Lesson 600: Graduation checklist & next steps</a>
     <!-- === LESSON LINKS END === -->
   </main>
-
-  <script>
-    // Simple search filter
-    const search = document.getElementById('search');
-    const container = document.getElementById('lessons');
-    search.addEventListener('input', () => {
-      const term = search.value.toLowerCase();
-      [...container.children].forEach(a => {
-        a.classList.toggle('hidden', !a.textContent.toLowerCase().includes(term));
-      });
-    });
-  </script>
 </body>
 </html>
