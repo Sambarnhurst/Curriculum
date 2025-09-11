@@ -116,12 +116,8 @@
         <em>Games</em> and a <em>Dictionary of Concepts</em>.
       </p>
 
-      <div class="gallery">
-        <img src="images/photo1.jpg" alt="Photo 1">
-        <img src="images/photo2.jpg" alt="Photo 2">
-        <img src="images/photo3.jpg" alt="Photo 3">
-        <img src="images/photo4.jpg" alt="Photo 4">
-      </div>
+      <!-- Auto-generated gallery -->
+      <div class="gallery" id="gallery"></div>
     </section>
 
     <!-- Projects -->
@@ -138,5 +134,25 @@
   <footer>
     © 2025 · Built by Samuel Damon Barnhurst · Works Offline
   </footer>
+
+  <script>
+    // List of images in the images/ folder
+    const photos = [
+      "photo1.jpg",
+      "photo2.jpg",
+      "photo3.jpg",
+      "photo4.jpg"
+      // 👉 Add more filenames here when you upload new photos
+    ];
+
+    const gallery = document.getElementById("gallery");
+
+    photos.forEach(file => {
+      const img = document.createElement("img");
+      img.src = "images/" + file;
+      img.alt = file;
+      gallery.appendChild(img);
+    });
+  </script>
 </body>
 </html>
