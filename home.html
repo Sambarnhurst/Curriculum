@@ -16,14 +16,14 @@
     }
     header {
       text-align: center;
-      padding: 3em 1em 2em;
+      padding: 4em 1em 3em;
       background: #1f1f1f;
       border-bottom: 1px solid #2a2a2a;
     }
     header h1 {
       color: #00ffff;
       margin: 0;
-      font-size: 2.5em;
+      font-size: 2.8em;
     }
     header p {
       margin-top: .5em;
@@ -32,12 +32,12 @@
     }
     main {
       flex: 1;
-      padding: 2em 1em;
-      max-width: 900px;
+      padding: 3em 1em;
+      max-width: 1000px;
       margin: 0 auto;
     }
     section {
-      margin-bottom: 3em;
+      margin-bottom: 4em;
     }
     h2 {
       color: #00ffff;
@@ -46,12 +46,12 @@
       padding-bottom: .3em;
     }
     p {
-      line-height: 1.6;
+      line-height: 1.7;
     }
     .button-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1em;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2em;
       margin-top: 1.5em;
     }
     /* Flat buttons */
@@ -71,9 +71,12 @@
       background: #00b3b3;
       color: white;
     }
+    ul {
+      line-height: 1.7;
+    }
     footer {
       text-align: center;
-      padding: 1em;
+      padding: 1.5em;
       background: #1f1f1f;
       border-top: 1px solid #2a2a2a;
       color: #777;
@@ -84,24 +87,14 @@
 <body>
   <header>
     <h1>Samuel Damon Barnhurst</h1>
-    <p>Software Engineering · Full Curriculum · Projects & More</p>
+    <p>Software Engineer · Lifelong Learner · Builder of Things</p>
   </header>
 
   <main>
-    <!-- About Section -->
-    <section>
-      <h2>👋 About Me</h2>
-      <p>
-        Welcome to my portfolio hub. This site serves as a central place for my complete
-        software engineering curriculum, experimental projects, and tools. 
-        I'm building a structured path to learn from <strong>zero to mastery</strong>, 
-        while also sharing games, utilities, and a full dictionary of concepts.
-      </p>
-    </section>
-
-    <!-- Navigation Section -->
+    <!-- Navigation -->
     <section>
       <h2>📂 Explore</h2>
+      <p>Jump straight into the main sections of this portfolio hub:</p>
       <div class="button-grid">
         <a href="index.html">🚀 Curriculum</a>
         <a href="games.html">🎮 Games</a>
@@ -109,14 +102,24 @@
       </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- About -->
+    <section>
+      <h2>👋 About Me</h2>
+      <p>
+        Hi, I’m Samuel Damon Barnhurst. I’m building a structured, offline-first curriculum 
+        to take learners from <strong>zero to mastery</strong> in software engineering. 
+        Alongside, I’m creating projects, tools, and experimental spaces like 
+        <em>Games</em> and a <em>Dictionary of Concepts</em> for developers.
+      </p>
+    </section>
+
+    <!-- Projects -->
     <section>
       <h2>💡 Featured Projects</h2>
-      <p>Here are a few projects and learning tracks I’m working on:</p>
       <ul>
-        <li>📘 <strong>HTML Zero → Mastery</strong> — A complete 600-lesson HTML curriculum.</li>
-        <li>🤖 <strong>AI Development Guide</strong> — Learning and experimenting with AI tools.</li>
-        <li>🌍 <strong>Reality Simulation</strong> — A long-term project to model time, physics, and interactions.</li>
+        <li>📘 <strong>HTML Zero → Mastery</strong> — A 600-lesson HTML curriculum designed to go from ground zero to advanced mastery.</li>
+        <li>🤖 <strong>AI Development Guide</strong> — Experiments and learnings around building with AI tools and frameworks.</li>
+        <li>🌍 <strong>Reality Simulation</strong> — A long-term project modeling physics, time, and interactions in simulated environments.</li>
       </ul>
     </section>
   </main>
