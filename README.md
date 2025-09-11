@@ -106,16 +106,11 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 
 ---
 
-## 🏆 Achievements & Community  
+## 📚 Learning Resources & Inspiration  
 
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Sambarnhurst&theme=tokyonight&no-frame=true&margin-w=15&row=1" alt="GitHub Trophies"/>
-</p>
-
-- ✅ Built **offline-first learning tools** for CS mastery  
-- ✅ Automated **PowerShell environment builders** for apps  
-- ✅ Designed **interactive editors & previews** with persistent saving  
-- ✅ Published structured **curriculum for aspiring engineers**  
+- 📖 **Books I’m Reading**: *Structure and Interpretation of Computer Programs*, *Operating Systems: Three Easy Pieces*, *Introduction to the Theory of Computation*  
+- 🎥 **Online Courses**: MIT OpenCourseWare, FreeCodeCamp, Harvard CS50  
+- 📰 **Inspirations**: Open-source education projects, communities like Free Software Foundation, and educators who believe in **knowledge for all**  
 
 ---
 
