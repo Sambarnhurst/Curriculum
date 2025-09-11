@@ -13,8 +13,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       height: 100vh;
+      padding-top: 1em;
     }
     h1 {
       color: #00ffff;
@@ -24,6 +25,17 @@
       border: 2px solid #00ffff;
       border-radius: 8px;
       display: block;
+      margin-top: 1em;
+    }
+    .controls {
+      margin-top: 0.5em;
+    }
+    select {
+      background: #161b22;
+      border: 1px solid #30363d;
+      color: #e6edf3;
+      padding: 0.4em;
+      border-radius: 6px;
     }
     .back {
       margin-top: 1em;
@@ -44,12 +56,25 @@
 </head>
 <body>
   <h1>🏓 Pong</h1>
+
+  <div class="controls">
+    <label for="mode">Mode: </label>
+    <select id="mode">
+      <option value="2p">2 Player</option>
+      <option value="bot-easy">Bot (Easy)</option>
+      <option value="bot-medium">Bot (Medium)</option>
+      <option value="bot-hard">Bot (Hard)</option>
+    </select>
+  </div>
+
   <canvas id="pongCanvas" width="800" height="500"></canvas>
   <a href="games.html" class="back">⬅ Back to Game Hub</a>
 
   <script>
     const canvas = document.getElementById("pongCanvas");
     const ctx = canvas.getContext("2d");
+
+    const modeSelect = document.getElementById("mode");
 
     // Ball
     let ball = {
@@ -159,6 +184,21 @@
         leftScore++;
         resetBall();
       }
+
+      // Bot mode logic
+      if (modeSelect.value.startsWith("bot")) {
+        let botSpeed;
+        if (modeSelect.value === "bot-easy") botSpeed = 2;
+        if (modeSelect.value === "bot-medium") botSpeed = 4;
+        if (modeSelect.value === "bot-hard") botSpeed = 6;
+
+        // Bot follows the ball
+        if (ball.y < rightPaddle.y + rightPaddle.height / 2 && rightPaddle.y > 0) {
+          rightPaddle.y -= botSpeed;
+        } else if (ball.y > rightPaddle.y + rightPaddle.height / 2 && rightPaddle.y < canvas.height - rightPaddle.height) {
+          rightPaddle.y += botSpeed;
+        }
+      }
     }
 
     // Render game
@@ -186,10 +226,12 @@
 
     // Paddle controls
     document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowUp" && rightPaddle.y > 0) {
-        rightPaddle.y -= rightPaddle.dy;
-      } else if (e.key === "ArrowDown" && rightPaddle.y < canvas.height - rightPaddle.height) {
-        rightPaddle.y += rightPaddle.dy;
+      if (modeSelect.value === "2p") {
+        if (e.key === "ArrowUp" && rightPaddle.y > 0) {
+          rightPaddle.y -= rightPaddle.dy;
+        } else if (e.key === "ArrowDown" && rightPaddle.y < canvas.height - rightPaddle.height) {
+          rightPaddle.y += rightPaddle.dy;
+        }
       }
       if (e.key === "w" && leftPaddle.y > 0) {
         leftPaddle.y -= leftPaddle.dy;
