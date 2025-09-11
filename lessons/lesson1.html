@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HTML Zero → Mastery — Lesson 1: What is HTML?</title>
+  <title>Lesson 1: What is HTML?</title>
   <meta name="description" content="Lesson 1 of HTML Zero to Mastery: What is HTML? Concept, role, and first page." />
   <style>
     :root{
@@ -14,9 +14,6 @@
       --muted:#b6b6b6;
       --accent:#00ffff;
       --accent-2:#4de1ff;
-      --ok:#57e389;
-      --warn:#ffbf69;
-      --err:#ff6b6b;
       --code:#0d0d0d;
       --link:#7bd4ff;
       --border:#2a2a2a;
@@ -25,362 +22,121 @@
     html,body{height:100%}
     body{
       margin:0;
-      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;
       color:var(--text);
-      background: var(--bg);
+      background:var(--bg);
     }
-    header{
-      padding: 24px 20px 8px;
-      border-bottom:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(0,255,255,0.07), transparent 60%);
-    }
+    header{padding:24px 20px 8px; border-bottom:1px solid var(--border);}
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    h1{margin:0 0 6px; font-weight:800; letter-spacing:.2px}
-    .crumbs{color:var(--muted); font-size:.95rem}
-    .badge{display:inline-block; font-size:.8rem; padding:.2rem .5rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); margin-left:.3rem}
-    main{padding: 20px 0 60px}
+    h1{margin:0 0 6px; font-weight:800;}
+    main{padding:20px 0 60px}
     section.card{
       background:var(--panel);
       border:1px solid var(--border);
       border-radius:14px;
       padding:20px;
       margin:16px 0;
-      box-shadow: 0 4px 24px rgba(0,0,0,.25);
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
     }
     section.card h2{margin-top:0;color:var(--accent)}
     section.card h3{margin:22px 0 8px;color:var(--accent-2)}
-    .goals li{margin:.25rem 0}
-    .two-col{
-      display:grid; gap:16px;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      align-items:start;
-    }
     pre{
       background:var(--code);
       border:1px solid var(--border);
       border-radius:12px;
       padding:14px;
       overflow:auto;
-      margin: 12px 0;
+      margin:12px 0;
     }
-    code, pre code{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:.95rem}
+    code, pre code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.95rem}
     .hint{border-left:4px solid var(--accent); padding:8px 12px; background:var(--soft); border-radius:8px}
     details{background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:10px 12px; margin:10px 0}
     details > summary{cursor:pointer; font-weight:600; color:var(--accent)}
-    .quiz li{margin:.4rem 0}
-    .next{display:flex; gap:12px; flex-wrap:wrap}
-    .pill{
-      display:inline-block; padding:.5rem .75rem; border-radius:999px; border:1px solid var(--border);
-      background:var(--soft); color:var(--text); text-decoration:none;
-    }
-    a{color:var(--link)}
-    .label{display:inline-block; font-size:.75rem; padding:.2rem .5rem; border-radius:6px; background:#0e2d2d; color:#a6f0f0; border:1px solid #123e3e; margin-left:.5rem}
-    .kbd{border:1px solid var(--border); background:var(--soft); padding:0 .35rem; border-radius:6px; font-family:ui-monospace,monospace}
-    .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .checklist li{margin:.3rem 0}
-    .footer-note{color:var(--muted); font-size:.95rem}
+    .quiz li{margin:.4rem 0}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 1: What is HTML?</strong> <span class="badge">Foundations</span></div>
-      <h1>Lesson 1 — What is HTML? <span class="label">Concept & Role</span></h1>
-      <div class="footer-note">Estimated time: 45–60 minutes · You’ll make your first page</div>
+      <h1>Lesson 1 — What is HTML?</h1>
     </div>
   </header>
 
   <main class="container">
     <section class="card">
       <h2>Learning Goals</h2>
-      <ul class="goals">
+      <ul>
         <li>Explain <strong>what HTML is</strong> and what problems it solves.</li>
         <li>Describe how HTML relates to <strong>CSS</strong> and <strong>JavaScript</strong>.</li>
         <li>Recognize <strong>tags, elements, and attributes</strong>.</li>
-        <li>Build and open a <strong>first HTML page</strong> on your computer.</li>
-        <li>Avoid the most common <strong>beginner pitfalls</strong>.</li>
+        <li>Build and open a <strong>first HTML page</strong>.</li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>Part 1 — The Big Idea</h2>
-      <p><strong>HTML</strong> (HyperText Markup Language) is the language we use to <em>describe the structure and meaning of content</em> on the web. Think of it as the “skeleton” of every page.</p>
-      <div class="two-col">
-        <div>
-          <h3>HTML’s job</h3>
-          <ul>
-            <li>Organize content into headings, paragraphs, lists, images, links, tables, and forms.</li>
-            <li>Give content <em>semantics</em>—tell browsers and assistive tech what things <em>are</em> (e.g., a navigation, an article, a button).</li>
-          </ul>
-          <div class="hint"><strong>Key idea:</strong> HTML is about <em>structure & meaning</em>, not appearance or behavior.</div>
-        </div>
-        <div>
-          <h3>Not HTML’s job</h3>
-          <ul>
-            <li>Visual styling—that’s <strong>CSS</strong>.</li>
-            <li>Interactivity/logic—that’s <strong>JavaScript</strong>.</li>
-          </ul>
-          <p class="footer-note">We separate concerns so each layer stays clean and powerful.</p>
-        </div>
+      <h2>HTML’s Job vs. Other Layers</h2>
+      <div>
+        <p><strong>HTML</strong> — Structure & semantics: headings, paragraphs, lists, links, images, forms.</p>
+        <p><strong>CSS</strong> — Styling: colors, spacing, typography, layout.</p>
+        <p><strong>JavaScript</strong> — Interactivity: dynamic updates, events, fetching data.</p>
       </div>
     </section>
 
     <section class="card">
-      <h2>Part 2 — Where HTML Fits (HTML vs CSS vs JS)</h2>
-      <div class="grid-3">
-        <div class="hint">
-          <h3>HTML</h3>
-          <p>Structure & semantics: <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;form&gt;</code>…</p>
-        </div>
-        <div class="hint">
-          <h3>CSS</h3>
-          <p>Appearance: layout, colors, spacing, typography. (We’ll add CSS later.)</p>
-        </div>
-        <div class="hint">
-          <h3>JavaScript</h3>
-          <p>Behavior: reacting to events, fetching data, changing the page dynamically.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Part 3 — The Anatomy of a Page</h2>
-      <p>This is the minimal, valid HTML document. Read the comments inside to see what each part does.</p>
-      <pre><code>&lt;!DOCTYPE html&gt; &lt;!-- tells the browser: use modern HTML --&gt;
-&lt;html lang="en"&gt; &lt;!-- root element; lang helps accessibility & SEO --&gt;
+      <h2>Minimal Page Structure</h2>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
   &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt; &lt;!-- text encoding (supports emoji, accents) --&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt; &lt;!-- mobile-friendly --&gt;
-    &lt;title&gt;My First Page&lt;/title&gt; &lt;!-- shown in browser tab --&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;h1&gt;Hello, world!&lt;/h1&gt;
-    &lt;p&gt;This is my very first HTML page.&lt;/p&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;This is my first webpage.&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-      <details><summary>Try it: copy & save</summary>
-        <ol>
-          <li>Open a text editor (Notepad, VS Code, etc.).</li>
-          <li>Paste the code above into a new file.</li>
-          <li>Save as <strong>my-first-page.html</strong> on your Desktop.</li>
-          <li>Double-click the file to open it in your browser.</li>
-        </ol>
-      </details>
     </section>
 
     <section class="card">
-      <h2>Part 4 — Tags, Elements, Attributes</h2>
+      <h2>Tags, Elements, Attributes</h2>
       <ul>
-        <li><strong>Tags</strong> are the brackets like <code>&lt;p&gt;</code> and <code>&lt;/p&gt;</code>.</li>
-        <li><strong>Elements</strong> are the content + its tags (e.g., a whole paragraph).</li>
-        <li><strong>Attributes</strong> add extra info inside the opening tag: <code>&lt;img src="cat.jpg" alt="A cat"&gt;</code></li>
-      </ul>
-      <pre><code>&lt;h1 id="top"&gt;A Main Heading&lt;/h1&gt;
-&lt;p class="lead"&gt;This paragraph has a class.&lt;/p&gt;
-&lt;a href="#top" title="Back to top"&gt;Jump back up&lt;/a&gt;
-</code></pre>
-    </section>
-
-    <section class="card">
-      <h2>Part 5 — The DOM (Mental Model)</h2>
-      <p>When a browser reads your HTML, it builds a tree of nodes called the <strong>DOM</strong> (Document Object Model). You don’t need JavaScript yet to benefit from this; it’s simply the way your page is structured in memory.</p>
-      <pre><code>[html]
- ├─ [head]
- │   └─ [title] "My First Page"
- └─ [body]
-     ├─ [h1] "Hello, world!"
-     └─ [p]  "This is my very first HTML page."
-</code></pre>
-      <p class="footer-note">Thinking in trees helps you nest elements cleanly and debug structure issues.</p>
-    </section>
-
-    <section class="card">
-      <h2>Part 6 — Build Your First Page (Step-by-Step)</h2>
-      <ol class="checklist">
-        <li>Create a folder named <strong>html-zero-to-mastery</strong>.</li>
-        <li>Inside it, create a file named <strong>index.html</strong>.</li>
-        <li>Paste the minimal page from Part 3.</li>
-        <li>Add a heading (<code>&lt;h1&gt;</code>) with your name.</li>
-        <li>Add a short paragraph (<code>&lt;p&gt;</code>) about what you want to learn.</li>
-        <li>Add a link (<code>&lt;a&gt;</code>) to a favorite website.</li>
-        <li>Add an image (<code>&lt;img&gt;</code>) using an online URL or a local file in the same folder.</li>
-        <li>Save, then open <strong>index.html</strong> in your browser.</li>
-      </ol>
-      <details><summary>Starter scaffold (optional copy)</summary>
-        <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-  &lt;title&gt;Your Name — First Page&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Your Name&lt;/h1&gt;
-  &lt;p&gt;I’m learning HTML to build amazing websites.&lt;/p&gt;
-
-  &lt;h2&gt;Links I like&lt;/h2&gt;
-  &lt;ul&gt;
-    &lt;li&gt;&lt;a href="https://developer.mozilla.org/"&gt;MDN Web Docs&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-
-  &lt;h2&gt;A picture I like&lt;/h2&gt;
-  &lt;img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JS Logo" width="120"&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-      </details>
-    </section>
-
-    <section class="card">
-      <h2>Part 7 — Open, Refresh, and Inspect</h2>
-      <ul>
-        <li>Open the file in your browser (double-click, or drag it into a tab).</li>
-        <li>Change the HTML, save (<span class="kbd">Ctrl</span>/<span class="kbd">Cmd</span> + <span class="kbd">S</span>), and refresh the page.</li>
-        <li>Right-click the page → <strong>Inspect</strong> to open DevTools and see your HTML in the Elements panel.</li>
-      </ul>
-      <div class="hint"><strong>Tip:</strong> If something looks wrong, the Elements panel will show what the browser actually understood.</div>
-    </section>
-
-    <section class="card">
-      <h2>Part 8 — Common Pitfalls</h2>
-      <ul>
-        <li>Forgetting closing tags (e.g., <code>&lt;p&gt;</code> without <code>&lt;/p&gt;</code>).</li>
-        <li>Mis-nesting elements (a <code>&lt;p&gt;</code> tag around a block element like <code>&lt;div&gt;</code>).</li>
-        <li>Missing <code>alt</code> text on images.</li>
-        <li>Using HTML for styling (e.g., <code>&lt;font&gt;</code>)—that’s CSS’s job.</li>
-        <li>Missing <code>&lt;!DOCTYPE html&gt;</code> or <code>&lt;meta charset&gt;</code>.</li>
+        <li><strong>Tags</strong> — The angle-bracket keywords like <code>&lt;p&gt;</code>.</li>
+        <li><strong>Element</strong> — Tags plus content inside.</li>
+        <li><strong>Attributes</strong> — Extra info inside a tag, e.g. <code>&lt;img src="cat.jpg" alt="A cat"&gt;</code>.</li>
       </ul>
     </section>
 
     <section class="card">
-      <h2>Part 9 — Practice (Do First, Then Peek)</h2>
+      <h2>Practice Task</h2>
       <ol>
-        <li>Create a page with a main heading and two paragraphs. Make one paragraph include a <strong>link</strong> to your favorite site.</li>
-        <li>Add an <strong>image</strong> with meaningful <code>alt</code> text. Try changing the image’s <code>width</code> attribute.</li>
-        <li>Add a short list of 3 things you want to build with HTML.</li>
-        <li>Use the <code>lang</code> attribute on <code>&lt;html&gt;</code> and explain why it helps.</li>
-        <li>Break something on purpose (e.g., remove a closing tag) and find it using DevTools.</li>
+        <li>Create a file <code>index.html</code>.</li>
+        <li>Add a heading with your name.</li>
+        <li>Add a short paragraph about yourself.</li>
+        <li>Add a link to your favorite website.</li>
+        <li>Add an image with meaningful <code>alt</code>.</li>
       </ol>
-      <details><summary>Hints</summary>
-        <ul>
-          <li>Use <code>&lt;h1&gt;</code> for the main page title, <code>&lt;p&gt;</code> for paragraphs, <code>&lt;a href="..."&gt;</code> for links.</li>
-          <li><code>&lt;img src="..." alt="Describe the image"&gt;</code></li>
-          <li>Lists use <code>&lt;ul&gt;</code> with <code>&lt;li&gt;</code> items.</li>
-          <li><code>&lt;html lang="en"&gt;</code> helps screen readers and search engines understand language.</li>
-        </ul>
-      </details>
-      <details><summary>One possible solution</summary>
-        <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-  &lt;title&gt;Practice — Lesson 1&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Learning HTML&lt;/h1&gt;
-  &lt;p&gt;I’m starting my web journey today. I like &lt;a href="https://www.wikipedia.org/"&gt;Wikipedia&lt;/a&gt; for quick facts.&lt;/p&gt;
-  &lt;p&gt;This page is my first practice.&lt;/p&gt;
-
-  &lt;h2&gt;Goals&lt;/h2&gt;
-  &lt;ul&gt;
-    &lt;li&gt;Build a personal website&lt;/li&gt;
-    &lt;li&gt;Create a simple blog&lt;/li&gt;
-    &lt;li&gt;Share a portfolio&lt;/li&gt;
-  &lt;/ul&gt;
-
-  &lt;h2&gt;An image&lt;/h2&gt;
-  &lt;img src="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" alt="HTML5 badge logo" width="120"&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-      </details>
     </section>
 
     <section class="card">
-      <h2>Part 10 — Mini-Project: “Hello, I’m &lt;Your Name&gt;”</h2>
-      <p>Build a single-page introduction with a heading, a photo (or placeholder), a short bio paragraph, and 2–3 links. Keep it pure HTML.</p>
-      <details><summary>Project checklist</summary>
-        <ul class="checklist">
-          <li><code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html lang&gt;</code>, and <code>&lt;meta charset&gt;</code>.</li>
-          <li>A top-level <code>&lt;h1&gt;</code> with your name.</li>
-          <li>One photo via <code>&lt;img&gt;</code> with useful <code>alt</code>.</li>
-          <li>Two paragraphs: who you are + what you want to build.</li>
-          <li>Links to a resource you’ll use (docs, tutorials) and a favorite site.</li>
-        </ul>
-      </details>
-      <details><summary>Starter template (optional)</summary>
-        <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-  &lt;title&gt;Hello, I’m Your Name&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Hello, I’m Your Name&lt;/h1&gt;
-  &lt;img src="your-photo.jpg" alt="Portrait of Your Name" width="160"&gt;
-  &lt;p&gt;I love learning how the web works. This is my very first page.&lt;/p&gt;
-  &lt;p&gt;Soon I’ll build projects like a blog and a portfolio.&lt;/p&gt;
-
-  &lt;h2&gt;Find me around the web&lt;/h2&gt;
-  &lt;ul&gt;
-    &lt;li&gt;&lt;a href="#"&gt;A resource I’ll use a lot&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href="#"&gt;Another useful site&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-      </details>
-    </section>
-
-    <section class="card">
-      <h2>Check Yourself — Quick Quiz</h2>
+      <h2>Quick Quiz</h2>
       <ol class="quiz">
-        <li>What is the main purpose of HTML?</li>
-        <li>Which layer handles visual design: HTML, CSS, or JS?</li>
-        <li>What is the difference between a <em>tag</em> and an <em>element</em>?</li>
-        <li>Why do we include <code>&lt;!DOCTYPE html&gt;</code>?</li>
-        <li>Where does the content that actually appears on the page usually go: <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code>?</li>
-        <li>What is the <code>lang</code> attribute used for?</li>
+        <li>What is HTML’s main role?</li>
+        <li>Which handles design: HTML, CSS, or JS?</li>
+        <li>What is the difference between a tag and an element?</li>
       </ol>
-      <details><summary>Suggested answers</summary>
-        <ul>
-          <li>HTML describes the structure and meaning (semantics) of web content.</li>
-          <li>CSS handles visual design; JS handles behavior.</li>
-          <li>Tags are the markup; an element is the tag(s) plus its content.</li>
-          <li>It tells the browser to use the modern standard mode (not quirks).</li>
-          <li><code>&lt;body&gt;</code>.</li>
-          <li>It sets the page’s primary language for accessibility and search.</li>
-        </ul>
-      </details>
     </section>
 
     <section class="card">
-      <h2>Glossary</h2>
-      <ul>
-        <li><strong>HTML</strong> — HyperText Markup Language; the skeleton of the web.</li>
-        <li><strong>Element</strong> — A piece of content with its tags, e.g., <code>&lt;p&gt;hello&lt;/p&gt;</code>.</li>
-        <li><strong>Attribute</strong> — Extra info on an opening tag, e.g., <code>alt</code> on <code>&lt;img&gt;</code>.</li>
-        <li><strong>DOM</strong> — The in-memory tree representation of your HTML document.</li>
-        <li><strong>Semantics</strong> — Meaningful tags that describe content purpose (e.g., <code>&lt;nav&gt;</code>).</li>
-      </ul>
+      <h2>Navigation</h2>
+      <p>
+        <a href="../index.html">🏠 Back to Main Menu</a> · 
+        <a href="lesson2.html">➡ Next Lesson</a>
+      </p>
     </section>
-
-    <section class="card">
-      <h2>Next Up</h2>
-      <div class="next">
-        <span class="pill">Lesson 2: HTML vs CSS vs JavaScript</span>
-        <span class="pill">Lesson 3: Browsers & how they read HTML</span>
-        <span class="pill">Lesson 4: Install a code editor (VS Code)</span>
-      </div>
-      <p class="footer-note">You can continue right away, or review the quiz once more before moving on.</p>
-    </section>
-
-    <footer class="footer-note" style="padding:24px 0 40px">
-      © HTML Zero → Mastery · Lesson 1. This page is self-contained and works offline.
-    </footer>
   </main>
 </body>
 </html>
