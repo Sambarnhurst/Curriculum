@@ -58,12 +58,21 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 
 ---
 
-## 🗓️ Future Plans  
+## 🗓️ Roadmap  
 
-- ✨ Launch a **free education platform** that provides structured, high-quality degrees  
-- ✨ Grow my portfolio into **open-source projects** others can contribute to  
-- ✨ Create interactive tools and games for **learning coding & cybersecurity**  
-- ✨ Build a personal **Reality Simulation project** combining physics, AI, and systems programming  
+📍 **2025 Q3 – Q4**: Complete foundations in **CS theory, algorithms, and OS**  
+📍 **2026**: Develop advanced modules in **AI & Reality Simulation**  
+📍 **2027**: Launch **free open-source degree platform**  
+📍 **Beyond**: Grow into teaching, mentorship, and large-scale open knowledge initiatives  
+
+---
+
+## ⭐ Highlights & Interests  
+
+- 🎮 Passionate about **gamified learning** → building systems that teach through play  
+- 📘 Lifelong learner → currently diving deep into **compilers, networks, and security**  
+- 🛠️ Builder at heart → love creating **tools others can use freely**  
+- 🌍 Mission-driven → education for all, no paywalls, no gatekeepers  
 
 ---
 
@@ -97,12 +106,16 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 
 ---
 
-## 🏆 Achievements / Contributions  
+## 🏆 Achievements & Community  
 
-- ✅ Built multiple **offline-first learning tools** for computer science mastery  
-- ✅ Created an **automated PowerShell environment builder** for coding apps  
-- ✅ Designed **interactive module-based editors** with persistent saving  
-- ✅ Contributing to **open-source educational content**  
+<p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=Sambarnhurst&theme=tokyonight&no-frame=true&margin-w=15&row=1" alt="GitHub Trophies"/>
+</p>
+
+- ✅ Built **offline-first learning tools** for CS mastery  
+- ✅ Automated **PowerShell environment builders** for apps  
+- ✅ Designed **interactive editors & previews** with persistent saving  
+- ✅ Published structured **curriculum for aspiring engineers**  
 
 ---
 
