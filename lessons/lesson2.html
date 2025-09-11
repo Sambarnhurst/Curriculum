@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesson 2: HTML vs CSS vs JavaScript</title>
+  <meta name="description" content="Lesson 2 of HTML Zero to Mastery: Differences between HTML, CSS, and JavaScript." />
+  <style>
+    :root{
+      --bg:#121212;
+      --panel:#1c1c1c;
+      --soft:#222;
+      --text:#eaeaea;
+      --muted:#b6b6b6;
+      --accent:#00ffff;
+      --accent-2:#4de1ff;
+      --code:#0d0d0d;
+      --link:#7bd4ff;
+      --border:#2a2a2a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+    header{padding:24px 20px 8px; border-bottom:1px solid var(--border);}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    h1{margin:0 0 6px; font-weight:800;}
+    main{padding:20px 0 60px}
+    section.card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:20px;
+      margin:16px 0;
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
+    }
+    section.card h2{margin-top:0;color:var(--accent)}
+    section.card h3{margin:16px 0 8px;color:var(--accent-2)}
+    pre{
+      background:var(--code);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;
+      overflow:auto;
+      margin:12px 0;
+    }
+    code, pre code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.95rem}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .quiz li{margin:.4rem 0}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Lesson 2 — HTML vs CSS vs JavaScript</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Learning Goals</h2>
+      <ul>
+        <li>Understand the role of each layer: HTML, CSS, JavaScript.</li>
+        <li>Explain why we separate structure, style, and behavior.</li>
+        <li>Recognize basic syntax differences.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>1 — HTML: Structure</h2>
+      <p>HTML provides the <strong>skeleton</strong> of a webpage. It tells the browser what content exists.</p>
+      <pre><code>&lt;h1&gt;My Website&lt;/h1&gt;
+&lt;p&gt;Welcome to my site.&lt;/p&gt;
+&lt;a href="about.html"&gt;About me&lt;/a&gt;
+&lt;img src="photo.jpg" alt="A photo"&gt;
+</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>2 — CSS: Style</h2>
+      <p>CSS describes <strong>how things look</strong>: layout, colors, fonts, spacing.</p>
+      <pre><code>h1 {
+  color: cyan;
+  font-size: 2rem;
+}
+p {
+  color: #b6b6b6;
+}
+img {
+  border-radius: 8px;
+}
+</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>3 — JavaScript: Behavior</h2>
+      <p>JavaScript controls <strong>interactivity</strong> — reacting to user actions, changing the page, or fetching data.</p>
+      <pre><code>&lt;button id="clickMe"&gt;Click me&lt;/button&gt;
+
+&lt;script&gt;
+  document.getElementById("clickMe")
+    .addEventListener("click", () =&gt; {
+      alert("You clicked the button!");
+    });
+&lt;/script&gt;
+</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Putting It All Together</h2>
+      <p>A full page usually combines all three:</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Demo&lt;/title&gt;
+  &lt;style&gt;
+    body { background:#121212; color:#eee; }
+    h1 { color: cyan; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello!&lt;/h1&gt;
+  &lt;p&gt;HTML is the content, CSS styles it, JS makes it dynamic.&lt;/p&gt;
+  &lt;button id="btn"&gt;Click&lt;/button&gt;
+  &lt;script&gt;
+    document.getElementById("btn").onclick = () =&gt; {
+      alert("CSS + JS working with HTML!");
+    };
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Practice Task</h2>
+      <ol>
+        <li>Create a new page <code>lesson2-demo.html</code>.</li>
+        <li>Add a heading and a paragraph (HTML).</li>
+        <li>Use CSS to change the background color and text color.</li>
+        <li>Add a button, and use JavaScript to show an alert when clicked.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Quick Quiz</h2>
+      <ol class="quiz">
+        <li>Which layer is responsible for structure?</li>
+        <li>Which handles colors and layout?</li>
+        <li>Which enables interactivity?</li>
+        <li>Why do we separate HTML, CSS, and JavaScript?</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Navigation</h2>
+      <p>
+        <a href="lesson1.html">⬅ Previous Lesson</a> · 
+        <a href="../index.html">🏠 Main Menu</a> · 
+        <a href="lesson3.html">➡ Next Lesson</a>
+      </p>
+    </section>
+  </main>
+</body>
+</html>
