@@ -34,7 +34,7 @@
       color: #eee;
       text-decoration: none;
       text-align: center;
-      font-size: 0.85em;
+      font-size: 0.9em;
       font-weight: 500;
       box-shadow: 3px 3px 8px #0d0d0d, -3px -3px 8px #2e2e2e;
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
@@ -45,23 +45,12 @@
       transform: translateY(-3px);
       box-shadow: 4px 4px 10px #0a0a0a, -4px -4px 10px #333;
     }
-    #search {
-      width: 100%;
-      padding: .6em;
-      margin: 1em 0;
-      font-size: 0.9em;
-      border-radius: 6px;
-      border: none;
-      background: #2a2a2a;
-      color: #eee;
-    }
     main {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 0.6em;
       margin-top: 1em;
     }
-    .hidden { display: none; }
   </style>
 </head>
 <body>
@@ -72,10 +61,8 @@
     <a href="home.html" class="button">⬅ Back to Home</a>
   </div>
 
-  <input id="search" type="text" placeholder="Search lessons...">
-
   <main id="lessons">
-    <!-- === LESSON LINKS START === -->
+    <!-- === ONE LESSON BUTTON === -->
     <a href="lessons/lesson1.html">Lesson 1: What is HTML? (Concept & role)</a>
     <a href="lessons/lesson2.html">Lesson 2: HTML vs CSS vs JavaScript</a>
     <a href="lessons/lesson3.html">Lesson 3: Browsers and how they read HTML</a>
