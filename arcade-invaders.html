@@ -41,24 +41,36 @@
       background: #00b3b3;
       color: #fff;
     }
+    #restartBtn {
+      display: none;
+      margin-top: 1em;
+      padding: 0.8em 1.5em;
+      border-radius: 8px;
+      background: #00b3b3;
+      color: #fff;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    #restartBtn:hover {
+      background: #008c8c;
+    }
   </style>
 </head>
 <body>
   <h1>👾 Space Invaders</h1>
   <canvas id="gameCanvas" width="800" height="600"></canvas>
   <a href="games.html" class="back">⬅ Back to Game Hub</a>
+  <button id="restartBtn">🔄 Restart Game</button>
 
   <script>
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
 
-    let score = 0, lives = 3, level = 1;
-    let gameEnded = false, bossActive = false;
-
-    // Power-ups
-    let powerUps = [];
-    let activePowerUp = null;
-    let powerUpTimer = 0;
+    let score = 0;
+    let lives = 3;
+    let gameEnded = false;
+    let bossActive = false;
 
     // Player
     const player = {
@@ -67,17 +79,31 @@
       width: 40,
       height: 20,
       speed: 6,
-      bullets: [],
-      canShoot: true,
-      shootCooldown: 300
+      bullets: []
     };
 
     // Aliens
-    let aliens = [];
+    const alienRows = 4;
+    const alienCols = 8;
+    const aliens = [];
+    const alienSize = 30;
     let alienDirection = 1;
     let alienSpeed = 0.5;
-    const alienSize = 30;
-    let alienBullets = [];
+
+    for (let r = 0; r < alienRows; r++) {
+      for (let c = 0; c < alienCols; c++) {
+        aliens.push({
+          x: 80 + c * 60,
+          y: 50 + r * 50,
+          width: alienSize,
+          height: alienSize,
+          alive: true
+        });
+      }
+    }
+
+    // Alien bullets
+    const alienBullets = [];
 
     // Boss
     const boss = {
@@ -96,55 +122,37 @@
     document.addEventListener("keydown", e => keys[e.code] = true);
     document.addEventListener("keyup", e => keys[e.code] = false);
 
-    // Init aliens
-    function initAliens() {
-      aliens = [];
-      let rows = 3 + Math.min(level, 5);
-      let cols = 6 + Math.floor(level / 2);
-      alienSpeed = 0.4 + level * 0.2;
-
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          aliens.push({ x: 80 + c * 60, y: 50 + r * 50, width: alienSize, height: alienSize, alive: true });
-        }
-      }
-    }
-    initAliens();
-
-    // HUD
-    function drawHUD() {
-      ctx.fillStyle = "#e6edf3";
-      ctx.font = "20px Arial";
-      ctx.fillText("Score: " + score, 10, 20);
-      ctx.fillText("Lives: " + lives, canvas.width - 100, 20);
-      ctx.fillText("Level: " + level, canvas.width / 2 - 40, 20);
-      if (activePowerUp) {
-        ctx.fillStyle = "#57e389";
-        ctx.fillText("Power-Up: " + activePowerUp + " (" + Math.ceil(powerUpTimer/60) + "s)", 10, 50);
-      }
-    }
-
-    // Draw Player
     function drawPlayer() {
-      ctx.fillStyle =
-        activePowerUp === "Shield" ? "#57e389" :
-        activePowerUp === "Rapid Fire" ? "#ffd700" :
-        activePowerUp === "Double Points" ? "#00b3ff" : "#00ffff";
+      ctx.fillStyle = "#00ffff";
       ctx.fillRect(player.x, player.y, player.width, player.height);
-      if (activePowerUp) {
-        ctx.strokeStyle = ctx.fillStyle;
-        ctx.lineWidth = 3;
-        ctx.strokeRect(player.x - 3, player.y - 3, player.width + 6, player.height + 6);
-      }
     }
 
-    // Draw Aliens
     function drawAliens() {
       ctx.fillStyle = "#ff6b6b";
-      aliens.forEach(a => { if (a.alive) ctx.fillRect(a.x, a.y, a.width, a.height); });
+      aliens.forEach(alien => {
+        if (alien.alive) {
+          ctx.fillRect(alien.x, alien.y, alien.width, alien.height);
+        }
+      });
     }
 
-    // Draw Boss
+    function drawBullets() {
+      ctx.fillStyle = "#57e389";
+      player.bullets.forEach(bullet => {
+        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+      });
+
+      ctx.fillStyle = "#ffbf69";
+      alienBullets.forEach(bullet => {
+        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+      });
+
+      ctx.fillStyle = "#ff4de1";
+      boss.bullets.forEach(bullet => {
+        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+      });
+    }
+
     function drawBoss() {
       if (bossActive) {
         ctx.fillStyle = "#ff4de1";
@@ -155,108 +163,218 @@
       }
     }
 
-    // Draw Power-ups
-    function drawPowerUps() {
-      powerUps.forEach(p => {
-        ctx.fillStyle = p.type === "Rapid Fire" ? "#ffd700" :
-                        p.type === "Shield" ? "#57e389" : "#00b3ff";
-        ctx.fillRect(p.x, p.y, p.size, p.size);
-      });
+    function drawHUD() {
+      ctx.fillStyle = "#e6edf3";
+      ctx.font = "20px Arial";
+      ctx.fillText("Score: " + score, 10, 20);
+      ctx.fillText("Lives: " + lives, canvas.width - 100, 20);
     }
 
-    // Drop chance
-    function maybeDropPowerUp(x, y) {
-      if (Math.random() < 0.09) {
-        const types = ["Rapid Fire", "Shield", "Double Points"];
-        const type = types[Math.floor(Math.random() * types.length)];
-        powerUps.push({ x, y, size: 20, speed: 2, type });
-      }
-    }
-
-    // Update Player
     function updatePlayer() {
-      if (keys["ArrowLeft"] && player.x > 0) player.x -= player.speed;
-      if (keys["ArrowRight"] && player.x < canvas.width - player.width) player.x += player.speed;
-      if (keys["Space"] && player.canShoot) {
-        player.bullets.push({ x: player.x + player.width/2 - 2, y: player.y, width: 4, height: 10, speed: 7 });
-        player.canShoot = false;
-        setTimeout(() => player.canShoot = true, player.shootCooldown);
+      if (keys["ArrowLeft"] && player.x > 0) {
+        player.x -= player.speed;
+      }
+      if (keys["ArrowRight"] && player.x < canvas.width - player.width) {
+        player.x += player.speed;
+      }
+      if (keys["Space"]) {
+        if (!player.shooting) {
+          player.bullets.push({ x: player.x + player.width / 2 - 2, y: player.y, width: 4, height: 10, speed: 7 });
+          player.shooting = true;
+        }
+      } else {
+        player.shooting = false;
       }
     }
 
-    // Update Power-ups
-    function updatePowerUps() {
-      powerUps.forEach((p, i) => {
-        p.y += p.speed;
-        if (p.y > canvas.height) powerUps.splice(i, 1);
-        if (p.x < player.x + player.width && p.x + p.size > player.x &&
-            p.y < player.y + player.height && p.y + p.size > player.y) {
-          activePowerUp = p.type;
-          powerUpTimer = 600; // 10s
-          powerUps.splice(i, 1);
-          if (activePowerUp === "Rapid Fire") player.shootCooldown = 100;
+    function updateBullets() {
+      // Player bullets
+      player.bullets.forEach((bullet, index) => {
+        bullet.y -= bullet.speed;
+        if (bullet.y < 0) player.bullets.splice(index, 1);
+
+        // Hit aliens
+        aliens.forEach(alien => {
+          if (alien.alive &&
+              bullet.x < alien.x + alien.width &&
+              bullet.x + bullet.width > alien.x &&
+              bullet.y < alien.y + alien.height &&
+              bullet.y + bullet.height > alien.y) {
+            alien.alive = false;
+            score += 10;
+            player.bullets.splice(index, 1);
+          }
+        });
+
+        // Hit boss
+        if (bossActive &&
+            bullet.x < boss.x + boss.width &&
+            bullet.x + bullet.width > boss.x &&
+            bullet.y < boss.y + boss.height &&
+            bullet.y + bullet.height > boss.y) {
+          boss.hp--;
+          player.bullets.splice(index, 1);
+          if (boss.hp <= 0) {
+            bossActive = false;
+            gameEnded = true;
+            winGame();
+          }
         }
       });
-      if (activePowerUp) {
-        powerUpTimer--;
-        if (powerUpTimer <= 0) {
-          if (activePowerUp === "Rapid Fire") player.shootCooldown = 300;
-          activePowerUp = null;
+
+      // Alien bullets
+      alienBullets.forEach((bullet, index) => {
+        bullet.y += bullet.speed;
+        if (bullet.y > canvas.height) alienBullets.splice(index, 1);
+
+        if (bullet.x < player.x + player.width &&
+            bullet.x + bullet.width > player.x &&
+            bullet.y < player.y + player.height &&
+            bullet.y + bullet.height > player.y) {
+          alienBullets.splice(index, 1);
+          lives--;
+          if (lives <= 0) gameEnded = true;
         }
+      });
+
+      // Boss bullets
+      boss.bullets.forEach((bullet, index) => {
+        bullet.y += bullet.speed;
+        if (bullet.y > canvas.height) boss.bullets.splice(index, 1);
+
+        if (bullet.x < player.x + player.width &&
+            bullet.x + bullet.width > player.x &&
+            bullet.y < player.y + player.height &&
+            bullet.y + bullet.height > player.y) {
+          boss.bullets.splice(index, 1);
+          lives--;
+          if (lives <= 0) gameEnded = true;
+        }
+      });
+    }
+
+    function updateAliens() {
+      if (bossActive) return;
+
+      let edgeReached = false;
+      aliens.forEach(alien => {
+        if (alien.alive) {
+          alien.x += alienDirection * alienSpeed;
+          if (alien.x + alien.width > canvas.width - 10 || alien.x < 10) {
+            edgeReached = true;
+          }
+        }
+      });
+
+      if (edgeReached) {
+        alienDirection *= -1;
+        aliens.forEach(alien => alien.y += 20);
+      }
+
+      // Random alien shooting
+      if (Math.random() < 0.02) {
+        const shooters = aliens.filter(a => a.alive);
+        if (shooters.length > 0) {
+          const alien = shooters[Math.floor(Math.random() * shooters.length)];
+          alienBullets.push({
+            x: alien.x + alien.width / 2 - 2,
+            y: alien.y + alien.height,
+            width: 4,
+            height: 10,
+            speed: 4
+          });
+        }
+      }
+
+      // If all aliens dead → spawn boss
+      if (aliens.every(a => !a.alive) && !bossActive) {
+        bossActive = true;
       }
     }
 
-    // Next Level
-    function nextLevel() {
-      level++;
-      alienSpeed += 0.3;
-      initAliens();
-      player.bullets = [];
-      alienBullets.length = 0;
-      boss.bullets.length = 0;
-      bossActive = false;
-    }
+    function updateBoss() {
+      if (!bossActive) return;
 
-    function winGame() {
-      ctx.fillStyle = "#57e389";
-      ctx.font = "48px Arial";
-      ctx.fillText("YOU WIN!", canvas.width/2 - 110, canvas.height/2);
-      ctx.font = "24px Arial";
-      ctx.fillText("Press R to Restart", canvas.width/2 - 120, canvas.height/2 + 50);
-      gameEnded = true;
+      boss.x += boss.direction * boss.speed;
+      if (boss.x < 0 || boss.x + boss.width > canvas.width) {
+        boss.direction *= -1;
+      }
+
+      // Boss shooting
+      if (Math.random() < 0.05) {
+        boss.bullets.push({
+          x: boss.x + boss.width / 2 - 3,
+          y: boss.y + boss.height,
+          width: 6,
+          height: 14,
+          speed: 6
+        });
+      }
     }
 
     function gameOver() {
       ctx.fillStyle = "#ff6b6b";
       ctx.font = "48px Arial";
-      ctx.fillText("GAME OVER", canvas.width/2 - 140, canvas.height/2);
-      ctx.font = "24px Arial";
-      ctx.fillText("Press R to Restart", canvas.width/2 - 120, canvas.height/2 + 50);
-      gameEnded = true;
+      ctx.fillText("GAME OVER", canvas.width / 2 - 140, canvas.height / 2);
+      showRestartButton();
     }
 
-    // Restart option
-    document.addEventListener("keydown", e => {
-      if (e.code === "KeyR" && gameEnded) location.reload();
-    });
+    function winGame() {
+      ctx.fillStyle = "#57e389";
+      ctx.font = "48px Arial";
+      ctx.fillText("YOU WIN!", canvas.width / 2 - 110, canvas.height / 2);
+      showRestartButton();
+    }
 
-    // Game Loop
+    function checkGameOver() {
+      if (!bossActive) {
+        for (let alien of aliens) {
+          if (alien.alive && alien.y + alien.height >= player.y) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
     function gameLoop() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       if (!gameEnded) {
         updatePlayer();
-        updatePowerUps();
+        updateBullets();
+        updateAliens();
+        updateBoss();
+
         drawPlayer();
         drawAliens();
         drawBoss();
-        drawPowerUps();
+        drawBullets();
         drawHUD();
+
+        if (checkGameOver()) {
+          gameEnded = true;
+        }
+
         requestAnimationFrame(gameLoop);
       } else {
-        if (lives <= 0) gameOver();
+        if (bossActive && boss.hp <= 0) {
+          winGame();
+        } else {
+          gameOver();
+        }
       }
     }
+
+    // Restart button
+    const restartBtn = document.getElementById("restartBtn");
+    function showRestartButton() {
+      restartBtn.style.display = "inline-block";
+    }
+    restartBtn.addEventListener("click", () => {
+      location.reload();
+    });
+
     gameLoop();
   </script>
 </body>
