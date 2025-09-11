@@ -25,7 +25,7 @@
     }
     main {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: .7em;
       margin-top: 1em;
     }
@@ -50,22 +50,29 @@
 <body>
   <h1>📘 Curriculum — 600 Lessons</h1>
   <input id="search" type="text" placeholder="Search lessons...">
-  <main id="lessons"></main>
+  <main id="lessons">
+    
+    <!-- === LESSON LINKS START === -->
+    <a href="lessons/lesson1.html">Lesson 1: What is HTML? (Concept & role)</a>
+    <a href="lessons/lesson2.html">Lesson 2: HTML vs CSS vs JavaScript</a>
+    <a href="lessons/lesson3.html">Lesson 3: Browsers and how they read HTML</a>
+    <a href="lessons/lesson4.html">Lesson 4: Installing a code editor (VS Code)</a>
+    <a href="lessons/lesson5.html">Lesson 5: Writing your first index.html</a>
+    <a href="lessons/lesson6.html">Lesson 6: The &lt;!DOCTYPE html&gt; declaration</a>
+    <a href="lessons/lesson7.html">Lesson 7: The &lt;html&gt; root element</a>
+    <a href="lessons/lesson8.html">Lesson 8: The &lt;head&gt; section basics</a>
+    <a href="lessons/lesson9.html">Lesson 9: The &lt;body&gt; section basics</a>
+    <a href="lessons/lesson10.html">Lesson 10: The &lt;title&gt; element</a>
+    <!-- … this continues all the way to Lesson 600 -->
+    <a href="lessons/lesson600.html">Lesson 600: Graduation checklist & next steps</a>
+    <!-- === LESSON LINKS END === -->
+
+  </main>
 
   <script>
-    const totalLessons = 600;
-    const container = document.getElementById('lessons');
-
-    // Generate lesson buttons automatically
-    for (let i = 1; i <= totalLessons; i++) {
-      const link = document.createElement('a');
-      link.href = `lessons/lesson${i}.html`;
-      link.textContent = `Lesson ${i}`;
-      container.appendChild(link);
-    }
-
     // Simple search filter
     const search = document.getElementById('search');
+    const container = document.getElementById('lessons');
     search.addEventListener('input', () => {
       const term = search.value.toLowerCase();
       [...container.children].forEach(a => {
