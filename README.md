@@ -23,7 +23,8 @@
 - 📖 [Lesson 3: Browsers & How They Read HTML](https://sambarnhurst.github.io/Curriculum/lessons/lesson3.html)  
 - 🎮 [Game Hub](https://sambarnhurst.github.io/Curriculum/games.html)  
 - 🏓 [Pong](https://sambarnhurst.github.io/Curriculum/arcade-pong.html)  
-- 👾 [Space Invaders](https://sambarnhurst.github.io/Curriculum/arcade-space-invaders.html)  
+- 👾 [Space Invaders](https://sambarnhurst.github.io/Curriculum/arcade-space-invaders.html)
+- 🐍 [Snake](https://sambarnhurst.github.io/Curriculum/arcade-snake.html)  
 
 ---
 
