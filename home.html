@@ -150,48 +150,36 @@
       color: var(--accent);
       margin-top: 0;
     }
-    /* Skills */
-    .skillbar {
-      margin: 1em 0;
+    /* Skills Pie Chart */
+    .chart-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 2em;
     }
-    .skillbar span {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 0.3em;
-    }
-    .bar {
-      background: #222;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .bar-fill {
-      display: block;
-      height: 12px;
-      background: var(--accent);
-      width: 0;
-      animation: load 2s forwards;
-    }
-    @keyframes load {
-      from { width: 0; }
-      to { width: var(--target-width); }
+    canvas {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 1em;
     }
     /* Contact */
     .contact {
       text-align: center;
     }
-    .contact a, .contact button {
+    .contact p {
+      font-size: 1.1em;
+      margin-bottom: 1em;
+    }
+    .contact a {
       display: inline-block;
       margin: 0.5em;
       padding: 0.8em 1.5em;
       border-radius: 8px;
       background: var(--panel);
       color: var(--text);
-      border: none;
-      cursor: pointer;
       text-decoration: none;
       transition: background 0.3s;
     }
-    .contact a:hover, .contact button:hover {
+    .contact a:hover {
       background: var(--accent-hover);
       color: #fff;
     }
@@ -208,7 +196,7 @@
   <nav>
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
+    <a href="#stack">Stack</a>
     <a href="#contact">Contact</a>
     <a href="index.html">Curriculum</a>
     <a href="games.html">Games</a>
@@ -263,24 +251,11 @@
       </div>
     </section>
 
-    <!-- Skills -->
-    <section id="skills">
-      <h2>🛠 Skills</h2>
-      <div class="skillbar">
-        <span>HTML & CSS</span>
-        <div class="bar"><div class="bar-fill" style="--target-width:90%"></div></div>
-      </div>
-      <div class="skillbar">
-        <span>JavaScript</span>
-        <div class="bar"><div class="bar-fill" style="--target-width:80%"></div></div>
-      </div>
-      <div class="skillbar">
-        <span>Python</span>
-        <div class="bar"><div class="bar-fill" style="--target-width:85%"></div></div>
-      </div>
-      <div class="skillbar">
-        <span>Rust & C++</span>
-        <div class="bar"><div class="bar-fill" style="--target-width:70%"></div></div>
+    <!-- Stack Pie Chart -->
+    <section id="stack">
+      <h2>🛠 My Tech Stack</h2>
+      <div class="chart-container">
+        <canvas id="stackChart" width="400" height="400"></canvas>
       </div>
     </section>
 
@@ -288,9 +263,9 @@
     <section id="contact">
       <h2>📬 Contact</h2>
       <div class="contact">
-        <a href="mailto:your.email@example.com">✉️ Email</a>
+        <p>Email: <strong>SamuelDBarnhurst@gmail.com</strong></p>
         <a href="https://github.com/Sambarnhurst" target="_blank">💻 GitHub</a>
-        <a href="#">🔗 LinkedIn</a>
+        <a href="https://instagram.com/sambarnhurst" target="_blank">📷 Instagram</a>
       </div>
     </section>
   </main>
@@ -298,5 +273,44 @@
   <footer>
     © 2025 · Built by Samuel Damon Barnhurst · Works Offline
   </footer>
+
+  <script>
+    // Draw Pie Chart
+    const canvas = document.getElementById("stackChart");
+    const ctx = canvas.getContext("2d");
+
+    const data = [
+      { label: "HTML/CSS", value: 30, color: "#00ffff" },
+      { label: "JavaScript", value: 30, color: "#ffbf69" },
+      { label: "Python", value: 25, color: "#57e389" },
+      { label: "Rust/C++", value: 15, color: "#ff6b6b" }
+    ];
+
+    let total = data.reduce((sum, d) => sum + d.value, 0);
+    let currentAngle = -0.5 * Math.PI;
+
+    data.forEach(d => {
+      let sliceAngle = (d.value / total) * 2 * Math.PI;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width/2, canvas.height/2);
+      ctx.arc(canvas.width/2, canvas.height/2, 150, currentAngle, currentAngle + sliceAngle);
+      ctx.closePath();
+      ctx.fillStyle = d.color;
+      ctx.fill();
+      currentAngle += sliceAngle;
+    });
+
+    // Labels
+    ctx.fillStyle = "#e6edf3";
+    ctx.font = "14px system-ui";
+    let legendY = 20;
+    data.forEach(d => {
+      ctx.fillStyle = d.color;
+      ctx.fillRect(320, legendY, 16, 16);
+      ctx.fillStyle = "#e6edf3";
+      ctx.fillText(d.label + " (" + d.value + "%)", 340, legendY + 12);
+      legendY += 24;
+    });
+  </script>
 </body>
 </html>
