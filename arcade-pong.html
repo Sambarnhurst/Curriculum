@@ -73,7 +73,6 @@
   <script>
     const canvas = document.getElementById("pongCanvas");
     const ctx = canvas.getContext("2d");
-
     const modeSelect = document.getElementById("mode");
 
     // Ball
@@ -87,7 +86,7 @@
     };
 
     // Paddles
-    const paddleHeight = 80;
+    const paddleHeight = 100;
     const paddleWidth = 12;
 
     let leftPaddle = {
@@ -95,7 +94,9 @@
       y: canvas.height / 2 - paddleHeight / 2,
       width: paddleWidth,
       height: paddleHeight,
-      dy: 5,
+      dy: 6,
+      moveUp: false,
+      moveDown: false
     };
 
     let rightPaddle = {
@@ -103,20 +104,20 @@
       y: canvas.height / 2 - paddleHeight / 2,
       width: paddleWidth,
       height: paddleHeight,
-      dy: 5,
+      dy: 6,
+      moveUp: false,
+      moveDown: false
     };
 
     // Scores
     let leftScore = 0;
     let rightScore = 0;
 
-    // Draw rectangle
     function drawRect(x, y, w, h, color) {
       ctx.fillStyle = color;
       ctx.fillRect(x, y, w, h);
     }
 
-    // Draw circle
     function drawCircle(x, y, r, color) {
       ctx.fillStyle = color;
       ctx.beginPath();
@@ -125,35 +126,32 @@
       ctx.fill();
     }
 
-    // Draw text
     function drawText(text, x, y, color) {
       ctx.fillStyle = color;
       ctx.font = "32px Arial";
       ctx.fillText(text, x, y);
     }
 
-    // Draw net
     function drawNet() {
       for (let i = 0; i <= canvas.height; i += 20) {
         drawRect(canvas.width / 2 - 1, i, 2, 10, "#00ffff");
       }
     }
 
-    // Reset ball
     function resetBall() {
       ball.x = canvas.width / 2;
       ball.y = canvas.height / 2;
       ball.dx = -ball.dx;
+      ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1); // randomize vertical bounce
       ball.speed = 5;
     }
 
-    // Update game objects
     function update() {
       // Move ball
       ball.x += ball.dx;
       ball.y += ball.dy;
 
-      // Bounce off top/bottom
+      // Bounce top/bottom
       if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
         ball.dy = -ball.dy;
       }
@@ -164,7 +162,13 @@
         ball.y > leftPaddle.y &&
         ball.y < leftPaddle.y + leftPaddle.height
       ) {
-        ball.dx = -ball.dx;
+        let collidePoint = ball.y - (leftPaddle.y + leftPaddle.height / 2);
+        collidePoint = collidePoint / (leftPaddle.height / 2);
+        let angle = (Math.PI / 4) * collidePoint;
+        ball.dx = ball.speed * Math.cos(angle);
+        ball.dy = ball.speed * Math.sin(angle);
+        ball.dx = Math.abs(ball.dx); // always to the right
+        ball.speed += 0.3;
       }
 
       // Right paddle collision
@@ -173,10 +177,16 @@
         ball.y > rightPaddle.y &&
         ball.y < rightPaddle.y + rightPaddle.height
       ) {
-        ball.dx = -ball.dx;
+        let collidePoint = ball.y - (rightPaddle.y + rightPaddle.height / 2);
+        collidePoint = collidePoint / (rightPaddle.height / 2);
+        let angle = (Math.PI / 4) * collidePoint;
+        ball.dx = -ball.speed * Math.cos(angle);
+        ball.dy = ball.speed * Math.sin(angle);
+        ball.dx = -Math.abs(ball.dx); // always to the left
+        ball.speed += 0.3;
       }
 
-      // Score update
+      // Scoring
       if (ball.x - ball.radius < 0) {
         rightScore++;
         resetBall();
@@ -185,14 +195,26 @@
         resetBall();
       }
 
-      // Bot mode logic
-      if (modeSelect.value.startsWith("bot")) {
-        let botSpeed;
-        if (modeSelect.value === "bot-easy") botSpeed = 2;
-        if (modeSelect.value === "bot-medium") botSpeed = 4;
-        if (modeSelect.value === "bot-hard") botSpeed = 6;
+      // Paddle controls
+      if (leftPaddle.moveUp && leftPaddle.y > 0) {
+        leftPaddle.y -= leftPaddle.dy;
+      }
+      if (leftPaddle.moveDown && leftPaddle.y < canvas.height - leftPaddle.height) {
+        leftPaddle.y += leftPaddle.dy;
+      }
 
-        // Bot follows the ball
+      if (modeSelect.value === "2p") {
+        if (rightPaddle.moveUp && rightPaddle.y > 0) {
+          rightPaddle.y -= rightPaddle.dy;
+        }
+        if (rightPaddle.moveDown && rightPaddle.y < canvas.height - rightPaddle.height) {
+          rightPaddle.y += rightPaddle.dy;
+        }
+      } else {
+        let botSpeed = 3;
+        if (modeSelect.value === "bot-medium") botSpeed = 5;
+        if (modeSelect.value === "bot-hard") botSpeed = 7;
+
         if (ball.y < rightPaddle.y + rightPaddle.height / 2 && rightPaddle.y > 0) {
           rightPaddle.y -= botSpeed;
         } else if (ball.y > rightPaddle.y + rightPaddle.height / 2 && rightPaddle.y < canvas.height - rightPaddle.height) {
@@ -201,22 +223,16 @@
       }
     }
 
-    // Render game
     function render() {
       drawRect(0, 0, canvas.width, canvas.height, "#161b22");
-
       drawNet();
-
       drawText(leftScore, canvas.width / 4, 50, "#00ffff");
       drawText(rightScore, (3 * canvas.width) / 4, 50, "#00ffff");
-
       drawRect(leftPaddle.x, leftPaddle.y, leftPaddle.width, leftPaddle.height, "#00ffff");
       drawRect(rightPaddle.x, rightPaddle.y, rightPaddle.width, rightPaddle.height, "#00ffff");
-
       drawCircle(ball.x, ball.y, ball.radius, "#00ffff");
     }
 
-    // Game loop
     function gameLoop() {
       update();
       render();
@@ -224,19 +240,24 @@
 
     setInterval(gameLoop, 1000 / 60);
 
-    // Paddle controls
+    // Key controls
     document.addEventListener("keydown", (e) => {
+      if (e.key === "w") leftPaddle.moveUp = true;
+      if (e.key === "s") leftPaddle.moveDown = true;
+
       if (modeSelect.value === "2p") {
-        if (e.key === "ArrowUp" && rightPaddle.y > 0) {
-          rightPaddle.y -= rightPaddle.dy;
-        } else if (e.key === "ArrowDown" && rightPaddle.y < canvas.height - rightPaddle.height) {
-          rightPaddle.y += rightPaddle.dy;
-        }
+        if (e.key === "ArrowUp") rightPaddle.moveUp = true;
+        if (e.key === "ArrowDown") rightPaddle.moveDown = true;
       }
-      if (e.key === "w" && leftPaddle.y > 0) {
-        leftPaddle.y -= leftPaddle.dy;
-      } else if (e.key === "s" && leftPaddle.y < canvas.height - leftPaddle.height) {
-        leftPaddle.y += leftPaddle.dy;
+    });
+
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "w") leftPaddle.moveUp = false;
+      if (e.key === "s") leftPaddle.moveDown = false;
+
+      if (modeSelect.value === "2p") {
+        if (e.key === "ArrowUp") rightPaddle.moveUp = false;
+        if (e.key === "ArrowDown") rightPaddle.moveDown = false;
       }
     });
   </script>
