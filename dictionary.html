@@ -1,46 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dictionary — Curriculum Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Zero → Mastery — Dictionary (Lessons 1–3)</title>
+  <meta name="description" content="Complete dictionary of all terms and elements introduced so far across Lessons 1–3 of HTML Zero → Mastery." />
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="HTML Zero → Mastery — Dictionary (Lessons 1–3)" />
+  <meta property="og:description" content="Searchable glossary of every term and element covered so far." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sambarnhurst.github.io/Curriculum/dictionary.html" />
+  <meta property="og:image" content="https://sambarnhurst.github.io/Curriculum/images/lesson1picture1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#121212">
+
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #121212;
-      color: #eee;
-      margin: 0;
-      padding: 2em;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+    :root{
+      --bg:#121212;
+      --panel:#1c1c1c;
+      --soft:#222;
+      --text:#eaeaea;
+      --muted:#b6b6b6;
+      --accent:#00ffff;
+      --accent-2:#4de1ff;
+      --ok:#57e389;
+      --warn:#ffbf69;
+      --err:#ff6b6b;
+      --code:#0d0d0d;
+      --link:#7bd4ff;
+      --border:#2a2a2a;
     }
-    h1 {
-      color: #00ffff;
-      margin-bottom: 1em;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
+      /* Same background image as the lessons (dictionary.html lives at /Curriculum/) */
+      background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+        url('images/lesson1picture1.jpg') center / cover fixed no-repeat;
+      background-color:#000; /* fallback */
     }
-    a {
-      display: inline-block;
-      margin-top: 2em;
-      padding: 1em 2em;
-      border-radius: 8px;
-      background: #1f1f1f;
-      color: #eee;
-      text-decoration: none;
-      font-size: 1em;
-      transition: background 0.2s, color 0.2s;
+    a{color:var(--link)}
+
+    /* Skip link */
+    .skip-link{
+      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden
     }
-    a:hover {
-      background: #00b3b3;
-      color: white;
+    .skip-link:focus{
+      left:12px;top:12px;width:auto;height:auto;padding:.5rem .75rem;
+      background:#1c1c1c;border:1px solid #2a2a2a;border-radius:8px;color:#eaeaea;z-index:1000
     }
+
+    header{
+      padding:24px 20px 8px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(0,255,255,.07), transparent 60%);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    h1{margin:0 0 6px;font-weight:800;letter-spacing:.2px}
+    .crumbs{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;font-size:.8rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);margin-left:.3rem}
+    .label{display:inline-block;font-size:.75rem;padding:.2rem .5rem;border-radius:6px;background:#0e2d2d;color:#a6f0f0;border:1px solid #123e3e;margin-left:.5rem}
+    .footer-note{color:var(--muted);font-size:.95rem}
+
+    main{padding:20px 0 60px}
+    section.card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:20px;
+      margin:16px 0;
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
+    }
+    section.card h2{margin-top:0;color:var(--accent)}
+
+    /* Lesson navigation buttons */
+    .lesson-nav{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin:16px 0; padding:12px;
+      background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    }
+    .btn{
+      display:inline-block; text-decoration:none; color:var(--text);
+      padding:.6rem .9rem; border:1px solid var(--border); border-radius:999px;
+      background:var(--soft);
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn.back{border-color:#3f2f2f}
+    .spacer{flex:1}
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+
+    /* Dictionary UI */
+    .dict-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:8px 0 14px}
+    .dict-search{display:flex;gap:.5rem;align-items:center;flex:1;min-width:260px}
+    .dict-search input[type="search"]{
+      flex:1; min-width:220px; padding:.55rem .7rem; border:1px solid var(--border);
+      border-radius:10px; background:var(--soft); color:var(--text)
+    }
+    .dict-meta{color:var(--muted);font-size:.9rem}
+    .filters{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .filter-chip{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .6rem;border:1px solid var(--border);border-radius:999px;background:var(--soft)}
+    .filter-chip input{accent-color:#00ffff}
+
+    .dict-az{display:flex;gap:.4rem;flex-wrap:wrap;margin:8px 0 14px}
+    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+
+    .dictionary{margin:0}
+    .dictionary dt{margin-top:.6rem;font-weight:700}
+    .dictionary dd{margin:0 0 .75rem 0;color:var(--text)}
+    .dict-letter{
+      margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);
+      border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600
+    }
+    .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    kbd{border:1px solid var(--border);background:var(--soft);padding:0 .35rem;border-radius:6px}
   </style>
 </head>
 <body>
-  <h1>📖 Dictionary</h1>
-  <p>Nothing here yet. Stay tuned!</p>
-  <a href="home.html">⬅ Back to Home</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header>
+    <div class="container">
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Dictionary</strong> <span class="badge">Lessons 1–3</span></div>
+      <h1>Global Dictionary <span class="label">All terms we’ve covered so far</span></h1>
+
+      <!-- Top navigation -->
+      <nav class="lesson-nav" aria-label="Page navigation">
+        <a href="index.html" class="btn back">← Back to Curriculum</a>
+        <span class="spacer" aria-hidden="true"></span>
+        <a href="lessons/lesson1.html" class="btn">Lesson 1</a>
+        <a href="lessons/lesson2.html" class="btn">Lesson 2</a>
+        <a href="lessons/lesson3.html" class="btn">Lesson 3</a>
+      </nav>
+
+      <div class="footer-note">This page aggregates every term/element introduced in Lessons 1–3. Use search or filter by lesson.</div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="card">
+      <h2>Search & Filters</h2>
+
+      <div class="dict-controls">
+        <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+          <label for="dictSearch" class="visually-hidden">Search terms</label>
+          <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
+        </form>
+
+        <div class="filters" role="group" aria-label="Filter by lesson">
+          <label class="filter-chip"><input type="checkbox" name="lessonFilter" value="1" checked /> Lesson 1</label>
+          <label class="filter-chip"><input type="checkbox" name="lessonFilter" value="2" checked /> Lesson 2</label>
+          <label class="filter-chip"><input type="checkbox" name="lessonFilter" value="3" checked /> Lesson 3</label>
+          <button id="selectAll" class="pill" type="button">Select All</button>
+          <button id="clearAll" class="pill" type="button">Clear</button>
+        </div>
+
+        <div class="dict-meta"><strong id="dictCount"></strong> terms shown</div>
+        <button type="button" id="dictExport" class="pill">Export JSON</button>
+      </div>
+
+      <!-- A–Z jump -->
+      <nav class="dict-az" aria-label="A to Z">
+        <a href="#dict-A">A</a><a href="#dict-B">B</a><a href="#dict-C">C</a><a href="#dict-D">D</a>
+        <a href="#dict-E">E</a><a href="#dict-F">F</a><a href="#dict-H">H</a><a href="#dict-I">I</a>
+        <a href="#dict-J">J</a><a href="#dict-L">L</a><a href="#dict-M">M</a><a href="#dict-N">N</a>
+        <a href="#dict-P">P</a><a href="#dict-Q">Q</a><a href="#dict-R">R</a><a href="#dict-S">S</a>
+        <a href="#dict-T">T</a><a href="#dict-U">U</a><a href="#dict-V">V</a>
+      </nav>
+
+      <!-- Dictionary items (Lessons 1–3) -->
+      <dl class="dictionary" id="dictList">
+        <!-- A -->
+        <dt id="dict-A" aria-hidden="true" class="dict-letter">A</dt>
+        <dt data-keys="addeventlistener listener event" data-lessons="2">addEventListener</dt>
+        <dd>JavaScript method to attach event handlers without inline attributes (e.g., <code>elem.addEventListener('click', fn)</code>).</dd>
+
+        <dt data-keys="attribute html attribute" data-lessons="1">Attribute</dt>
+        <dd>Extra information on an element’s start tag (e.g., <code>lang</code>, <code>charset</code>, <code>rel</code>, <code>id</code>).</dd>
+
+        <dt data-keys="article semantic" data-lessons="2">&lt;article&gt;</dt>
+        <dd>Self-contained composition (e.g., a card or post) within the main content.</dd>
+
+        <!-- B -->
+        <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+        <dt data-keys="body root content" data-lessons="1">&lt;body&gt;</dt>
+        <dd>Document’s visible content container.</dd>
+
+        <dt data-keys="blocking resources performance render delay" data-lessons="3">Blocking resource</dt>
+        <dd>Resource (often CSS/JS) that delays initial rendering until it’s loaded/processed.</dd>
+
+        <dt data-keys="br line break" data-lessons="1">&lt;br&gt;</dt>
+        <dd>Line break. Use sparingly—prefer paragraphs and CSS spacing.</dd>
+
+        <dt data-keys="browser parsing rendering devtools" data-lessons="3">Browser</dt>
+        <dd>The application that fetches, parses, and renders web pages.</dd>
+
+        <dt data-keys="broken html errors invalid" data-lessons="3">Broken HTML</dt>
+        <dd>Invalid or malformed markup that can cause unpredictable rendering.</dd>
+
+        <dt data-keys="button ui control click" data-lessons="2">&lt;button&gt;</dt>
+        <dd>Interactive control; pair with JS listeners for behavior.</dd>
+
+        <!-- C -->
+        <dt id="dict-C" aria-hidden="true" class="dict-letter">C</dt>
+        <dt data-keys="charset encoding meta" data-lessons="1">charset (meta)</dt>
+        <dd>Declares character encoding, e.g., <code>&lt;meta charset="UTF-8"&gt;</code>.</dd>
+
+        <dt data-keys="class css hook" data-lessons="2">class (attribute)</dt>
+        <dd>Token(s) used as styling/JS hooks (e.g., <code>class="warning"</code>).</dd>
+
+        <dt data-keys="console devtools logs" data-lessons="3">Console</dt>
+        <dd>DevTools tab showing logs, warnings, and errors from scripts.</dd>
+
+        <dt data-keys="comment html note" data-lessons="1">Comment (<code>&lt;!-- --&gt;</code>)</dt>
+        <dd>Note for developers; not rendered by the browser.</dd>
+
+        <dt data-keys="css style presentation" data-lessons="2,3">CSS</dt>
+        <dd>Presentation layer: layout, spacing, color, typography, responsiveness.</dd>
+
+        <dt data-keys="cssom styles tree" data-lessons="2,3">CSSOM</dt>
+        <dd>Tree of parsed CSS rules; combined with the DOM to create the render tree.</dd>
+
+        <!-- D -->
+        <dt id="dict-D" aria-hidden="true" class="dict-letter">D</dt>
+        <dt data-keys="defer script loading" data-lessons="2">defer (script attribute)</dt>
+        <dd>Downloads a script during parsing and executes after the document is parsed.</dd>
+
+        <dt data-keys="details disclosure" data-lessons="2">&lt;details&gt;</dt>
+        <dd>Native disclosure widget used for hints/solutions.</dd>
+
+        <dt data-keys="devtools inspector elements console" data-lessons="3">DevTools</dt>
+        <dd>Built-in browser tools to inspect and debug pages.</dd>
+
+        <dt data-keys="dom document object model tree" data-lessons="2,3">DOM</dt>
+        <dd>Document Object Model — the tree built by parsing HTML.</dd>
+
+        <dt data-keys="doctype standards mode" data-lessons="1">&lt;!DOCTYPE html&gt;</dt>
+        <dd>Tells the browser to use standards mode (avoid quirks mode).</dd>
+
+        <!-- E -->
+        <dt id="dict-E" aria-hidden="true" class="dict-letter">E</dt>
+        <dt data-keys="element html node" data-lessons="1">Element</dt>
+        <dd>A complete unit of markup: the tag(s) plus its content and attributes.</dd>
+
+        <dt data-keys="em emphasis italics" data-lessons="1">&lt;em&gt;</dt>
+        <dd>Emphasized text that affects meaning.</dd>
+
+        <dt data-keys="event listener" data-lessons="2">Event listener</dt>
+        <dd>Function responding to user/system events (click, input, etc.).</dd>
+
+        <!-- F -->
+        <dt id="dict-F" aria-hidden="true" class="dict-letter">F</dt>
+        <dt data-keys="fetch network request" data-lessons="3">Fetch</dt>
+        <dd>Retrieving a resource (like an HTML file) over the network or filesystem.</dd>
+
+        <!-- H -->
+        <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
+        <dt data-keys="head metadata" data-lessons="1">&lt;head&gt;</dt>
+        <dd>Metadata container: title, meta tags, links, etc.</dd>
+
+        <dt data-keys="header landmark" data-lessons="2">&lt;header&gt;</dt>
+        <dd>Introductory content/navigation for a page or section.</dd>
+
+        <dt data-keys="heading h1 h2 h3 h4 h5 h6" data-lessons="1">Headings (&lt;h1&gt;…&lt;h6&gt;)</dt>
+        <dd>Define the document outline; <code>&lt;h1&gt;</code> is the top-level heading.</dd>
+
+        <dt data-keys="hidden boolean attribute" data-lessons="2">hidden (attribute)</dt>
+        <dd>Boolean attribute to hide content (e.g., toggle with JS by flipping <code>elem.hidden</code>).</dd>
+
+        <dt data-keys="hr horizontal rule" data-lessons="1">&lt;hr&gt;</dt>
+        <dd>Thematic break (horizontal rule) between sections.</dd>
+
+        <dt data-keys="html language hyper text" data-lessons="1,3">HTML</dt>
+        <dd>HyperText Markup Language — the structure and meaning of web pages.</dd>
+
+        <dt data-keys="html root element" data-lessons="1">&lt;html&gt;</dt>
+        <dd>Root element that wraps the entire page. Often includes a <code>lang</code> attribute.</dd>
+
+        <!-- I -->
+        <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
+        <dt data-keys="id unique identifier" data-lessons="2">id (attribute)</dt>
+        <dd>Unique identifier for an element (<code>id="themeBtn"</code>), used to select it in JS or link targets.</dd>
+
+        <dt data-keys="inline styles anti pattern" data-lessons="2">Inline styles</dt>
+        <dd>CSS placed directly on elements via <code>style="..."</code>; discouraged in favor of classes.</dd>
+
+        <dt data-keys="invalid nesting" data-lessons="3">Invalid nesting</dt>
+        <dd>Placing elements in disallowed positions, forcing the parser to auto-correct.</dd>
+
+        <!-- J -->
+        <dt id="dict-J" aria-hidden="true" class="dict-letter">J</dt>
+        <dt data-keys="javascript behavior" data-lessons="2,3">JavaScript (JS)</dt>
+        <dd>Behavior layer: events, state, DOM/CSSOM updates, storage, fetch.</dd>
+
+        <!-- L -->
+        <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
+        <dt data-keys="lang language attribute" data-lessons="1">lang (attribute)</dt>
+        <dd>Declares the language of the document/element (e.g., <code>&lt;html lang="en"&gt;</code>).</dd>
+
+        <dt data-keys="link stylesheet rel href" data-lessons="2">&lt;link&gt;</dt>
+        <dd>References a stylesheet: <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code>.</dd>
+
+        <dt data-keys="localstorage storage theme" data-lessons="2">localStorage</dt>
+        <dd>Key–value storage for persisting simple preferences (e.g., theme).</dd>
+
+        <!-- M -->
+        <dt id="dict-M" aria-hidden="true" class="dict-letter">M</dt>
+        <dt data-keys="main landmark" data-lessons="2">&lt;main&gt;</dt>
+        <dd>Primary content landmark of the page.</dd>
+
+        <dt data-keys="meta tag" data-lessons="1">&lt;meta&gt;</dt>
+        <dd>Metadata element for character set, viewport, descriptions, etc.</dd>
+
+        <!-- N -->
+        <dt id="dict-N" aria-hidden="true" class="dict-letter">N</dt>
+        <dt data-keys="nav navigation" data-lessons="2">&lt;nav&gt;</dt>
+        <dd>Section containing navigation links.</dd>
+
+        <!-- P -->
+        <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+        <dt data-keys="p paragraph" data-lessons="1,2">&lt;p&gt;</dt>
+        <dd>Paragraph of text.</dd>
+
+        <dt data-keys="paint pixels render" data-lessons="3">Paint</dt>
+        <dd>Stage where the browser fills pixels (text, colors, borders) onto layers.</dd>
+
+        <dt data-keys="parse parser" data-lessons="3">Parse / Parser</dt>
+        <dd>The process/tool that reads HTML/CSS and builds the corresponding trees.</dd>
+
+        <dt data-keys="performance speed" data-lessons="3">Performance</dt>
+        <dd>How fast a page renders/responds; impacted by blocking resources.</dd>
+
+        <!-- Q -->
+        <dt id="dict-Q" aria-hidden="true" class="dict-letter">Q</dt>
+        <dt data-keys="quirks mode standards doctype" data-lessons="1">Quirks Mode</dt>
+        <dd>Legacy rendering mode triggered without a proper DOCTYPE. Avoid it.</dd>
+
+        <!-- R -->
+        <dt id="dict-R" aria-hidden="true" class="dict-letter">R</dt>
+        <dt data-keys="rel relationship attribute" data-lessons="2">rel (attribute)</dt>
+        <dd>Relationship of a linked resource (e.g., <code>rel="stylesheet"</code> on <code>&lt;link&gt;</code>).</dd>
+
+        <dt data-keys="render tree dom cssom" data-lessons="2,3">Render Tree</dt>
+        <dd>Structure created by combining the DOM and CSSOM for layout/paint.</dd>
+
+        <dt data-keys="resources css js images" data-lessons="3">Resources</dt>
+        <dd>External files referenced by HTML, including CSS, JavaScript, and images.</dd>
+
+        <!-- S -->
+        <dt id="dict-S" aria-hidden="true" class="dict-letter">S</dt>
+        <dt data-keys="script src defer" data-lessons="2">&lt;script&gt;</dt>
+        <dd>Loads and executes JavaScript. Use <code>defer</code> for non-blocking behavior.</dd>
+
+        <dt data-keys="separation concerns layers" data-lessons="2">Separation of Concerns</dt>
+        <dd>Keeping structure (HTML), presentation (CSS), and behavior (JS) in distinct layers.</dd>
+
+        <dt data-keys="src source attribute" data-lessons="2">src (attribute)</dt>
+        <dd>Specifies the external resource for scripts (and other elements).</dd>
+
+        <dt data-keys="strong importance bold" data-lessons="1">&lt;strong&gt;</dt>
+        <dd>Strong importance; conveys semantic emphasis.</dd>
+
+        <dt data-keys="summary details" data-lessons="2">&lt;summary&gt;</dt>
+        <dd>Label for a <code>&lt;details&gt;</code> disclosure widget.</dd>
+
+        <!-- T -->
+        <dt id="dict-T" aria-hidden="true" class="dict-letter">T</dt>
+        <dt data-keys="tag markup" data-lessons="1">&lt;tag&gt; (Tag)</dt>
+        <dd>The markup keyword in angle brackets (e.g., <code>&lt;p&gt;</code> or <code>&lt;/p&gt;</code>).</dd>
+
+        <dt data-keys="title document head" data-lessons="1">&lt;title&gt;</dt>
+        <dd>Page title shown in the browser tab and bookmarks.</dd>
+
+        <!-- U -->
+        <dt id="dict-U" aria-hidden="true" class="dict-letter">U</dt>
+        <dt data-keys="utf-8 unicode encoding" data-lessons="1">UTF-8</dt>
+        <dd>Unicode character encoding recommended for modern pages.</dd>
+
+        <dt data-keys="url address location" data-lessons="3">URL</dt>
+        <dd>The address the browser loads when fetching a page or resource.</dd>
+
+        <!-- V -->
+        <dt id="dict-V" aria-hidden="true" class="dict-letter">V</dt>
+        <dt data-keys="viewport meta responsive" data-lessons="1">Viewport (meta)</dt>
+        <dd>Controls layout viewport on mobile (e.g., <code>width=device-width, initial-scale=1</code>).</dd>
+      </dl>
+    </section>
+
+    <footer class="footer-note" style="padding:24px 0 40px">
+      © HTML Zero → Mastery · Global Dictionary. Works offline.
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      const list = document.getElementById('dictList');
+      const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
+        const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
+        return {
+          dt,
+          dd,
+          lessons: (dt.dataset.lessons || '').split(',').map(s => s.trim()).filter(Boolean),
+          text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')).toLowerCase()
+        };
+      });
+
+      const searchInput = document.getElementById('dictSearch');
+      const countEl = document.getElementById('dictCount');
+      const exportBtn = document.getElementById('dictExport');
+      const lessonChecks = Array.from(document.querySelectorAll('input[name="lessonFilter"]'));
+      const selectAll = document.getElementById('selectAll');
+      const clearAll = document.getElementById('clearAll');
+
+      function activeLessons(){
+        const vals = lessonChecks.filter(c => c.checked).map(c => c.value);
+        // if none selected, treat as none (show nothing) — user can hit Select All
+        return vals;
+      }
+
+      function updateLetterVisibility(){
+        list.querySelectorAll('.dict-letter').forEach(letter => {
+          let next = letter.nextElementSibling, any=false;
+          while (next && !next.classList.contains('dict-letter')) {
+            if (next.style.display !== 'none') { any = true; break; }
+            next = next.nextElementSibling;
+          }
+          letter.style.display = any ? '' : 'none';
+        });
+      }
+
+      function updateCount(){
+        const visible = items.filter(i => i.dt.style.display !== 'none').length;
+        countEl.textContent = visible.toString();
+      }
+
+      function filter(){
+        const q = (searchInput.value || '').trim().toLowerCase();
+        const lessons = activeLessons();
+        items.forEach(({dt, dd, text, lessons:ls}) => {
+          const lessonMatch = lessons.length === 0 ? false : ls.some(l => lessons.includes(l));
+          const searchMatch = !q || text.includes(q);
+          const show = lessonMatch && searchMatch;
+          dt.style.display = show ? '' : 'none';
+          if (dd) dd.style.display = show ? '' : 'none';
+        });
+        updateLetterVisibility();
+        updateCount();
+      }
+
+      searchInput.addEventListener('input', filter);
+      lessonChecks.forEach(cb => cb.addEventListener('change', filter));
+      selectAll.addEventListener('click', () => {
+        lessonChecks.forEach(cb => cb.checked = true);
+        filter();
+      });
+      clearAll.addEventListener('click', () => {
+        lessonChecks.forEach(cb => cb.checked = false);
+        filter();
+      });
+
+      // init
+      filter();
+
+      // Export JSON of currently visible items
+      exportBtn.addEventListener('click', () => {
+        const data = items
+          .filter(({dt}) => dt.style.display !== 'none')
+          .map(({dt, dd, lessons}) => ({
+            term: dt.textContent.replace(/\s+/g,' ').trim(),
+            lessons,
+            keys: (dt.dataset.keys||'').split(/\s+/).filter(Boolean),
+            definition: (dd?dd.textContent:'').replace(/\s+/g,' ').trim()
+          }));
+        const payload = { lessons_included: activeLessons(), updated: new Date().toISOString(), items: data };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.l1-l3.filtered.json'; a.click();
+        URL.revokeObjectURL(url);
+      });
+    })();
+  </script>
 </body>
 </html>
