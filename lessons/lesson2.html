@@ -1,125 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lesson 2: HTML vs CSS vs JavaScript</title>
-  <meta name="description" content="Lesson 2 of HTML Zero to Mastery: Differences between HTML, CSS, and JavaScript." />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Lesson 2 — HTML vs CSS vs JavaScript</title>
+  <meta name="description" content="Understand the roles of HTML, CSS, and JavaScript; why we separate concerns; and build a small demo combining all three."/>
   <style>
     :root{
-      --bg:#121212;
-      --panel:#1c1c1c;
-      --soft:#222;
-      --text:#eaeaea;
-      --muted:#b6b6b6;
-      --accent:#00ffff;
-      --accent-2:#4de1ff;
-      --code:#0d0d0d;
-      --link:#7bd4ff;
-      --border:#2a2a2a;
+      --bg:#0d1117; --card:#161b22; --ink:#e6edf3; --muted:#30363d;
+      --accent:#00ffff; --accent-2:#00b3b3; --good:#42d392;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      color:var(--text);
-      background:var(--bg);
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+    a{color:var(--accent)}
+    header,main,footer{max-width:960px;margin-inline:auto;padding:1rem}
+    header{display:flex;flex-direction:column;gap:.5rem}
+    .crumbs{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;font-size:.95rem;opacity:.9}
+    .crumbs a{color:var(--ink)}
+    .pill{background:var(--card);border:1px solid var(--muted);border-radius:999px;padding:.2rem .6rem;font-weight:700}
+    h1{color:var(--accent);margin:.25rem 0}
+    .muted{opacity:.85}
+    .card{background:var(--card);border:1px solid var(--muted);border-radius:12px;padding:1rem}
+    .section{margin:1rem 0}
+    .grid{display:grid;gap:1rem}
+    .cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width:800px){.cols-2{grid-template-columns:1fr}}
+    /* code */
+    pre{background:#0f1420;color:#e6edf3;border:1px solid var(--muted);border-radius:10px;padding:1rem;overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.95rem}
+    .codebar{display:flex;gap:.5rem;justify-content:flex-end;margin-bottom:.5rem}
+    .btn{
+      appearance:none;background:var(--card);color:var(--ink);
+      border:1px solid var(--muted);border-radius:10px;padding:.45rem .75rem;
+      font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .04s;
     }
-    header{padding:24px 20px 8px; border-bottom:1px solid var(--border);}
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    h1{margin:0 0 6px; font-weight:800;}
-    main{padding:20px 0 60px}
-    section.card{
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:20px;
-      margin:16px 0;
-      box-shadow:0 4px 24px rgba(0,0,0,.25);
+    .btn:hover{background:#17202a}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{border-color:var(--accent-2)}
+    .btn.primary:hover{background:var(--accent-2);color:#fff}
+    .btn.good{border-color:var(--good)}
+    .btn.good:hover{background:var(--good);color:#001013}
+    .list-tight li{margin:.25rem 0}
+    .task{display:flex;gap:.6rem;align-items:flex-start}
+    input[type="checkbox"]{transform:translateY(3px)}
+    .lesson-nav{display:flex;justify-content:space-between;gap:.5rem;margin:1rem 0 2rem}
+    .sticky-back{
+      position:fixed;bottom:16px;left:16px;z-index:10;
+      padding:.6rem .9rem;border-radius:999px;border:1px solid var(--muted);background:var(--card);
     }
-    section.card h2{margin-top:0;color:var(--accent)}
-    section.card h3{margin:16px 0 8px;color:var(--accent-2)}
-    pre{
-      background:var(--code);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:14px;
-      overflow:auto;
-      margin:12px 0;
-    }
-    code, pre code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.95rem}
-    a{color:var(--link); text-decoration:none}
-    a:hover{text-decoration:underline}
-    .quiz li{margin:.4rem 0}
+    details{background:var(--card);border:1px solid var(--muted);border-radius:10px;padding:.6rem .8rem}
+    summary{cursor:pointer;font-weight:700}
+    @media print{.sticky-back,.lesson-nav,.codebar{display:none} body{background:#fff;color:#000} .card{border-color:#ccc} a{color:#000}}
   </style>
 </head>
 <body>
+  <a class="sticky-back btn" id="backBtn" href="#">⬅ Back</a>
+
   <header>
-    <div class="container">
-      <h1>Lesson 2 — HTML vs CSS vs JavaScript</h1>
-    </div>
+    <nav class="crumbs">
+      <a href="../index.html">Lessons</a> › <a href="./lesson1.html">Lesson 1</a> › <span class="muted">Lesson 2</span>
+      <span class="pill">2 / 600</span>
+    </nav>
+    <h1>Lesson 2 — HTML vs CSS vs JavaScript</h1>
+    <p class="muted">HTML defines structure &amp; meaning, CSS defines presentation, and JavaScript adds behavior. Keeping them separate improves clarity and maintainability.</p>
   </header>
 
-  <main class="container">
-    <section class="card">
+  <main>
+    <section class="section card">
       <h2>Learning Goals</h2>
-      <ul>
-        <li>Understand the role of each layer: HTML, CSS, JavaScript.</li>
+      <ul class="list-tight">
+        <li>Understand the role of each layer: HTML, CSS, and JavaScript.</li>
         <li>Explain why we separate structure, style, and behavior.</li>
         <li>Recognize basic syntax differences.</li>
       </ul>
     </section>
 
-    <section class="card">
+    <section class="section card">
       <h2>1 — HTML: Structure</h2>
-      <p>HTML provides the <strong>skeleton</strong> of a webpage. It tells the browser what content exists.</p>
-      <pre><code>&lt;h1&gt;My Website&lt;/h1&gt;
+      <p>HTML provides the skeleton of a webpage — the content and semantics.</p>
+      <div class="codebar">
+        <button class="btn" data-copy="#htmlCode">📋 Copy</button>
+      </div>
+      <pre><code id="htmlCode">&lt;h1&gt;My Website&lt;/h1&gt;
 &lt;p&gt;Welcome to my site.&lt;/p&gt;
 &lt;a href="about.html"&gt;About me&lt;/a&gt;
-&lt;img src="photo.jpg" alt="A photo"&gt;
-</code></pre>
+&lt;img src="photo.jpg" alt="A photo"&gt;</code></pre>
     </section>
 
-    <section class="card">
+    <section class="section card">
       <h2>2 — CSS: Style</h2>
-      <p>CSS describes <strong>how things look</strong>: layout, colors, fonts, spacing.</p>
-      <pre><code>h1 {
-  color: cyan;
-  font-size: 2rem;
-}
-p {
-  color: #b6b6b6;
-}
-img {
-  border-radius: 8px;
-}
-</code></pre>
+      <p>CSS handles presentation — colors, spacing, fonts, layout.</p>
+      <div class="codebar">
+        <button class="btn" data-copy="#cssCode">📋 Copy</button>
+      </div>
+      <pre><code id="cssCode">h1 { color: cyan; font-size: 2rem; }
+p  { color: #b6b6b6; }
+img{ border-radius: 8px; }</code></pre>
     </section>
 
-    <section class="card">
+    <section class="section card">
       <h2>3 — JavaScript: Behavior</h2>
-      <p>JavaScript controls <strong>interactivity</strong> — reacting to user actions, changing the page, or fetching data.</p>
-      <pre><code>&lt;button id="clickMe"&gt;Click me&lt;/button&gt;
-
-&lt;script&gt;
-  document.getElementById("clickMe")
-    .addEventListener("click", () =&gt; {
-      alert("You clicked the button!");
-    });
-&lt;/script&gt;
-</code></pre>
+      <p>JavaScript reacts to user actions and updates the page.</p>
+      <div class="codebar">
+        <button class="btn" data-copy="#jsCode">📋 Copy</button>
+      </div>
+      <pre><code id="jsCode">document.getElementById("clickMe")
+  .addEventListener("click", () =&gt; {
+    alert("You clicked the button!");
+  });</code></pre>
+      <p class="muted">Example HTML element expected: <code>&lt;button id="clickMe"&gt;Click me&lt;/button&gt;</code></p>
     </section>
 
-    <section class="card">
+    <section class="section card">
+      <div class="codebar">
+        <button class="btn" id="copyAll">📋 Copy Combined</button>
+        <button class="btn primary" id="openAll">▶️ Open Combined</button>
+      </div>
       <h2>Putting It All Together</h2>
-      <p>A full page usually combines all three:</p>
-      <pre><code>&lt;!DOCTYPE html&gt;
+      <p>This assembles the three snippets into a single runnable page:</p>
+      <pre><code id="allCode">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;Demo&lt;/title&gt;
+  &lt;title&gt;Lesson 2 Demo&lt;/title&gt;
   &lt;style&gt;
-    body { background:#121212; color:#eee; }
+    body { background:#121212; color:#eee; font-family: system-ui, sans-serif; }
     h1 { color: cyan; }
   &lt;/style&gt;
 &lt;/head&gt;
@@ -133,38 +138,102 @@ img {
     };
   &lt;/script&gt;
 &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+&lt;/html&gt;</code></pre>
     </section>
 
-    <section class="card">
+    <section class="section card">
       <h2>Practice Task</h2>
-      <ol>
-        <li>Create a new page <code>lesson2-demo.html</code>.</li>
-        <li>Add a heading and a paragraph (HTML).</li>
-        <li>Use CSS to change the background color and text color.</li>
-        <li>Add a button, and use JavaScript to show an alert when clicked.</li>
-      </ol>
+      <ul class="list-tight">
+        <li class="task"><input type="checkbox" data-k="t1"/> Create <code>lesson2-demo.html</code>.</li>
+        <li class="task"><input type="checkbox" data-k="t2"/> Add a heading and a paragraph (HTML).</li>
+        <li class="task"><input type="checkbox" data-k="t3"/> Use CSS to change background and text colors.</li>
+        <li class="task"><input type="checkbox" data-k="t4"/> Add a button and show an alert with JavaScript.</li>
+      </ul>
     </section>
 
-    <section class="card">
+    <section class="section card">
       <h2>Quick Quiz</h2>
-      <ol class="quiz">
+      <ol class="list-tight">
         <li>Which layer is responsible for structure?</li>
         <li>Which handles colors and layout?</li>
         <li>Which enables interactivity?</li>
-        <li>Why do we separate HTML, CSS, and JavaScript?</li>
+        <li>Why separate HTML, CSS, and JavaScript?</li>
       </ol>
+      <details>
+        <summary>Show sample answers</summary>
+        <ul>
+          <li><strong>Structure:</strong> HTML</li>
+          <li><strong>Presentation:</strong> CSS</li>
+          <li><strong>Behavior:</strong> JavaScript</li>
+          <li><strong>Separation:</strong> improves clarity, reuse, teamwork, and maintainability.</li>
+        </ul>
+      </details>
     </section>
 
-    <section class="card">
-      <h2>Navigation</h2>
-      <p>
-        <a href="lesson1.html">⬅ Previous Lesson</a> · 
-        <a href="../index.html">🏠 Main Menu</a> · 
-        <a href="lesson3.html">➡ Next Lesson</a>
-      </p>
-    </section>
+    <nav class="lesson-nav">
+      <a class="btn" href="./lesson1.html">⬅ Prev</a>
+      <a class="btn good" href="./lesson3.html">Next ➡</a>
+    </nav>
   </main>
+
+  <footer class="card" style="margin-bottom:3rem">
+    <small>© Samuel Barnhurst — Built with curiosity.</small>
+  </footer>
+
+  <script>
+    // Sticky Back (history with fallback)
+    document.getElementById('backBtn').addEventListener('click', e=>{
+      e.preventDefault();
+      if (history.length > 1) history.back();
+      else location.href = '../index.html';
+    });
+
+    // Copy helpers
+    function copyText(sel){
+      const el = document.querySelector(sel);
+      return navigator.clipboard.writeText(el.textContent);
+    }
+    document.querySelectorAll('[data-copy]').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const sel = btn.getAttribute('data-copy');
+        try{ await copyText(sel); flash(btn, '✓ Copied'); } catch { flash(btn, 'Copy failed'); }
+      });
+    });
+    document.getElementById('copyAll').addEventListener('click', async ()=>{
+      try{ await copyText('#allCode'); flash(document.getElementById('copyAll'), '✓ Copied'); } catch {}
+    });
+
+    // Open Combined: assemble HTML + inline CSS/JS from the three blocks
+    document.getElementById('openAll').addEventListener('click', ()=>{
+      const html = document.getElementById('htmlCode').textContent;
+      const css  = document.getElementById('cssCode').textContent;
+      const js   = document.getElementById('jsCode').textContent;
+      const doc = `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Lesson 2 Demo</title>
+<style>body{background:#121212;color:#eee;font-family:system-ui,sans-serif} ${css}</style></head>
+<body>${html}
+<button id="clickMe">Click me</button>
+<script>${js}<\/script></body></html>`;
+      const url = URL.createObjectURL(new Blob([doc], {type:'text/html'}));
+      window.open(url,'_blank'); setTimeout(()=>URL.revokeObjectURL(url), 60000);
+    });
+
+    function flash(btn, msg){
+      const prev = btn.textContent; btn.textContent = msg;
+      setTimeout(()=>btn.textContent = prev, 900);
+    }
+
+    // Persist tasks
+    const KEY = 'lesson2_tasks';
+    const boxes = [...document.querySelectorAll('input[type="checkbox"][data-k]')];
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    boxes.forEach(box=>{
+      if (saved[box.dataset.k]) box.checked = true;
+      box.addEventListener('change', ()=>{
+        saved[box.dataset.k] = box.checked;
+        localStorage.setItem(KEY, JSON.stringify(saved));
+      });
+    });
+  </script>
 </body>
 </html>
