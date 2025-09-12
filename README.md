@@ -98,19 +98,6 @@ My mission goes beyond personal mastery — I aim to **make education free and a
 
 ---
 
-## 📊 GitHub Stats  
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Sambarnhurst&show_icons=true&theme=tokyonight&hide_border=true" height="160" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sambarnhurst&layout=compact&theme=tokyonight&hide_border=true" height="160" />
-</p>
-
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Sambarnhurst&theme=tokyonight&hide_border=true" height="160" />
-</p>
-
----
-
 ## 📈 Activity Graph  
 
 <p align="center">
