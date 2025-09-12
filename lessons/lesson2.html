@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTML Zero → Mastery — Lesson 2: HTML vs CSS vs JavaScript</title>
-  <meta name="description" content="Lesson 2 shell — same UI as Lesson 1, with background image and card layout. Content intentionally left as placeholders." />
+  <meta name="description" content="Lesson 2 shell — same UI as Lesson 1, with background image from the images folder and card layout." />
   <style>
     :root{
       --bg:#121212;
@@ -27,11 +27,11 @@
       margin:0;
       font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       color:var(--text);
-      /* Background from images folder with readable overlay.
-         If your images folder is inside /lessons/, change to url('images/lesson2picture1.jpg') */
+      /* Background from images folder (repo: /Curriculum/images/lesson1picture1.jpg)
+         If lesson2.html lives in /Curriculum/lessons/, the correct relative path is ../images/... */
       background:
         linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
-        url('../images/lesson2picture1.jpg') center / cover fixed no-repeat;
+        url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
       background-color:#000; /* fallback if image missing */
     }
     a{color:var(--link)}
@@ -87,13 +87,11 @@
 
     <section class="card">
       <h2>Overview</h2>
-      <!-- TODO: Add a 2–3 sentence overview of Lesson 2 -->
       <p class="footer-note">Add your overview here.</p>
     </section>
 
     <section class="card">
       <h2>Objectives</h2>
-      <!-- TODO: Bullet the learning goals -->
       <ul>
         <li><!-- Goal 1 --></li>
         <li><!-- Goal 2 --></li>
@@ -103,7 +101,6 @@
 
     <section class="card">
       <h2>Core Content</h2>
-      <!-- TODO: Replace with your actual content sections -->
       <div class="two-col">
         <div class="hint">
           <h3>Section A</h3>
@@ -118,7 +115,6 @@
 
     <section class="card">
       <h2>Code Examples</h2>
-      <!-- TODO: Insert code samples -->
       <details><summary>Example 1</summary>
         <pre><code><!-- your code here --></code></pre>
       </details>
@@ -129,7 +125,6 @@
 
     <section class="card">
       <h2>Exercises</h2>
-      <!-- TODO: Add practical tasks -->
       <ol>
         <li><!-- Exercise 1 --></li>
         <li><!-- Exercise 2 --></li>
@@ -145,7 +140,6 @@
 
     <section class="card">
       <h2>Quick Quiz</h2>
-      <!-- TODO: Add quiz questions -->
       <ol>
         <li><!-- Q1 --></li>
         <li><!-- Q2 --></li>
@@ -162,7 +156,6 @@
 
     <section class="card">
       <h2>Glossary</h2>
-      <!-- TODO: Terms & short definitions -->
       <ul>
         <li><strong><!-- Term --></strong> — <!-- definition --></li>
         <li><strong><!-- Term --></strong> — <!-- definition --></li>
@@ -171,7 +164,6 @@
 
     <section class="card">
       <h2>Next Up</h2>
-      <!-- TODO: Link or note next lesson(s) -->
       <div class="next">
         <span class="pill"><!-- Lesson 3 link or label --></span>
         <span class="pill"><!-- Lesson 4 link or label --></span>
