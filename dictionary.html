@@ -77,20 +77,6 @@
     }
     section.card h2{margin-top:0;color:var(--accent)}
 
-    /* Lesson navigation buttons */
-    .lesson-nav{
-      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
-      margin:16px 0; padding:12px;
-      background:var(--panel); border:1px solid var(--border); border-radius:12px;
-    }
-    .btn{
-      display:inline-block; text-decoration:none; color:var(--text);
-      padding:.6rem .9rem; border:1px solid var(--border); border-radius:999px;
-      background:var(--soft);
-    }
-    .btn:hover{filter:brightness(1.05)}
-    .btn.back{border-color:#3f2f2f}
-    .spacer{flex:1}
     .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
 
     /* Dictionary UI */
@@ -127,16 +113,6 @@
     <div class="container">
       <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Dictionary</strong> <span class="badge">Lessons 1–3</span></div>
       <h1>Global Dictionary <span class="label">All terms we’ve covered so far</span></h1>
-
-      <!-- Top navigation -->
-      <nav class="lesson-nav" aria-label="Page navigation">
-        <a href="index.html" class="btn back">← Back to Curriculum</a>
-        <span class="spacer" aria-hidden="true"></span>
-        <a href="lessons/lesson1.html" class="btn">Lesson 1</a>
-        <a href="lessons/lesson2.html" class="btn">Lesson 2</a>
-        <a href="lessons/lesson3.html" class="btn">Lesson 3</a>
-      </nav>
-
       <div class="footer-note">This page aggregates every term/element introduced in Lessons 1–3. Use search or filter by lesson.</div>
     </div>
   </header>
@@ -418,8 +394,7 @@
 
       function activeLessons(){
         const vals = lessonChecks.filter(c => c.checked).map(c => c.value);
-        // if none selected, treat as none (show nothing) — user can hit Select All
-        return vals;
+        return vals; // if none selected, show nothing
       }
 
       function updateLetterVisibility(){
