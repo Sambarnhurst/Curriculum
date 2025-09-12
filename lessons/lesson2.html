@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTML Zero → Mastery — Lesson 2: HTML vs CSS vs JavaScript</title>
-  <meta name="description" content="Lesson 2 of HTML Zero to Mastery: Understand the roles of HTML, CSS, and JavaScript, why we separate concerns, and how the layers work together." />
+  <meta name="description" content="Lesson 2 of HTML Zero to Mastery: HTML vs CSS vs JavaScript — roles, separation of concerns, render pipeline, and a complete layered mini-project." />
   <style>
     :root{
       --bg:#121212;
@@ -22,250 +22,269 @@
       --border:#2a2a2a;
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       color:var(--text);
-      /* Background image with dark overlay for readability */
-      background:
-        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
-        url('lesson2picture1.jpg') center / cover fixed no-repeat;
-      background-color:#000; /* fallback if image missing */
+      background:var(--bg); /* same as Lesson 1 */
     }
     header{
-      padding: 24px 20px 8px;
+      padding:24px 20px 8px;
       border-bottom:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(0,255,255,0.07), transparent 60%);
+      background:linear-gradient(180deg, rgba(0,255,255,.07), transparent 60%);
     }
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    h1{margin:0 0 6px; font-weight:800; letter-spacing:.2px}
-    .crumbs{color:var(--muted); font-size:.95rem}
-    .badge{display:inline-block; font-size:.8rem; padding:.2rem .5rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); margin-left:.3rem}
-    main{padding: 20px 0 60px}
+    h1{margin:0 0 6px;font-weight:800;letter-spacing:.2px}
+    .crumbs{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;font-size:.8rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);margin-left:.3rem}
+    .label{display:inline-block;font-size:.75rem;padding:.2rem .5rem;border-radius:6px;background:#0e2d2d;color:#a6f0f0;border:1px solid #123e3e;margin-left:.5rem}
+    main{padding:20px 0 60px}
     section.card{
       background:var(--panel);
       border:1px solid var(--border);
       border-radius:14px;
       padding:20px;
       margin:16px 0;
-      box-shadow: 0 4px 24px rgba(0,0,0,.45);
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
     }
     section.card h2{margin-top:0;color:var(--accent)}
     section.card h3{margin:22px 0 8px;color:var(--accent-2)}
-    .two-col{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); align-items:start;}
+    .two-col{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start}
     .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .hint{border-left:4px solid var(--accent); padding:8px 12px; background:var(--soft); border-radius:8px}
+    .hint{border-left:4px solid var(--accent);padding:8px 12px;background:var(--soft);border-radius:8px}
     pre{
       background:var(--code);
       border:1px solid var(--border);
       border-radius:12px;
-      padding:14px;
-      overflow:auto;
-      margin: 12px 0;
+      padding:14px;overflow:auto;margin:12px 0
     }
-    code, pre code{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:.95rem}
-    details{background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:10px 12px; margin:10px 0}
-    details > summary{cursor:pointer; font-weight:600; color:var(--accent)}
-    .pill{display:inline-block; padding:.5rem .75rem; border-radius:999px; border:1px solid var(--border); background:var(--soft); color:var(--text); text-decoration:none;}
-    .footer-note{color:var(--muted); font-size:.95rem}
-    .kbd{border:1px solid var(--border); background:var(--soft); padding:0 .35rem; border-radius:6px; font-family:ui-monospace,monospace}
-    ul.tight li{margin:.25rem 0}
-    .callout{border:1px solid var(--border); background:#0e2d2d; color:#a6f0f0; border-radius:12px; padding:12px 14px}
-    .warn{border:1px solid var(--border); background:#2d1e0e; color:#ffd9a3; border-radius:12px; padding:12px 14px}
-    .next{display:flex; gap:12px; flex-wrap:wrap}
+    code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:.95rem}
+    details{background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin:10px 0}
+    details>summary{cursor:pointer;font-weight:600;color:var(--accent)}
+    .quiz li{margin:.4rem 0}
+    .checklist li{margin:.3rem 0}
+    .next{display:flex;gap:12px;flex-wrap:wrap}
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+    .footer-note{color:var(--muted);font-size:.95rem}
+    .kbd{border:1px solid var(--border);background:var(--soft);padding:0 .35rem;border-radius:6px;font-family:ui-monospace,monospace}
   </style>
 </head>
 <body>
   <header>
     <div class="container">
       <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 2: HTML vs CSS vs JavaScript</strong> <span class="badge">Foundations</span></div>
-      <h1>Lesson 2 — HTML vs CSS vs JavaScript</h1>
-      <div class="footer-note">Estimated time: 60–75 minutes · You’ll build a layered page and refactor anti-patterns</div>
+      <h1>Lesson 2 — HTML vs CSS vs JavaScript <span class="label">Layer Roles & Separation</span></h1>
+      <div class="footer-note">Estimated time: 60–75 minutes · You’ll build a complete layered page</div>
     </div>
   </header>
 
   <main class="container">
-
+    <!-- Learning Goals -->
     <section class="card">
       <h2>Learning Goals</h2>
-      <ul class="tight">
-        <li>Explain the <strong>role of each layer</strong>: HTML (structure), CSS (presentation), JS (behavior).</li>
-        <li>Apply <strong>separation of concerns</strong> to a small page.</li>
-        <li>Recognize and refactor <strong>common anti-patterns</strong> (inline styles, inline event handlers).</li>
-        <li>Understand how browsers build the <strong>DOM</strong>, <strong>CSSOM</strong>, and <strong>Render Tree</strong>.</li>
-        <li>Practice a tiny feature: <strong>theme toggle</strong> implemented cleanly.</li>
+      <ul>
+        <li>Explain the roles of <strong>HTML</strong> (structure), <strong>CSS</strong> (presentation), and <strong>JavaScript</strong> (behavior).</li>
+        <li>Apply <strong>separation of concerns</strong> with clean HTML/CSS/JS files.</li>
+        <li>Understand the <strong>DOM</strong>, <strong>CSSOM</strong>, and <strong>Render Tree</strong> mental model.</li>
+        <li>Build a triad mini-project with a <strong>theme toggle</strong> and local storage.</li>
+        <li>Avoid common <strong>anti-patterns</strong> (inline styles and inline event handlers).</li>
       </ul>
     </section>
 
+    <!-- Part 1 -->
     <section class="card">
-      <h2>Part 1 — The Three-Layer Cake</h2>
-      <div class="grid-3">
-        <div class="hint">
-          <h3>HTML — Structure</h3>
-          <p>Headings, paragraphs, lists, images, forms, semantic landmarks.</p>
+      <h2>Part 1 — The Big Idea</h2>
+      <p>Web pages are best built in <strong>layers</strong> so each concern stays focused:</p>
+      <div class="two-col">
+        <div>
+          <h3>What each layer does</h3>
+          <ul>
+            <li><strong>HTML:</strong> structure & semantics — headings, paragraphs, links, forms, landmarks.</li>
+            <li><strong>CSS:</strong> presentation — layout, spacing, colors, typography, responsive rules.</li>
+            <li><strong>JavaScript:</strong> behavior — events, dynamic updates, data fetching, state.</li>
+          </ul>
+          <div class="hint"><strong>Key idea:</strong> HTML should be useful <em>even without</em> CSS/JS. CSS makes it beautiful; JS makes it interactive.</div>
         </div>
-        <div class="hint">
-          <h3>CSS — Presentation</h3>
-          <p>Layout, spacing, colors, fonts, responsive rules, animations.</p>
-        </div>
-        <div class="hint">
-          <h3>JS — Behavior</h3>
-          <p>Event handling, dynamic updates, data fetching, state.</p>
+        <div>
+          <h3>What not to mix</h3>
+          <ul>
+            <li>Don’t style with HTML attributes or deprecated tags (e.g., <code>&lt;font&gt;</code>).</li>
+            <li>Don’t wire events inline (e.g., <code>onclick="..."</code>) — prefer JS listeners.</li>
+          </ul>
+          <p class="footer-note">Clean separation makes testing, maintenance, and teamwork far easier.</p>
         </div>
       </div>
-      <div class="callout"><strong>Mental model:</strong> HTML should be readable and useful <em>even without</em> CSS/JS. CSS makes it beautiful. JS makes it interactive.</div>
     </section>
 
+    <!-- Part 2 -->
     <section class="card">
-      <h2>Part 2 — A Minimal Triad Example</h2>
-      <p>Here’s a tiny site showing the three layers working together.</p>
-      <details open><summary><strong>index.html</strong> (HTML)</summary>
-        <pre><code>&lt;!DOCTYPE html&gt;
+      <h2>Part 2 — Where Each Layer Fits</h2>
+      <div class="grid-3">
+        <div class="hint">
+          <h3>HTML</h3>
+          <p>All the content and semantic structure: <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;button&gt;</code>…</p>
+        </div>
+        <div class="hint">
+          <h3>CSS</h3>
+          <p>Visuals and layout: color schemes, spacing systems, grid/flex, fonts, animations.</p>
+        </div>
+        <div class="hint">
+          <h3>JS</h3>
+          <p>Behavior and state: event listeners, UI toggles, fetching data, saving preferences.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Part 3 -->
+    <section class="card">
+      <h2>Part 3 — The Anatomy of a Triad Page</h2>
+      <p>This minimal triad demonstrates each layer in its proper place.</p>
+      <pre><code>&lt;!DOCTYPE html&gt; &lt;!-- modern mode --&gt;
 &lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-  &lt;title&gt;Triad Example&lt;/title&gt;
-  &lt;link rel="stylesheet" href="styles.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;header&gt;
-    &lt;h1&gt;Hello, Triad!&lt;/h1&gt;
-    &lt;button id="themeBtn"&gt;Toggle Theme&lt;/button&gt;
-  &lt;/header&gt;
-
-  &lt;main&gt;
-    &lt;article&gt;
-      &lt;h2&gt;Why separation of concerns?&lt;/h2&gt;
-      &lt;p&gt;Keeping structure, style, and behavior separate makes code easier to read, test, and maintain.&lt;/p&gt;
-    &lt;/article&gt;
-  &lt;/main&gt;
-
-  &lt;script src="app.js" defer&gt;&lt;/script&gt;
-&lt;/body&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;title&gt;Triad Example&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt; &lt;!-- CSS layer --&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h1&gt;Hello, Triad!&lt;/h1&gt;
+      &lt;button id="themeBtn"&gt;Toggle Theme&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;article&gt;
+        &lt;h2&gt;Why separation of concerns?&lt;/h2&gt;
+        &lt;p&gt;Structure, style, and behavior live in their own layers.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
+    &lt;script src="app.js" defer&gt;&lt;/script&gt; &lt;!-- JS layer --&gt;
+  &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-      </details>
+    </section>
 
-      <details><summary><strong>styles.css</strong> (CSS)</summary>
-        <pre><code>/* Base style */
-:root { color-scheme: light dark; }
+    <!-- Part 4 -->
+    <section class="card">
+      <h2>Part 4 — Terms & Mental Model</h2>
+      <pre><code>HTML  →  Parser  →  DOM Tree
+CSS   →  Parser  →  CSSOM Tree
+DOM + CSSOM → Render Tree → Layout → Paint → Composite
+JS can read/modify DOM & CSSOM and trigger reflow/paint when needed.</code></pre>
+      <p class="footer-note">DevTools shows the live DOM and Computed styles so you can debug mismatches quickly.</p>
+    </section>
+
+    <!-- Part 5 -->
+    <section class="card">
+      <h2>Part 5 — Build Your Layered Page (Step-by-Step)</h2>
+      <ol class="checklist">
+        <li>Create a folder <strong>lesson-02</strong>.</li>
+        <li>Create <strong>index.html</strong>, <strong>styles.css</strong>, and <strong>app.js</strong>.</li>
+        <li>Copy the HTML from Part 3 into <strong>index.html</strong>.</li>
+        <li>Add base styles and a theme modifier in <strong>styles.css</strong>.</li>
+        <li>Implement a <strong>theme toggle</strong> in <strong>app.js</strong> and store the preference.</li>
+        <li>Open <strong>index.html</strong> in the browser and test.</li>
+      </ol>
+      <details><summary>Starter CSS</summary>
+        <pre><code>:root { color-scheme: light dark; }
 body { font-family: system-ui, sans-serif; margin: 0; line-height: 1.6; padding: 1.25rem; }
 header { display: flex; gap: .75rem; align-items: center; justify-content: space-between; }
 button { padding: .5rem .75rem; border: 1px solid #ccc; border-radius: .5rem; background: #f4f4f4; cursor: pointer; }
 main { max-width: 60ch; }
-
-/* Theme modifier */
 .dark body { background: #121212; color: #eaeaea; }
-.light body { background: #ffffff; color: #222; }
-</code></pre>
+.light body { background: #ffffff; color: #222; }</code></pre>
       </details>
-
-      <details><summary><strong>app.js</strong> (JS)</summary>
+      <details><summary>Starter JS</summary>
         <pre><code>const btn = document.getElementById('themeBtn');
-// Store preference
 const saved = localStorage.getItem('theme');
 if (saved) document.documentElement.className = saved;
-
 btn.addEventListener('click', () =&gt; {
   const root = document.documentElement;
   const next = root.classList.contains('dark') ? 'light' : 'dark';
   root.className = next;
   localStorage.setItem('theme', next);
-});
-</code></pre>
+});</code></pre>
       </details>
     </section>
 
+    <!-- Part 6 -->
     <section class="card">
-      <h2>Part 3 — Render Pipeline (Mental Diagram)</h2>
-      <pre><code>HTML  →  Parser  →  DOM Tree
-CSS   →  Parser  →  CSSOM Tree
-DOM + CSSOM → Render Tree → Layout → Paint → Composite
-JS can read/modify DOM & CSSOM and trigger reflow/paint when needed.
-</code></pre>
-      <p class="footer-note">You’ll use DevTools to view computed styles and the DOM to debug mismatches.</p>
+      <h2>Part 6 — Open, Refresh, and Inspect</h2>
+      <ul>
+        <li>Open <strong>index.html</strong> in your browser (double-click or drag to a tab).</li>
+        <li>Edit files, save (<span class="kbd">Ctrl</span>/<span class="kbd">Cmd</span> + <span class="kbd">S</span>), and refresh.</li>
+        <li>Right-click → <strong>Inspect</strong> → Elements &amp; Computed to see HTML and final styles.</li>
+      </ul>
+      <div class="hint"><strong>Tip:</strong> If the toggle “does nothing”, confirm the script is loaded with <code>defer</code> and check the Console for errors.</div>
     </section>
 
+    <!-- Part 7 -->
     <section class="card">
-      <h2>Part 4 — Anti-Patterns to Avoid</h2>
+      <h2>Part 7 — Common Anti-Patterns</h2>
       <div class="two-col">
-        <div class="warn">
+        <div>
           <h3>❌ Inline styles</h3>
           <pre><code>&lt;p style="color:red;font-size:24px"&gt;Hi&lt;/p&gt;</code></pre>
-          <p><strong>Problems:</strong> hard to reuse, hard to override, mixes concerns.</p>
+          <p><strong>Why it hurts:</strong> hard to reuse or override; mixes concerns.</p>
         </div>
-        <div class="hint">
-          <h3>✅ Move to CSS</h3>
-          <pre><code>&lt;p class="warning"&gt;Hi&lt;/p&gt;</code></pre>
-          <pre><code>.warning { color: red; font-size: 24px; }</code></pre>
+        <div>
+          <h3>✅ Use classes + CSS</h3>
+          <pre><code>&lt;p class="warning"&gt;Hi&lt;/p&gt;
+/* CSS */ .warning { color:red; font-size:24px; }</code></pre>
         </div>
       </div>
       <div class="two-col">
-        <div class="warn">
+        <div>
           <h3>❌ Inline event handlers</h3>
           <pre><code>&lt;button onclick="doThing()"&gt;Click&lt;/button&gt;</code></pre>
         </div>
-        <div class="hint">
+        <div>
           <h3>✅ Add listeners in JS</h3>
           <pre><code>&lt;button id="doBtn"&gt;Click&lt;/button&gt;
 &lt;script&gt;
-  document.getElementById('doBtn').addEventListener('click', doThing);
-  function doThing(){ alert('Done!'); }
+  document.getElementById('doBtn').addEventListener('click', () =&gt; alert('Done!'));
 &lt;/script&gt;</code></pre>
         </div>
       </div>
     </section>
 
+    <!-- Part 8 -->
     <section class="card">
-      <h2>Part 5 — Hands-On: Refactor a Messy Page</h2>
-      <p><em>Start messy, then separate the concerns.</em></p>
-      <details open><summary>1) Messy single-file HTML</summary>
-        <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;title&gt;Messy&lt;/title&gt;&lt;/head&gt;
-&lt;body style="background:black;color:white"&gt;
-  &lt;h1 style="color:#0ff"&gt;Profile&lt;/h1&gt;
-  &lt;button onclick="alert('Hi')" style="padding:8px;border:1px solid #0ff"&gt;Say hi&lt;/button&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-      </details>
-      <details><summary>2) Clean HTML + CSS + JS</summary>
-        <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;Clean Profile&lt;/title&gt;
-  &lt;link rel="stylesheet" href="clean.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1 class="title"&gt;Profile&lt;/h1&gt;
-  &lt;button id="hiBtn" class="btn"&gt;Say hi&lt;/button&gt;
-  &lt;script src="clean.js" defer&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-        <pre><code>/* clean.css */
-body{ background:#121212; color:#eaeaea; font-family:system-ui,sans-serif; }
-.title{ color:#00ffff; }
-.btn{ padding:8px; border:1px solid #00ffff; background:#1c1c1c; color:#eaeaea; border-radius:8px; }</code></pre>
-        <pre><code>// clean.js
-document.getElementById('hiBtn').addEventListener('click', () =&gt; alert('Hi'));</code></pre>
-      </details>
-    </section>
-
-    <section class="card">
-      <h2>Part 6 — DevTools Micro-Lab</h2>
-      <ol class="tight">
-        <li><strong>Elements:</strong> Inspect a heading and confirm which rules style it.</li>
-        <li><strong>Computed:</strong> Check the final color and font-size of a paragraph.</li>
-        <li><strong>Console:</strong> Run <code>document.querySelector('h1').textContent</code> and change it.</li>
-        <li><strong>Sources:</strong> Add a breakpoint in JS and click a button.</li>
+      <h2>Part 8 — Practice (Do First, Then Peek)</h2>
+      <ol>
+        <li>Add a <strong>nav</strong> with two links and ensure it remains readable with JS disabled.</li>
+        <li>Style the page title using CSS only (no inline styles).</li>
+        <li>Implement a button that reveals a hidden paragraph via JS (use the <code>hidden</code> attribute).</li>
+        <li>Break something on purpose (remove the stylesheet link) and use DevTools to diagnose.</li>
       </ol>
+      <details><summary>Hints</summary>
+        <ul>
+          <li>Navigation is structural (HTML), not behavioral (JS).</li>
+          <li>Prefer classes for styling hooks.</li>
+          <li><code>elem.hidden = !elem.hidden;</code> toggles visibility accessibly.</li>
+        </ul>
+      </details>
+      <details><summary>One possible solution</summary>
+        <pre><code>&lt;nav&gt;&lt;a href="#"&gt;Home&lt;/a&gt; · &lt;a href="#"&gt;Docs&lt;/a&gt;&lt;/nav&gt;
+&lt;h1 class="title"&gt;Layered Page&lt;/h1&gt;
+&lt;p id="extra" hidden&gt;Surprise content!&lt;/p&gt;
+&lt;button id="revealBtn"&gt;Reveal&lt;/button&gt;</code></pre>
+        <pre><code>/* CSS */
+.title { color:#00ffff; font-weight:800; }
+#extra[hidden]{ display:none; }</code></pre>
+        <pre><code>// JS
+const extra = document.getElementById('extra');
+document.getElementById('revealBtn').addEventListener('click', () =&gt; {
+  extra.hidden = !extra.hidden;
+});</code></pre>
+      </details>
     </section>
 
+    <!-- Part 9 -->
     <section class="card">
-      <h2>Part 7 — Mini-Project: Profile Card (Layered)</h2>
-      <p>Create a simple profile card that looks good with CSS and has a small JS interaction (e.g., toggling extra details).</p>
+      <h2>Part 9 — Mini-Project: Profile Card (Layered)</h2>
+      <p>Create a profile card that looks good with CSS and has a small JS interaction (toggle extra details).</p>
       <details><summary>Starter HTML</summary>
         <pre><code>&lt;section class="card profile"&gt;
   &lt;h2&gt;Your Name&lt;/h2&gt;
@@ -286,9 +305,10 @@ document.getElementById('moreBtn').addEventListener('click', () =&gt; {
       </details>
     </section>
 
+    <!-- Quiz -->
     <section class="card">
       <h2>Check Yourself — Quick Quiz</h2>
-      <ol>
+      <ol class="quiz">
         <li>Which layer should define a page’s main heading and nav structure?</li>
         <li>Which layer should change colors and spacing?</li>
         <li>Which layer should respond when a button is clicked?</li>
@@ -306,9 +326,10 @@ document.getElementById('moreBtn').addEventListener('click', () =&gt; {
       </details>
     </section>
 
+    <!-- Glossary -->
     <section class="card">
       <h2>Glossary</h2>
-      <ul class="tight">
+      <ul>
         <li><strong>Separation of Concerns</strong> — Keeping structure, style, and behavior in their own layers.</li>
         <li><strong>DOM</strong> — Tree representation of HTML nodes.</li>
         <li><strong>CSSOM</strong> — Tree of CSS rules and their specificity cascade.</li>
@@ -316,6 +337,7 @@ document.getElementById('moreBtn').addEventListener('click', () =&gt; {
       </ul>
     </section>
 
+    <!-- Next -->
     <section class="card">
       <h2>Next Up</h2>
       <div class="next">
@@ -323,6 +345,7 @@ document.getElementById('moreBtn').addEventListener('click', () =&gt; {
         <span class="pill">Lesson 4: Install a code editor (VS Code)</span>
         <span class="pill">Lesson 5: Your first index.html</span>
       </div>
+      <p class="footer-note">You can continue right away, or review the quiz once more before moving on.</p>
     </section>
 
     <footer class="footer-note" style="padding:24px 0 40px">
