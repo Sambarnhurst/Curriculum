@@ -5,20 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Lesson 1 — What is HTML?</title>
   <meta name="description" content="Learn what HTML is, how it relates to CSS and JavaScript, and build your first page."/>
+  <!-- Preload the hero background so it arrives sooner -->
+  <link rel="preload" as="image" href="../images/lesson1picture1.jpg">
   <style>
     :root{
       --ink:#e6edf3; --muted:#30363d; --accent:#00ffff; --accent-2:#00b3b3; --good:#42d392;
     }
     *{box-sizing:border-box}
 
-    /* Full-page background: gradient (on top) + your image (underneath) */
+    /* Full-page background: gradient (top layer) + your image (back layer) */
     html,body{
       margin:0; color:var(--ink);
       font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; line-height:1.6;
+      /* fallback color behind the image */
+      background-color:#0d1117;
       background:
         linear-gradient(to bottom, rgba(13,17,23,.68), rgba(13,17,23,.68)),
         url('../images/lesson1picture1.jpg') center / cover no-repeat fixed;
-      /* first layer (gradient) is on top; image fills viewport via cover */
+      /* first background listed is drawn on top (gradient), image uses center/cover */
+    }
+    /* iOS/mobile Safari occasionally breaks background-attachment: fixed */
+    @media (max-width: 820px){
+      html,body{ background-attachment: scroll; } /* keep the same background, just not fixed */
     }
 
     a{color:var(--accent)}
@@ -216,18 +224,6 @@
     });
 
     function flash(btn, msg){ const prev = btn.textContent; btn.textContent = msg; setTimeout(()=> btn.textContent = prev, 900); }
-
-    // Persist task checkboxes
-    const KEY = 'lesson1_tasks';
-    const boxes = [...document.querySelectorAll('input[type="checkbox"][data-k]')];
-    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
-    boxes.forEach(box=>{
-      if (saved[box.dataset.k]) box.checked = true;
-      box.addEventListener('change', ()=>{
-        saved[box.dataset.k] = box.checked;
-        localStorage.setItem(KEY, JSON.stringify(saved));
-      });
-    });
   </script>
 </body>
 </html>
