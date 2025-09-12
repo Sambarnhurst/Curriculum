@@ -4,7 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTML Zero → Mastery — Lesson 2: HTML vs CSS vs JavaScript</title>
-  <meta name="description" content="Lesson 2 of HTML Zero to Mastery: HTML vs CSS vs JavaScript — roles, separation of concerns, render pipeline, and a complete layered mini-project." />
+  <meta name="description" content="Roles of HTML, CSS, and JavaScript; separation of concerns; DOM/CSSOM/Render Tree; and a layered mini-project with a theme toggle." />
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="HTML Zero → Mastery — Lesson 2: HTML vs CSS vs JavaScript" />
+  <meta property="og:description" content="Roles, separation of concerns, DOM/CSSOM, and a layered mini-project." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sambarnhurst.github.io/Curriculum/lessons/lesson2.html" />
+  <meta property="og:image" content="https://sambarnhurst.github.io/Curriculum/images/lesson1picture1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#121212">
+
   <style>
     :root{
       --bg:#121212;
@@ -27,12 +37,23 @@
       margin:0;
       font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       color:var(--text);
-      /* Same image background as Lesson 1, pulled from /images/ (relative to /lessons/lesson2.html) */
+      /* Same background image as Lesson 1 (relative to /lessons/lesson2.html) */
       background:
         linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
         url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
       background-color:#000; /* fallback */
     }
+    a{color:var(--link)}
+
+    /* Skip link */
+    .skip-link{
+      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden
+    }
+    .skip-link:focus{
+      left:12px;top:12px;width:auto;height:auto;padding:.5rem .75rem;
+      background:#1c1c1c;border:1px solid #2a2a2a;border-radius:8px;color:#eaeaea;z-index:1000
+    }
+
     header{
       padding:24px 20px 8px;
       border-bottom:1px solid var(--border);
@@ -57,33 +78,83 @@
     .two-col{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start}
     .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
     .hint{border-left:4px solid var(--accent);padding:8px 12px;background:var(--soft);border-radius:8px}
+
     pre{
       background:var(--code);
       border:1px solid var(--border);
       border-radius:12px;
-      padding:14px;overflow:auto;margin:12px 0
+      padding:14px;overflow:auto;margin:12px 0;
+      position:relative; /* for copy button */
     }
     code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:.95rem}
-    details{background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin:10px 0}
-    details>summary{cursor:pointer;font-weight:600;color:var(--accent)}
-    .quiz li{margin:.4rem 0}
-    .checklist li{margin:.3rem 0}
-    .next{display:flex;gap:12px;flex-wrap:wrap}
-    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+
     .footer-note{color:var(--muted);font-size:.95rem}
-    .kbd{border:1px solid var(--border);background:var(--soft);padding:0 .35rem;border-radius:6px;font-family:ui-monospace,monospace}
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+
+    /* Lesson navigation buttons */
+    .lesson-nav{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin:16px 0; padding:12px;
+      background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    }
+    .btn{
+      display:inline-block; text-decoration:none; color:var(--text);
+      padding:.6rem .9rem; border:1px solid var(--border); border-radius:999px;
+      background:var(--soft);
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn.back{border-color:#3f2f2f}
+    .btn.prev{border-color:#2f3f2f}
+    .btn.next{border-color:#1f3f3f}
+    .spacer{flex:1}
+
+    /* Copy button */
+    .copy-btn{
+      position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer
+    }
+
+    /* Dictionary UI */
+    .dict-search{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
+    .dict-search input[type="search"]{
+      flex:1; min-width:220px; padding:.55rem .7rem; border:1px solid var(--border);
+      border-radius:10px; background:var(--soft); color:var(--text)
+    }
+    .dict-meta{color:var(--muted);font-size:.9rem}
+    .dict-az{display:flex;gap:.4rem;flex-wrap:wrap;margin:8px 0 14px}
+    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+    .dictionary{margin:0}
+    .dictionary dt{margin-top:.6rem;font-weight:700}
+    .dictionary dd{margin:0 0 .6rem 0;color:var(--text)}
+    .dict-letter{
+      margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);
+      border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600
+    }
+    .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header>
     <div class="container">
       <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 2: HTML vs CSS vs JavaScript</strong> <span class="badge">Foundations</span></div>
       <h1>Lesson 2 — HTML vs CSS vs JavaScript <span class="label">Layer Roles & Separation</span></h1>
+
+      <!-- Top navigation buttons -->
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="#" id="backBtn" class="btn back">← Back</a>
+        <a href="lesson1.html" class="btn prev">← Previous Lesson</a>
+        <span class="spacer" aria-hidden="true"></span>
+        <a href="lesson3.html" class="btn next">Next Lesson →</a>
+      </nav>
+
       <div class="footer-note">Estimated time: 60–75 minutes · You’ll build a complete layered page</div>
     </div>
   </header>
 
-  <main class="container">
+  <main id="main" class="container">
     <!-- Learning Goals -->
     <section class="card">
       <h2>Learning Goals</h2>
@@ -94,6 +165,12 @@
         <li>Build a triad mini-project with a <strong>theme toggle</strong> and local storage.</li>
         <li>Avoid common <strong>anti-patterns</strong> (inline styles and inline event handlers).</li>
       </ul>
+      <div class="lesson-tools" style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0">
+        <a class="pill" target="_blank" rel="noopener"
+           href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fsambarnhurst.github.io%2FCurriculum%2Flessons%2Flesson2.html">
+           Validate this page
+        </a>
+      </div>
     </section>
 
     <!-- Part 1 -->
@@ -182,14 +259,15 @@ JS can read/modify DOM & CSSOM and trigger reflow/paint when needed.</code></pre
     <!-- Part 5 -->
     <section class="card">
       <h2>Part 5 — Build Your Layered Page (Step-by-Step)</h2>
-      <ol class="checklist">
+      <ol>
         <li>Create a folder <strong>lesson-02</strong>.</li>
         <li>Create <strong>index.html</strong>, <strong>styles.css</strong>, and <strong>app.js</strong>.</li>
         <li>Copy the HTML from Part 3 into <strong>index.html</strong>.</li>
         <li>Add base styles and a theme modifier in <strong>styles.css</strong>.</li>
-        <li>Implement a <strong>theme toggle</strong> in <strong>app.js</strong> and store the preference.</li>
+        <li>Implement a <strong>theme toggle</strong> in <strong>app.js</strong> and store the preference with <code>localStorage</code>.</li>
         <li>Open <strong>index.html</strong> in the browser and test.</li>
       </ol>
+
       <details><summary>Starter CSS</summary>
         <pre><code>:root { color-scheme: light dark; }
 body { font-family: system-ui, sans-serif; margin: 0; line-height: 1.6; padding: 1.25rem; }
@@ -199,6 +277,7 @@ main { max-width: 60ch; }
 .dark body { background: #121212; color: #eaeaea; }
 .light body { background: #ffffff; color: #222; }</code></pre>
       </details>
+
       <details><summary>Starter JS</summary>
         <pre><code>const btn = document.getElementById('themeBtn');
 const saved = localStorage.getItem('theme');
@@ -217,7 +296,7 @@ btn.addEventListener('click', () =&gt; {
       <h2>Part 6 — Open, Refresh, and Inspect</h2>
       <ul>
         <li>Open <strong>index.html</strong> in your browser (double-click or drag to a tab).</li>
-        <li>Edit files, save (<span class="kbd">Ctrl</span>/<span class="kbd">Cmd</span> + <span class="kbd">S</span>), and refresh.</li>
+        <li>Edit files, save (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>S</kbd>), and refresh.</li>
         <li>Right-click → <strong>Inspect</strong> → Elements &amp; Computed to see HTML and final styles.</li>
       </ul>
       <div class="hint"><strong>Tip:</strong> If the toggle “does nothing”, confirm the script is loaded with <code>defer</code> and check the Console for errors.</div>
@@ -262,13 +341,6 @@ btn.addEventListener('click', () =&gt; {
         <li>Implement a button that reveals a hidden paragraph via JS (use the <code>hidden</code> attribute).</li>
         <li>Break something on purpose (remove the stylesheet link) and use DevTools to diagnose.</li>
       </ol>
-      <details><summary>Hints</summary>
-        <ul>
-          <li>Navigation is structural (HTML), not behavioral (JS).</li>
-          <li>Prefer classes for styling hooks.</li>
-          <li><code>elem.hidden = !elem.hidden;</code> toggles visibility accessibly.</li>
-        </ul>
-      </details>
       <details><summary>One possible solution</summary>
         <pre><code>&lt;nav&gt;&lt;a href="#"&gt;Home&lt;/a&gt; · &lt;a href="#"&gt;Docs&lt;/a&gt;&lt;/nav&gt;
 &lt;h1 class="title"&gt;Layered Page&lt;/h1&gt;
@@ -309,52 +381,235 @@ document.getElementById('moreBtn').addEventListener('click', () =&gt; {
       </details>
     </section>
 
-    <!-- Quiz -->
-    <section class="card">
-      <h2>Check Yourself — Quick Quiz</h2>
-      <ol class="quiz">
-        <li>Which layer should define a page’s main heading and nav structure?</li>
-        <li>Which layer should change colors and spacing?</li>
-        <li>Which layer should respond when a button is clicked?</li>
-        <li>Why are inline styles considered a smell?</li>
-        <li>What’s the difference between the DOM and the CSSOM?</li>
-      </ol>
-      <details><summary>Suggested answers</summary>
-        <ul>
-          <li>HTML.</li>
-          <li>CSS.</li>
-          <li>JavaScript.</li>
-          <li>They mix concerns, are hard to override and reuse, and hurt maintainability.</li>
-          <li>DOM represents the HTML structure; CSSOM represents parsed CSS rules. Both combine to build the render tree.</li>
-        </ul>
-      </details>
-    </section>
+    <!-- Bottom navigation buttons -->
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      <a href="#" id="backBtnBottom" class="btn back">← Back</a>
+      <a href="lesson1.html" class="btn prev">← Previous Lesson</a>
+      <span class="spacer" aria-hidden="true"></span>
+      <a href="lesson3.html" class="btn next">Next Lesson →</a>
+    </nav>
 
-    <!-- Glossary -->
-    <section class="card">
-      <h2>Glossary</h2>
-      <ul>
-        <li><strong>Separation of Concerns</strong> — Keeping structure, style, and behavior in their own layers.</li>
-        <li><strong>DOM</strong> — Tree representation of HTML nodes.</li>
-        <li><strong>CSSOM</strong> — Tree of CSS rules and their specificity cascade.</li>
-        <li><strong>Render Tree</strong> — Combination used to layout and paint pixels.</li>
-      </ul>
-    </section>
+    <!-- Dictionary (ONLY terms/elements used in Lesson 2) -->
+    <section class="card" id="dictionary" aria-labelledby="dict-heading">
+      <h2 id="dict-heading">Lesson 2 Dictionary</h2>
+      <p class="footer-note">Terms and elements introduced/used in this lesson.</p>
 
-    <!-- Next -->
-    <section class="card">
-      <h2>Next Up</h2>
-      <div class="next">
-        <span class="pill">Lesson 3: Browsers & how they read HTML</span>
-        <span class="pill">Lesson 4: Install a code editor (VS Code)</span>
-        <span class="pill">Lesson 5: Your first index.html</span>
-      </div>
-      <p class="footer-note">You can continue right away, or review the quiz once more before moving on.</p>
+      <!-- Search -->
+      <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+        <label for="dictSearch" class="visually-hidden">Search terms</label>
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
+        <span class="dict-meta"><span id="dictCount"></span> terms</span>
+        <button type="button" id="dictExport" class="pill">Export JSON</button>
+      </form>
+
+      <!-- A–Z jump (only letters we actually use) -->
+      <nav class="dict-az" aria-label="A to Z">
+        <a href="#dict-A">A</a><a href="#dict-B">B</a><a href="#dict-C">C</a><a href="#dict-D">D</a>
+        <a href="#dict-E">E</a><a href="#dict-H">H</a><a href="#dict-I">I</a><a href="#dict-J">J</a>
+        <a href="#dict-L">L</a><a href="#dict-M">M</a><a href="#dict-N">N</a><a href="#dict-P">P</a>
+        <a href="#dict-R">R</a><a href="#dict-S">S</a>
+      </nav>
+
+      <dl class="dictionary" id="dictList">
+        <!-- A -->
+        <dt id="dict-A" aria-hidden="true" class="dict-letter">A</dt>
+        <dt data-keys="addeventlistener listener event">addEventListener</dt>
+        <dd>JavaScript method to attach event handlers without inline attributes (e.g., <code>elem.addEventListener('click', fn)</code>).</dd>
+
+        <dt data-keys="article semantic">&lt;article&gt;</dt>
+        <dd>Self-contained composition (e.g., a card or post) within the main content.</dd>
+
+        <!-- B -->
+        <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+        <dt data-keys="button ui control click">&lt;button&gt;</dt>
+        <dd>Interactive control; pair with JS listeners for behavior.</dd>
+
+        <!-- C -->
+        <dt id="dict-C" aria-hidden="true" class="dict-letter">C</dt>
+        <dt data-keys="class css hook">class (attribute)</dt>
+        <dd>Token(s) used as styling/JS hooks (e.g., <code>class="warning"</code>).</dd>
+
+        <dt data-keys="css style presentation">CSS</dt>
+        <dd>Presentation layer: layout, spacing, color, typography, responsiveness.</dd>
+
+        <dt data-keys="cssom styles tree">CSSOM</dt>
+        <dd>Tree of parsed CSS rules; combined with the DOM to create the render tree.</dd>
+
+        <!-- D -->
+        <dt id="dict-D" aria-hidden="true" class="dict-letter">D</dt>
+        <dt data-keys="defer script loading">defer (script attribute)</dt>
+        <dd>Downloads a script during parsing and executes after the document is parsed.</dd>
+
+        <dt data-keys="details disclosure">&lt;details&gt;</dt>
+        <dd>Native disclosure widget used for hints/solutions in this lesson.</dd>
+
+        <dt data-keys="dom tree document">DOM</dt>
+        <dd>Document Object Model — parsed HTML as a live tree that JS can read/modify.</dd>
+
+        <!-- E -->
+        <dt id="dict-E" aria-hidden="true" class="dict-letter">E</dt>
+        <dt data-keys="event listener">Event listener</dt>
+        <dd>Function responding to user/system events (click, input, etc.).</dd>
+
+        <!-- H -->
+        <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
+        <dt data-keys="header landmark">&lt;header&gt;</dt>
+        <dd>Introductory content/navigation for a page or section.</dd>
+
+        <dt data-keys="hidden boolean attribute">hidden (attribute)</dt>
+        <dd>Boolean attribute to hide content (e.g., toggle with JS by flipping <code>elem.hidden</code>).</dd>
+
+        <!-- I -->
+        <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
+        <dt data-keys="id unique identifier">id (attribute)</dt>
+        <dd>Unique identifier for an element (<code>id="themeBtn"</code>), used to select it in JS or link targets.</dd>
+
+        <dt data-keys="inline styles anti pattern">Inline styles</dt>
+        <dd>CSS placed directly on elements via <code>style="..."</code>; discouraged in favor of classes.</dd>
+
+        <!-- J -->
+        <dt id="dict-J" aria-hidden="true" class="dict-letter">J</dt>
+        <dt data-keys="javascript behavior">JavaScript</dt>
+        <dd>Behavior layer: events, state, DOM/CSSOM updates, storage, fetch.</dd>
+
+        <!-- L -->
+        <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
+        <dt data-keys="link stylesheet rel href">&lt;link&gt;</dt>
+        <dd>References a stylesheet: <code>&lt;link rel="stylesheet" href="styles.css"&gt;</code>.</dd>
+
+        <dt data-keys="localstorage storage theme">localStorage</dt>
+        <dd>Key–value storage for persisting simple preferences (e.g., theme).</dd>
+
+        <!-- M -->
+        <dt id="dict-M" aria-hidden="true" class="dict-letter">M</dt>
+        <dt data-keys="main landmark">&lt;main&gt;</dt>
+        <dd>Primary content landmark of the page.</dd>
+
+        <!-- N -->
+        <dt id="dict-N" aria-hidden="true" class="dict-letter">N</dt>
+        <dt data-keys="nav navigation">&lt;nav&gt;</dt>
+        <dd>Section containing navigation links.</dd>
+
+        <!-- P -->
+        <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+        <dt data-keys="p paragraph">&lt;p&gt;</dt>
+        <dd>Paragraph of text.</dd>
+
+        <!-- R -->
+        <dt id="dict-R" aria-hidden="true" class="dict-letter">R</dt>
+        <dt data-keys="render tree layout paint composite">Render Tree</dt>
+        <dd>Combination of DOM + CSSOM used by the browser to layout and paint.</dd>
+
+        <dt data-keys="rel relationship attribute">rel (attribute)</dt>
+        <dd>Relationship of a linked resource (e.g., <code>rel="stylesheet"</code> on <code>&lt;link&gt;</code>).</dd>
+
+        <!-- S -->
+        <dt id="dict-S" aria-hidden="true" class="dict-letter">S</dt>
+        <dt data-keys="script src defer">&lt;script&gt;</dt>
+        <dd>Loads and executes JavaScript. Use <code>defer</code> for non-blocking behavior.</dd>
+
+        <dt data-keys="separation concerns layers">Separation of Concerns</dt>
+        <dd>Keeping structure (HTML), presentation (CSS), and behavior (JS) in distinct layers.</dd>
+
+        <dt data-keys="src source attribute">src (attribute)</dt>
+        <dd>Specifies the external resource for scripts (and other elements), e.g., <code>src="app.js"</code>.</dd>
+
+        <dt data-keys="summary details">&lt;summary&gt;</dt>
+        <dd>Label for a <code>&lt;details&gt;</code> disclosure widget.</dd>
+      </dl>
     </section>
 
     <footer class="footer-note" style="padding:24px 0 40px">
       © HTML Zero → Mastery · Lesson 2. This page is self-contained and works offline.
     </footer>
   </main>
+
+  <script>
+    // Back button behavior with fallback to the curriculum index.
+    (function(){
+      function goBackFallback(e){
+        e.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          // Update this path if your index lives somewhere else
+          window.location.href = '../index.html';
+        }
+      }
+      document.getElementById('backBtn')?.addEventListener('click', goBackFallback);
+      document.getElementById('backBtnBottom')?.addEventListener('click', goBackFallback);
+    })();
+
+    // Add "Copy" buttons to all code blocks
+    (function(){
+      document.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn'; btn.type = 'button'; btn.textContent = 'Copy';
+        btn.setAttribute('aria-label','Copy code to clipboard');
+        pre.appendChild(btn);
+        btn.addEventListener('click', async () => {
+          const code = pre.innerText;
+          try {
+            await navigator.clipboard.writeText(code);
+            btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
+          } catch { btn.textContent = 'Error'; }
+        });
+      });
+    })();
+
+    // Dictionary: filter + export + hide empty letter markers
+    (function(){
+      const list = document.getElementById('dictList');
+      const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
+        const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
+        return {dt, dd, text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')) .toLowerCase()};
+      });
+      const input = document.getElementById('dictSearch');
+      const count = document.getElementById('dictCount');
+      const exportBtn = document.getElementById('dictExport');
+
+      function updateLetterVisibility(){
+        list.querySelectorAll('.dict-letter').forEach(letter => {
+          let next = letter.nextElementSibling, any=false;
+          while (next && !next.classList.contains('dict-letter')) {
+            if (next.style.display !== 'none') { any = true; break; }
+            next = next.nextElementSibling;
+          }
+          letter.style.display = any ? '' : 'none';
+        });
+      }
+      function updateCount(){
+        const visible = items.filter(i => i.dt.style.display !== 'none').length;
+        if (count) count.textContent = visible.toString();
+      }
+      function filter(q){
+        const needle = q.trim().toLowerCase();
+        items.forEach(({dt, dd, text}) => {
+          const show = !needle || text.includes(needle);
+          dt.style.display = show ? '' : 'none';
+          if (dd) dd.style.display = show ? '' : 'none';
+        });
+        updateLetterVisibility();
+        updateCount();
+      }
+      input?.addEventListener('input', e => filter(e.target.value));
+      filter(''); // init
+
+      // Export JSON of Lesson 2 terms only (current filter if any)
+      exportBtn?.addEventListener('click', () => {
+        const data = items
+          .filter(({dt}) => dt.style.display !== 'none')
+          .map(({dt, dd}) => ({
+            term: dt.textContent.replace(/\s+/g,' ').trim(),
+            keys: (dt.dataset.keys||'').split(/\s+/).filter(Boolean),
+            definition: (dd?dd.textContent:'').replace(/\s+/g,' ').trim()
+          }));
+        const blob = new Blob([JSON.stringify({lesson: 2, updated: new Date().toISOString(), items:data}, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.lesson2.json'; a.click();
+        URL.revokeObjectURL(url);
+      });
+    })();
+  </script>
 </body>
 </html>
