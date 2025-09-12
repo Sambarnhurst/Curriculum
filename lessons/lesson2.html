@@ -144,7 +144,7 @@
 
       <!-- Top navigation buttons -->
       <nav class="lesson-nav" aria-label="Lesson navigation">
-        <a href="#" id="backBtn" class="btn back">← Back</a>
+        <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
         <a href="lesson1.html" class="btn prev">← Previous Lesson</a>
         <span class="spacer" aria-hidden="true"></span>
         <a href="lesson3.html" class="btn next">Next Lesson →</a>
@@ -383,7 +383,7 @@ document.getElementById('moreBtn').addEventListener('click', () =&gt; {
 
     <!-- Bottom navigation buttons -->
     <nav class="lesson-nav" aria-label="Lesson navigation">
-      <a href="#" id="backBtnBottom" class="btn back">← Back</a>
+      <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
       <a href="lesson1.html" class="btn prev">← Previous Lesson</a>
       <span class="spacer" aria-hidden="true"></span>
       <a href="lesson3.html" class="btn next">Next Lesson →</a>
@@ -525,21 +525,6 @@ document.getElementById('moreBtn').addEventListener('click', () =&gt; {
   </main>
 
   <script>
-    // Back button behavior with fallback to the curriculum index.
-    (function(){
-      function goBackFallback(e){
-        e.preventDefault();
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          // Update this path if your index lives somewhere else
-          window.location.href = '../index.html';
-        }
-      }
-      document.getElementById('backBtn')?.addEventListener('click', goBackFallback);
-      document.getElementById('backBtnBottom')?.addEventListener('click', goBackFallback);
-    })();
-
     // Add "Copy" buttons to all code blocks
     (function(){
       document.querySelectorAll('pre').forEach((pre) => {
