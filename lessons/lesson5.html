@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Zero → Mastery — Lesson 5: Your First index.html</title>
+  <meta name="description" content="Create your first index.html: boilerplate, head meta, title, body content, viewing in the browser, Live Server, and validation." />
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="HTML Zero → Mastery — Lesson 5: Your First index.html" />
+  <meta property="og:description" content="Build a correct HTML boilerplate, add real content, view locally, and validate like a pro." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sambarnhurst.github.io/Curriculum/lessons/lesson5.html" />
+  <meta property="og:image" content="https://sambarnhurst.github.io/Curriculum/images/lesson1picture1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#121212">
+
+  <style>
+    :root{
+      --bg:#121212;
+      --panel:#1c1c1c;
+      --soft:#222;
+      --text:#eaeaea;
+      --muted:#b6b6b6;
+      --accent:#00ffff;
+      --accent-2:#4de1ff;
+      --ok:#57e389;
+      --warn:#ffbf69;
+      --err:#ff6b6b;
+      --code:#0d0d0d;
+      --link:#7bd4ff;
+      --border:#2a2a2a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
+      /* Same background image as other lessons (relative to /lessons/lesson5.html) */
+      background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+        url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
+      background-color:#000; /* fallback */
+    }
+    a{color:var(--link)}
+
+    /* Skip link */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{
+      left:12px;top:12px;width:auto;height:auto;padding:.5rem .75rem;
+      background:#1c1c1c;border:1px solid var(--border);border-radius:8px;color:#eaeaea;z-index:1000
+    }
+
+    header{
+      padding:24px 20px 8px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(0,255,255,.07), transparent 60%);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    h1{margin:0 0 6px;font-weight:800;letter-spacing:.2px}
+    .crumbs{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;font-size:.8rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);margin-left:.3rem}
+    .label{display:inline-block;font-size:.75rem;padding:.2rem .5rem;border-radius:6px;background:#0e2d2d;color:#a6f0f0;border:1px solid #123e3e;margin-left:.5rem}
+    main{padding:20px 0 60px}
+    section.card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:20px;
+      margin:16px 0;
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
+    }
+    section.card h2{margin-top:0;color:var(--accent)}
+    section.card h3{margin:22px 0 8px;color:var(--accent-2)}
+    .two-col{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start}
+    .hint{border-left:4px solid var(--accent);padding:8px 12px;background:var(--soft);border-radius:8px}
+    pre{
+      background:var(--code);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;overflow:auto;margin:12px 0;
+      position:relative; /* for copy button */
+    }
+    code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:.95rem}
+    .footer-note{color:var(--muted);font-size:.95rem}
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+
+    /* Lesson navigation buttons */
+    .lesson-nav{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin:16px 0; padding:12px;
+      background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    }
+    .btn{
+      display:inline-block; text-decoration:none; color:var(--text);
+      padding:.6rem .9rem; border:1px solid var(--border); border-radius:999px;
+      background:var(--soft);
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn.back{border-color:#3f2f2f}
+    .btn.prev{border-color:#2f3f2f}
+    .btn.next{border-color:#1f3f3f}
+    .spacer{flex:1}
+
+    /* Copy button */
+    .copy-btn{
+      position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer
+    }
+
+    /* Dictionary UI */
+    .dict-search{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
+    .dict-search input[type="search"]{
+      flex:1; min-width:220px; padding:.55rem .7rem; border:1px solid var(--border);
+      border-radius:10px; background:var(--soft); color:var(--text)
+    }
+    .dict-meta{color:var(--muted);font-size:.9rem}
+    .dict-az{display:flex;gap:.4rem;flex-wrap:wrap;margin:8px 0 14px}
+    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+    .dictionary{margin:0}
+    .dictionary dt{margin-top:.6rem;font-weight:700}
+    .dictionary dd{margin:0 0 .6rem 0;color:var(--text)}
+    .dict-letter{
+      margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);
+      border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600
+    }
+    .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .preview{width:100%;height:280px;border:1px solid var(--border);border-radius:12px;background:#fff}
+    kbd{border:1px solid var(--border);background:var(--soft);padding:0 .35rem;border-radius:6px}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header>
+    <div class="container">
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 5: Your First index.html</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 5 — Your First <code>index.html</code> <span class="label">Boilerplate & Basics</span></h1>
+
+      <!-- Top navigation buttons -->
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+        <a href="lesson4.html" class="btn prev">← Previous Lesson</a>
+        <span class="spacer" aria-hidden="true"></span>
+        <a href="lesson6.html" class="btn next">Next Lesson →</a>
+      </nav>
+
+      <div class="footer-note">Estimated time: 35–50 minutes · You’ll build a correct boilerplate, add content, preview locally, and validate</div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- Learning Goals -->
+    <section class="card">
+      <h2>Learning Goals</h2>
+      <ul>
+        <li>Create an <strong>index.html</strong> file in a project folder.</li>
+        <li>Understand the <strong>boilerplate</strong>: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html lang&gt;</code>, <code>&lt;head&gt;</code>, meta, <code>&lt;title&gt;</code>, and <code>&lt;body&gt;</code>.</li>
+        <li>Add headings, paragraphs, comments, and separators.</li>
+        <li>Open in the browser (and optionally with <strong>Live Server</strong>).</li>
+        <li>Validate and fix common mistakes.</li>
+      </ul>
+      <div class="lesson-tools" style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0">
+        <a class="pill" target="_blank" rel="noopener"
+           href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fsambarnhurst.github.io%2FCurriculum%2Flessons%2Flesson5.html">
+           Validate this page
+        </a>
+      </div>
+    </section>
+
+    <!-- Part 1 — What index.html means -->
+    <section class="card">
+      <h2>Part 1 — What <code>index.html</code> Means</h2>
+      <p><strong>index.html</strong> is the default file name web servers and browsers look for inside a folder. If a folder is your site root, <em>index.html</em> becomes the homepage.</p>
+      <div class="hint"><strong>Tip:</strong> Keep your <em>project folder</em> tidy: one folder per lesson, with subfolders like <code>images/</code>, <code>css/</code>, <code>js/</code> when needed.</div>
+    </section>
+
+    <!-- Part 2 — Create the project & file -->
+    <section class="card">
+      <h2>Part 2 — Create the Project & File</h2>
+      <ol>
+        <li>Create a folder named <strong>lesson-05</strong>.</li>
+        <li>Inside it, create a file named <strong>index.html</strong>.</li>
+        <li>Open it in your editor (VS Code). Optionally start <strong>Live Server</strong>.</li>
+      </ol>
+    </section>
+
+    <!-- Part 3 — Boilerplate -->
+    <section class="card">
+      <h2>Part 3 — Minimal Boilerplate</h2>
+      <p>Paste this into <strong>lesson-05/index.html</strong>:</p>
+      <pre><code>&lt;!DOCTYPE html&gt; &lt;!-- standards mode --&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello, world!&lt;/h1&gt;
+  &lt;p&gt;This is my very first HTML page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <details>
+        <summary>What each part does</summary>
+        <ul>
+          <li><code>&lt;!DOCTYPE html&gt;</code> — enables modern standards mode.</li>
+          <li><code>&lt;html lang="en"&gt;</code> — root element + document language.</li>
+          <li><code>&lt;meta charset="UTF-8"&gt;</code> — use Unicode (covers emojis & symbols).</li>
+          <li><code>&lt;meta name="viewport"&gt;</code> — responsive layout on mobile.</li>
+          <li><code>&lt;title&gt;</code> — tab/bookmark label.</li>
+          <li><code>&lt;body&gt;</code> — visible page content.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Live Preview (inline)</summary>
+        <iframe class="preview" title="Lesson 5 boilerplate preview" sandbox
+          srcdoc="<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>My First Page</title><style>body{font-family:system-ui;margin:1rem;line-height:1.6}</style></head><body><h1>Hello, world!</h1><p>This is my very first HTML page.</p></body></html>"></iframe>
+      </details>
+    </section>
+
+    <!-- Part 4 — Add content -->
+    <section class="card">
+      <h2>Part 4 — Add Real Content</h2>
+      <p>Below your first paragraph, try these:</p>
+      <pre><code>&lt;h2&gt;About Me&lt;/h2&gt;
+&lt;p&gt;I’m learning HTML. It’s fun!&lt;/p&gt;
+
+&lt;!-- A horizontal rule as a divider --&gt;
+&lt;hr&gt;
+
+&lt;h2&gt;Fun Facts&lt;/h2&gt;
+&lt;p&gt;I like coding.&lt;br&gt;I also like music.&lt;/p&gt;
+
+&lt;!-- Comment: this note is for me only; it won't show on the page --&gt;</code></pre>
+      <div class="hint"><strong>Whitespace:</strong> Browsers collapse multiple spaces and newlines. Use paragraphs, <code>&lt;br&gt;</code> for line breaks (sparingly), and <code>&lt;hr&gt;</code> for thematic breaks.</div>
+    </section>
+
+    <!-- Part 5 — Open, Save, Refresh -->
+    <section class="card">
+      <h2>Part 5 — Open, Save, Refresh</h2>
+      <ul>
+        <li>Double-click <strong>index.html</strong> to open in your browser (or use Live Server).</li>
+        <li>Edit in your editor, <strong>save</strong> (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>S</kbd>), then <strong>refresh</strong> the tab if not using Live Server.</li>
+        <li>Right-click → <strong>View Page Source</strong> or use <strong>DevTools</strong> to inspect the DOM.</li>
+      </ul>
+    </section>
+
+    <!-- Part 6 — Validate & common mistakes -->
+    <section class="card">
+      <h2>Part 6 — Validate & Fix Common Mistakes</h2>
+      <ul>
+        <li>Run your file through the <a target="_blank" rel="noopener" href="https://validator.w3.org/nu/#file">W3C Validator (File Upload)</a>.</li>
+        <li><strong>Close your tags</strong> properly (e.g., <code>&lt;/p&gt;</code>).</li>
+        <li>Include the <strong>DOCTYPE</strong> and <strong>charset</strong> meta.</li>
+        <li>Use one <strong>&lt;h1&gt;</strong> and a logical heading order.</li>
+      </ul>
+    </section>
+
+    <!-- Practice -->
+    <section class="card">
+      <h2>Practice Tasks</h2>
+      <ol>
+        <li>Create sections for “About”, “Hobbies”, and “Goals” using headings and paragraphs.</li>
+        <li>Add a comment describing what you’ll learn next.</li>
+        <li>Insert a horizontal rule between sections.</li>
+        <li>Validate, fix issues, and re-run the validator.</li>
+      </ol>
+    </section>
+
+    <!-- Quiz -->
+    <section class="card">
+      <h2>Quick Quiz</h2>
+      <ol>
+        <li>Why is the file named <em>index.html</em> special?</li>
+        <li>What does <code>&lt;!DOCTYPE html&gt;</code> do?</li>
+        <li>Where should <code>&lt;meta charset="UTF-8"&gt;</code> go and why?</li>
+        <li>What’s the difference between <code>&lt;br&gt;</code> and starting a new <code>&lt;p&gt;</code>?</li>
+      </ol>
+      <details>
+        <summary>Sample answers</summary>
+        <ul>
+          <li>Servers/browsers look for it by default as the folder’s homepage.</li>
+          <li>Enables standards mode (modern rendering rules).</li>
+          <li>Inside <code>&lt;head&gt;</code>, so the parser knows the encoding early.</li>
+          <li><code>&lt;br&gt;</code> forces a line break inside the same paragraph; a new <code>&lt;p&gt;</code> is a separate block.</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- Bottom navigation buttons -->
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+      <a href="lesson4.html" class="btn prev">← Previous Lesson</a>
+      <span class="spacer" aria-hidden="true"></span>
+      <a href="lesson6.html" class="btn next">Next Lesson →</a>
+    </nav>
+
+    <!-- Dictionary (ONLY terms used in Lesson 5) -->
+    <section class="card" id="dictionary" aria-labelledby="dict-heading">
+      <h2 id="dict-heading">Lesson 5 Dictionary</h2>
+      <p class="footer-note">Terms and elements that appear in this lesson.</p>
+
+      <!-- Search -->
+      <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+        <label for="dictSearch" class="visually-hidden">Search terms</label>
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
+        <span class="dict-meta"><span id="dictCount"></span> terms</span>
+        <button type="button" id="dictExport" class="pill">Export JSON</button>
+      </form>
+
+      <!-- A–Z jump -->
+      <nav class="dict-az" aria-label="A to Z">
+        <a href="#dict-B">B</a><a href="#dict-C">C</a><a href="#dict-D">D</a><a href="#dict-H">H</a>
+        <a href="#dict-I">I</a><a href="#dict-L">L</a><a href="#dict-M">M</a><a href="#dict-P">P</a>
+        <a href="#dict-R">R</a><a href="#dict-V">V</a>
+      </nav>
+
+      <dl class="dictionary" id="dictList">
+        <!-- B -->
+        <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+        <dt data-keys="boilerplate skeleton starter">Boilerplate</dt>
+        <dd>The minimal, standard structure of an HTML document you start from.</dd>
+
+        <dt data-keys="body visible content">&lt;body&gt;</dt>
+        <dd>The container for all visible content of the page.</dd>
+
+        <!-- C -->
+        <dt id="dict-C" aria-hidden="true" class="dict-letter">C</dt>
+        <dt data-keys="charset encoding meta">charset (meta)</dt>
+        <dd>Declares the document character encoding, e.g., <code>&lt;meta charset="UTF-8"&gt;</code>.</dd>
+
+        <dt data-keys="comment note developer">&lt;!-- comment --&gt;</dt>
+        <dd>A note for authors that does not appear on the page.</dd>
+
+        <!-- D -->
+        <dt id="dict-D" aria-hidden="true" class="dict-letter">D</dt>
+        <dt data-keys="doctype standards mode">&lt;!DOCTYPE html&gt;</dt>
+        <dd>Triggers standards mode so the browser uses modern rules.</dd>
+
+        <dt data-keys="devtools elements view source">DevTools</dt>
+        <dd>Built-in browser tools to inspect DOM and debug pages.</dd>
+
+        <!-- H -->
+        <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
+        <dt data-keys="head metadata">&lt;head&gt;</dt>
+        <dd>Container for document metadata (title, meta tags, links).</dd>
+
+        <dt data-keys="h1 heading title">Heading</dt>
+        <dd>Section title elements (<code>&lt;h1&gt;…&lt;h6&gt;</code>) establishing outline.</dd>
+
+        <dt data-keys="hr horizontal rule">&lt;hr&gt;</dt>
+        <dd>A thematic break (horizontal rule) between content sections.</dd>
+
+        <dt data-keys="html root element">&lt;html&gt;</dt>
+        <dd>Root element that wraps the entire document.</dd>
+
+        <!-- I -->
+        <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
+        <dt data-keys="index default file">index.html</dt>
+        <dd>The default file name browsers/servers load in a folder (homepage).</dd>
+
+        <!-- L -->
+        <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
+        <dt data-keys="lang attribute language">lang (attribute)</dt>
+        <dd>Specifies the language of the content (e.g., <code>&lt;html lang="en"&gt;</code>).</dd>
+
+        <dt data-keys="live server auto refresh">Live Server</dt>
+        <dd>Editor extension that serves your page locally and auto-reloads on save.</dd>
+
+        <!-- M -->
+        <dt id="dict-M" aria-hidden="true" class="dict-letter">M</dt>
+        <dt data-keys="meta tag">&lt;meta&gt;</dt>
+        <dd>Metadata declarations (charset, viewport, etc.) inside <code>&lt;head&gt;</code>.</dd>
+
+        <!-- P -->
+        <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+        <dt data-keys="paragraph text">&lt;p&gt;</dt>
+        <dd>A paragraph block for text content.</dd>
+
+        <!-- R -->
+        <dt id="dict-R" aria-hidden="true" class="dict-letter">R</dt>
+        <dt data-keys="refresh reload browser">Refresh</dt>
+        <dd>Reload the page in the browser to see saved changes (if not using Live Server).</dd>
+
+        <!-- V -->
+        <dt id="dict-V" aria-hidden="true" class="dict-letter">V</dt>
+        <dt data-keys="validator w3c check html">Validator (W3C)</dt>
+        <dd>A tool to check HTML for errors and best-practice conformance.</dd>
+
+        <dt data-keys="viewport meta responsive">Viewport (meta)</dt>
+        <dd>Controls the layout viewport on mobile (e.g., <code>width=device-width, initial-scale=1</code>).</dd>
+      </dl>
+    </section>
+
+    <footer class="footer-note" style="padding:24px 0 40px">
+      © HTML Zero → Mastery · Lesson 5. This page is self-contained and works offline.
+    </footer>
+  </main>
+
+  <script>
+    // Add "Copy" buttons to all code blocks
+    (function(){
+      document.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn'; btn.type = 'button'; btn.textContent = 'Copy';
+        btn.setAttribute('aria-label','Copy code to clipboard');
+        pre.appendChild(btn);
+        btn.addEventListener('click', async () => {
+          const code = pre.innerText;
+          try {
+            await navigator.clipboard.writeText(code);
+            btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
+          } catch { btn.textContent = 'Error'; }
+        });
+      });
+    })();
+
+    // Dictionary: filter + export + hide letter headings with no visible terms
+    (function(){
+      const list = document.getElementById('dictList');
+      const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
+        const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
+        return {dt, dd, text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')).toLowerCase()};
+      });
+      const input = document.getElementById('dictSearch');
+      const count = document.getElementById('dictCount');
+      const exportBtn = document.getElementById('dictExport');
+
+      function updateLetterVisibility(){
+        list.querySelectorAll('.dict-letter').forEach(letter => {
+          let next = letter.nextElementSibling, any=false;
+          while (next && !next.classList.contains('dict-letter')) {
+            if (next.style.display !== 'none') { any = true; break; }
+            next = next.nextElementSibling;
+          }
+          letter.style.display = any ? '' : 'none';
+        });
+      }
+      function updateCount(){
+        const visible = items.filter(i => i.dt.style.display !== 'none').length;
+        if (count) count.textContent = visible.toString();
+      }
+      function filter(q){
+        const needle = (q||'').trim().toLowerCase();
+        items.forEach(({dt, dd, text}) => {
+          const show = !needle || text.includes(needle);
+          dt.style.display = show ? '' : 'none';
+          if (dd) dd.style.display = show ? '' : 'none';
+        });
+        updateLetterVisibility();
+        updateCount();
+      }
+      input?.addEventListener('input', e => filter(e.target.value));
+      filter(''); // init
+
+      // Export JSON of Lesson 5 terms only (respects current filter)
+      exportBtn?.addEventListener('click', () => {
+        const data = items
+          .filter(({dt}) => dt.style.display !== 'none')
+          .map(({dt, dd}) => ({
+            term: dt.textContent.replace(/\s+/g,' ').trim(),
+            keys: (dt.dataset.keys||'').split(/\s+/).filter(Boolean),
+            definition: (dd?dd.textContent:'').replace(/\s+/g,' ').trim()
+          }));
+        const blob = new Blob([JSON.stringify({lesson: 5, updated: new Date().toISOString(), items:data}, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.lesson5.json'; a.click();
+        URL.revokeObjectURL(url);
+      });
+    })();
+  </script>
+</body>
+</html>
