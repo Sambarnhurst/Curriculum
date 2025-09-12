@@ -14,7 +14,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      height: 100vh;
+      min-height: 100vh;
       padding-top: 1em;
     }
     h1 {
@@ -46,7 +46,7 @@
       border: 1px solid #30363d;
       text-decoration: none;
       color: #e6edf3;
-      transition: background 0.2s;
+      transition: background 0.2s, color 0.2s;
     }
     .back:hover {
       background: #00b3b3;
@@ -68,6 +68,8 @@
   </div>
 
   <canvas id="pongCanvas" width="800" height="500"></canvas>
+
+  <!-- Back button to go back to Game Hub -->
   <a href="games.html" class="back">⬅ Back to Game Hub</a>
 
   <script>
@@ -234,7 +236,10 @@
 
         if (botTargetY < rightPaddle.y + rightPaddle.height / 2 - deadZone && rightPaddle.y > 0) {
           rightPaddle.y -= botSpeed;
-        } else if (botTargetY > rightPaddle.y + rightPaddle.height / 2 + deadZone && rightPaddle.y < canvas.height - rightPaddle.height) {
+        } else if (
+          botTargetY > rightPaddle.y + rightPaddle.height / 2 + deadZone && 
+          rightPaddle.y < canvas.height - rightPaddle.height
+        ) {
           rightPaddle.y += botSpeed;
         }
       }
