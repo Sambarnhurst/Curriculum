@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Zero → Mastery — Lesson 4: Install a Code Editor (VS Code)</title>
+  <meta name="description" content="Install VS Code, tour the UI, add extensions (Live Server, Prettier), configure settings (Auto Save, Format on Save), and build your first workspace." />
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="HTML Zero → Mastery — Lesson 4: Install a Code Editor (VS Code)" />
+  <meta property="og:description" content="Install VS Code, tour the UI, set up Live Server and Prettier, and configure your workspace." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sambarnhurst.github.io/Curriculum/lessons/lesson4.html" />
+  <meta property="og:image" content="https://sambarnhurst.github.io/Curriculum/images/lesson1picture1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#121212">
+
+  <style>
+    :root{
+      --bg:#121212;
+      --panel:#1c1c1c;
+      --soft:#222;
+      --text:#eaeaea;
+      --muted:#b6b6b6;
+      --accent:#00ffff;
+      --accent-2:#4de1ff;
+      --ok:#57e389;
+      --warn:#ffbf69;
+      --err:#ff6b6b;
+      --code:#0d0d0d;
+      --link:#7bd4ff;
+      --border:#2a2a2a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
+      /* Same background image as Lessons 1–3 (relative to /lessons/lesson4.html) */
+      background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+        url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
+      background-color:#000; /* fallback */
+    }
+    a{color:var(--link)}
+
+    /* Skip link */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{
+      left:12px;top:12px;width:auto;height:auto;padding:.5rem .75rem;
+      background:#1c1c1c;border:1px solid var(--border);border-radius:8px;color:#eaeaea;z-index:1000
+    }
+
+    header{
+      padding:24px 20px 8px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(0,255,255,.07), transparent 60%);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    h1{margin:0 0 6px;font-weight:800;letter-spacing:.2px}
+    .crumbs{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;font-size:.8rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);margin-left:.3rem}
+    .label{display:inline-block;font-size:.75rem;padding:.2rem .5rem;border-radius:6px;background:#0e2d2d;color:#a6f0f0;border:1px solid #123e3e;margin-left:.5rem}
+    main{padding:20px 0 60px}
+    section.card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:20px;
+      margin:16px 0;
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
+    }
+    section.card h2{margin-top:0;color:var(--accent)}
+    section.card h3{margin:22px 0 8px;color:var(--accent-2)}
+    .two-col{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start}
+    .hint{border-left:4px solid var(--accent);padding:8px 12px;background:var(--soft);border-radius:8px}
+    pre{
+      background:var(--code);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;overflow:auto;margin:12px 0;
+      position:relative; /* for copy button */
+    }
+    code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:.95rem}
+    .footer-note{color:var(--muted);font-size:.95rem}
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+
+    /* Lesson navigation buttons */
+    .lesson-nav{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin:16px 0; padding:12px;
+      background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    }
+    .btn{
+      display:inline-block; text-decoration:none; color:var(--text);
+      padding:.6rem .9rem; border:1px solid var(--border); border-radius:999px;
+      background:var(--soft);
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn.back{border-color:#3f2f2f}
+    .btn.prev{border-color:#2f3f2f}
+    .btn.next{border-color:#1f3f3f}
+    .spacer{flex:1}
+
+    /* Copy button */
+    .copy-btn{
+      position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer
+    }
+
+    /* Dictionary UI */
+    .dict-search{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
+    .dict-search input[type="search"]{
+      flex:1; min-width:220px; padding:.55rem .7rem; border:1px solid var(--border);
+      border-radius:10px; background:var(--soft); color:var(--text)
+    }
+    .dict-meta{color:var(--muted);font-size:.9rem}
+    .dict-az{display:flex;gap:.4rem;flex-wrap:wrap;margin:8px 0 14px}
+    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+    .dictionary{margin:0}
+    .dictionary dt{margin-top:.6rem;font-weight:700}
+    .dictionary dd{margin:0 0 .6rem 0;color:var(--text)}
+    .dict-letter{
+      margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);
+      border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600
+    }
+    .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    kbd{border:1px solid var(--border);background:var(--soft);padding:0 .35rem;border-radius:6px}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header>
+    <div class="container">
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 4: Install a Code Editor (VS Code)</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 4 — Install a Code Editor (VS Code) <span class="label">Setup</span></h1>
+
+      <!-- Top navigation buttons -->
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+        <a href="lesson3.html" class="btn prev">← Previous Lesson</a>
+        <span class="spacer" aria-hidden="true"></span>
+        <a href="lesson5.html" class="btn next">Next Lesson →</a>
+      </nav>
+
+      <div class="footer-note">Estimated time: 35–55 minutes · You’ll install VS Code, configure essentials, and preview a page with Live Server</div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- Learning Goals -->
+    <section class="card">
+      <h2>Learning Goals</h2>
+      <ul>
+        <li>Install <strong>Visual Studio Code</strong> on your OS (Windows, macOS, or Linux).</li>
+        <li>Tour the core UI: <strong>Activity Bar</strong>, <strong>Explorer</strong>, <strong>Editor</strong>, <strong>Panel</strong>, <strong>Status Bar</strong>, <strong>Command Palette</strong>.</li>
+        <li>Set up essential extensions: <strong>Live Server</strong> and <strong>Prettier</strong>.</li>
+        <li>Configure <strong>Auto Save</strong> and <strong>Format on Save</strong>.</li>
+        <li>Create a <strong>workspace</strong> folder for this course and run your first local preview.</li>
+      </ul>
+      <div class="lesson-tools" style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0">
+        <a class="pill" target="_blank" rel="noopener" href="https://code.visualstudio.com/">Download VS Code</a>
+        <a class="pill" target="_blank" rel="noopener"
+           href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fsambarnhurst.github.io%2FCurriculum%2Flessons%2Flesson4.html">
+           Validate this page
+        </a>
+      </div>
+    </section>
+
+    <!-- Part 1 — Install VS Code -->
+    <section class="card">
+      <h2>Part 1 — Install VS Code</h2>
+      <div class="two-col">
+        <div>
+          <h3>Steps (all OSes)</h3>
+          <ol>
+            <li>Go to <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>.</li>
+            <li>Download the installer for your OS and run it.</li>
+            <li>Launch <strong>Visual Studio Code</strong>.</li>
+          </ol>
+          <div class="hint"><strong>Tip:</strong> During install on Windows, enable “Add to PATH” so you can run <code>code .</code> from the terminal.</div>
+        </div>
+        <div>
+          <h3>First-run checklist</h3>
+          <ul>
+            <li>Open <strong>Command Palette</strong> (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>).</li>
+            <li>Search “Settings: Open Settings (UI)”.</li>
+            <li>Set <strong>Auto Save</strong> to “afterDelay”.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Part 2 — VS Code UI Tour -->
+    <section class="card">
+      <h2>Part 2 — VS Code UI Tour</h2>
+      <div class="two-col">
+        <div>
+          <h3>Main areas</h3>
+          <ul>
+            <li><strong>Activity Bar</strong> — icons for Explorer, Search, Source Control, Run, Extensions.</li>
+            <li><strong>Side Bar</strong> — changes with the active activity (Explorer shows files).</li>
+            <li><strong>Editor</strong> — where you type code (tabs across the top).</li>
+            <li><strong>Panel</strong> — Problems, Output, Terminal, Debug Console.</li>
+            <li><strong>Status Bar</strong> — info + quick toggles (encoding, line endings, formatter, etc.).</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Command Palette</h3>
+          <p>Press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> and type a command name (e.g., “Toggle Word Wrap”).</p>
+          <div class="hint"><strong>Pro move:</strong> You can run <em>any</em> command from the Palette without hunting menus.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Part 3 — Create Your Workspace -->
+    <section class="card">
+      <h2>Part 3 — Create Your Workspace</h2>
+      <ol>
+        <li>Create a folder named <strong>lesson-04</strong> (put it next to your other lesson folders).</li>
+        <li>Open the folder in VS Code: <strong>File → Open Folder…</strong> (or run <code>code lesson-04</code> from a terminal).</li>
+        <li>Create files: <strong>index.html</strong>, <strong>styles.css</strong>, <strong>app.js</strong>.</li>
+      </ol>
+      <details>
+        <summary>Starter HTML (copy/paste)</summary>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Lesson 4 — VS Code Setup&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;VS Code is ready!&lt;/h1&gt;
+  &lt;p&gt;Live Server + Prettier installed.&lt;/p&gt;
+  &lt;button id="ping"&gt;Ping Console&lt;/button&gt;
+  &lt;script src="app.js" defer&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </details>
+      <details>
+        <summary>Starter CSS</summary>
+        <pre><code>body{font-family:system-ui;margin:1.25rem;line-height:1.6}
+button{padding:.5rem .75rem;border:1px solid #ccc;border-radius:.5rem;cursor:pointer}</code></pre>
+      </details>
+      <details>
+        <summary>Starter JS</summary>
+        <pre><code>document.getElementById('ping').addEventListener('click', () =&gt; {
+  console.log('VS Code ping ok!');
+  alert('Hello from Lesson 4!');
+});</code></pre>
+      </details>
+    </section>
+
+    <!-- Part 4 — Extensions: Live Server + Prettier -->
+    <section class="card">
+      <h2>Part 4 — Extensions: Live Server + Prettier</h2>
+      <div class="two-col">
+        <div>
+          <h3>Install “Live Server”</h3>
+          <ol>
+            <li>Open <strong>Extensions</strong> view (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd>).</li>
+            <li>Search <strong>Live Server</strong> and install.</li>
+            <li>Open <strong>index.html</strong>, then click <strong>Go Live</strong> (Status Bar).</li>
+          </ol>
+          <div class="hint"><strong>Result:</strong> Your browser opens and auto-refreshes whenever you save.</div>
+        </div>
+        <div>
+          <h3>Install “Prettier”</h3>
+          <ol>
+            <li>In Extensions, search <strong>Prettier - Code formatter</strong> and install.</li>
+            <li>Open Settings and set <strong>Editor: Default Formatter</strong> → <em>Prettier</em>.</li>
+            <li>Enable <strong>Editor: Format On Save</strong>.</li>
+          </ol>
+          <div class="hint"><strong>Result:</strong> Your HTML/JS/CSS will auto-format on save—clean and consistent.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Part 5 — Core Settings to Toggle -->
+    <section class="card">
+      <h2>Part 5 — Core Settings to Toggle</h2>
+      <ul>
+        <li><strong>Files: Auto Save</strong> → <em>afterDelay</em></li>
+        <li><strong>Editor: Format On Save</strong> → <em>On</em></li>
+        <li><strong>Editor: Word Wrap</strong> → <em>On</em> (optional)</li>
+        <li><strong>Editor: Tab Size</strong> → <em>2</em> (course default)</li>
+        <li><strong>Default Formatter</strong> → <em>Prettier</em></li>
+      </ul>
+      <details>
+        <summary>JSON (optional) — drop into <code>settings.json</code></summary>
+        <pre><code>{
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "on",
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}</code></pre>
+      </details>
+    </section>
+
+    <!-- Part 6 — Integrated Terminal -->
+    <section class="card">
+      <h2>Part 6 — Integrated Terminal</h2>
+      <p>Open with <strong>View → Terminal</strong> (or <kbd>Ctrl</kbd> + <kbd>`</kbd>). It starts in your workspace folder.</p>
+      <pre><code># create a new lesson folder and open it
+mkdir lesson-04 &amp;&amp; cd lesson-04
+code .</code></pre>
+      <div class="hint"><strong>Tip:</strong> Keep the terminal docked at the bottom (Panel) so you can run commands without leaving VS Code.</div>
+    </section>
+
+    <!-- Part 7 — Emmet Basics -->
+    <section class="card">
+      <h2>Part 7 — Emmet Basics (built into VS Code)</h2>
+      <ul>
+        <li>Type <code>!</code> + <kbd>Tab</kbd> → HTML boilerplate.</li>
+        <li>Type <code>ul&gt;li*3</code> + <kbd>Tab</kbd> → 3 list items inside a <code>&lt;ul&gt;</code>.</li>
+        <li>Type <code>.card.profile</code> + <kbd>Tab</kbd> → <code>&lt;div class="card profile"&gt;&lt;/div&gt;</code>.</li>
+      </ul>
+    </section>
+
+    <!-- Practice -->
+    <section class="card">
+      <h2>Practice Tasks</h2>
+      <ol>
+        <li>Open <strong>lesson-04/index.html</strong> and start <strong>Live Server</strong>. Confirm your page updates when you save.</li>
+        <li>Break your formatting, then save; confirm <strong>Prettier</strong> fixes it.</li>
+        <li>Add a <code>&lt;nav&gt;</code> with two links using Emmet, then style it in <code>styles.css</code>.</li>
+        <li>Use the <strong>Command Palette</strong> to toggle word wrap and open settings.</li>
+      </ol>
+    </section>
+
+    <!-- Quiz -->
+    <section class="card">
+      <h2>Quick Quiz</h2>
+      <ol>
+        <li>What does the <strong>Command Palette</strong> do?</li>
+        <li>What’s the benefit of <strong>Format on Save</strong> with Prettier?</li>
+        <li>Which extension provides auto-refresh in your browser while you edit?</li>
+        <li>Where do you find the integrated <strong>Terminal</strong> in VS Code?</li>
+      </ol>
+      <details>
+        <summary>Sample answers</summary>
+        <ul>
+          <li>It lets you run any VS Code command by name.</li>
+          <li>Consistent, clean code formatting without manual effort.</li>
+          <li>Live Server.</li>
+          <li>In the Panel (View → Terminal or <kbd>Ctrl</kbd> + <kbd>`</kbd>).</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- Bottom navigation buttons -->
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+      <a href="lesson3.html" class="btn prev">← Previous Lesson</a>
+      <span class="spacer" aria-hidden="true"></span>
+      <a href="lesson5.html" class="btn next">Next Lesson →</a>
+    </nav>
+
+    <!-- Dictionary (ONLY terms used in Lesson 4) -->
+    <section class="card" id="dictionary" aria-labelledby="dict-heading">
+      <h2 id="dict-heading">Lesson 4 Dictionary</h2>
+      <p class="footer-note">Terms and concepts introduced/used in this lesson only.</p>
+
+      <!-- Search -->
+      <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+        <label for="dictSearch" class="visually-hidden">Search terms</label>
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, settings…" autocomplete="off" />
+        <span class="dict-meta"><span id="dictCount"></span> terms</span>
+        <button type="button" id="dictExport" class="pill">Export JSON</button>
+      </form>
+
+      <!-- A–Z jump -->
+      <nav class="dict-az" aria-label="A to Z">
+        <a href="#dict-A">A</a><a href="#dict-C">C</a><a href="#dict-E">E</a><a href="#dict-I">I</a>
+        <a href="#dict-L">L</a><a href="#dict-P">P</a><a href="#dict-S">S</a><a href="#dict-T">T</a>
+        <a href="#dict-V">V</a><a href="#dict-W">W</a>
+      </nav>
+
+      <dl class="dictionary" id="dictList">
+        <!-- A -->
+        <dt id="dict-A" aria-hidden="true" class="dict-letter">A</dt>
+        <dt data-keys="activity bar ui vscode">Activity Bar</dt>
+        <dd>Left-hand icon rail to switch VS Code views (Explorer, Search, SCM, Run, Extensions).</dd>
+
+        <dt data-keys="auto save files setting">Auto Save</dt>
+        <dd>A setting that saves files automatically after a short delay.</dd>
+
+        <!-- C -->
+        <dt id="dict-C" aria-hidden="true" class="dict-letter">C</dt>
+        <dt data-keys="command palette run commands" >Command Palette</dt>
+        <dd>Global launcher for VS Code commands (<kbd>Ctrl/Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>).</dd>
+
+        <!-- E -->
+        <dt id="dict-E" aria-hidden="true" class="dict-letter">E</dt>
+        <dt data-keys="editor code area tabs">Editor</dt>
+        <dd>The main area where you edit files; supports tabs and split views.</dd>
+
+        <dt data-keys="emmet abbreviations html">Emmet</dt>
+        <dd>Abbreviation engine built into VS Code for fast HTML/CSS authoring.</dd>
+
+        <dt data-keys="extensions marketplace">Extension</dt>
+        <dd>A plugin that adds features to VS Code (e.g., Live Server, Prettier).</dd>
+
+        <dt data-keys="explorer file tree">Explorer</dt>
+        <dd>The file tree view showing your workspace folders and files.</dd>
+
+        <!-- I -->
+        <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
+        <dt data-keys="integrated terminal shell">Integrated Terminal</dt>
+        <dd>A built-in terminal inside VS Code (View → Terminal or <kbd>Ctrl</kbd> + <kbd>`</kbd>).</dd>
+
+        <!-- L -->
+        <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
+        <dt data-keys="live server preview">Live Server</dt>
+        <dd>An extension that serves your page locally and auto-reloads on save.</dd>
+
+        <!-- P -->
+        <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+        <dt data-keys="panel problems output terminal debug">Panel</dt>
+        <dd>Bottom region with Problems, Output, Terminal, and Debug Console.</dd>
+
+        <dt data-keys="prettier formatter format">Prettier</dt>
+        <dd>A code formatter used to enforce consistent style across files.</dd>
+
+        <!-- S -->
+        <dt id="dict-S" aria-hidden="true" class="dict-letter">S</dt>
+        <dt data-keys="settings json ui preferences">Settings</dt>
+        <dd>VS Code preferences accessible via UI or <code>settings.json</code>.</dd>
+
+        <dt data-keys="status bar info language formatter">Status Bar</dt>
+        <dd>The bottom bar showing language mode, formatter, line endings, and more.</dd>
+
+        <!-- T -->
+        <dt id="dict-T" aria-hidden="true" class="dict-letter">T</dt>
+        <dt data-keys="tab size indentation">Tab Size</dt>
+        <dd>Number of spaces that a tab represents (course default: 2).</dd>
+
+        <!-- V -->
+        <dt id="dict-V" aria-hidden="true" class="dict-letter">V</dt>
+        <dt data-keys="visual studio code editor">Visual Studio Code (VS Code)</dt>
+        <dd>A cross-platform code editor used throughout this course.</dd>
+
+        <!-- W -->
+        <dt id="dict-W" aria-hidden="true" class="dict-letter">W</dt>
+        <dt data-keys="workspace folder project">Workspace</dt>
+        <dd>Your project folder(s) opened in VS Code; holds settings and files for the lesson.</dd>
+
+        <dt data-keys="word wrap editor" >Word Wrap</dt>
+        <dd>A setting that visually wraps long lines instead of horizontal scrolling.</dd>
+      </dl>
+    </section>
+
+    <footer class="footer-note" style="padding:24px 0 40px">
+      © HTML Zero → Mastery · Lesson 4. This page is self-contained and works offline.
+    </footer>
+  </main>
+
+  <script>
+    // Add "Copy" buttons to all code blocks
+    (function(){
+      document.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn'; btn.type = 'button'; btn.textContent = 'Copy';
+        btn.setAttribute('aria-label','Copy code to clipboard');
+        pre.appendChild(btn);
+        btn.addEventListener('click', async () => {
+          const code = pre.innerText;
+          try {
+            await navigator.clipboard.writeText(code);
+            btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
+          } catch { btn.textContent = 'Error'; }
+        });
+      });
+    })();
+
+    // Dictionary: filter + export + hide letter headings with no visible terms
+    (function(){
+      const list = document.getElementById('dictList');
+      const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
+        const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
+        return {dt, dd, text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')).toLowerCase()};
+      });
+      const input = document.getElementById('dictSearch');
+      const count = document.getElementById('dictCount');
+      const exportBtn = document.getElementById('dictExport');
+
+      function updateLetterVisibility(){
+        list.querySelectorAll('.dict-letter').forEach(letter => {
+          let next = letter.nextElementSibling, any=false;
+          while (next && !next.classList.contains('dict-letter')) {
+            if (next.style.display !== 'none') { any = true; break; }
+            next = next.nextElementSibling;
+          }
+          letter.style.display = any ? '' : 'none';
+        });
+      }
+      function updateCount(){
+        const visible = items.filter(i => i.dt.style.display !== 'none').length;
+        if (count) count.textContent = visible.toString();
+      }
+      function filter(q){
+        const needle = (q||'').trim().toLowerCase();
+        items.forEach(({dt, dd, text}) => {
+          const show = !needle || text.includes(needle);
+          dt.style.display = show ? '' : 'none';
+          if (dd) dd.style.display = show ? '' : 'none';
+        });
+        updateLetterVisibility();
+        updateCount();
+      }
+      input?.addEventListener('input', e => filter(e.target.value));
+      filter(''); // init
+
+      // Export JSON of Lesson 4 terms only (respects current filter)
+      exportBtn?.addEventListener('click', () => {
+        const data = items
+          .filter(({dt}) => dt.style.display !== 'none')
+          .map(({dt, dd}) => ({
+            term: dt.textContent.replace(/\s+/g,' ').trim(),
+            keys: (dt.dataset.keys||'').split(/\s+/).filter(Boolean),
+            definition: (dd?dd.textContent:'').replace(/\s+/g,' ').trim()
+          }));
+        const blob = new Blob([JSON.stringify({lesson: 4, updated: new Date().toISOString(), items:data}, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.lesson4.json'; a.click();
+        URL.revokeObjectURL(url);
+      });
+    })();
+  </script>
+</body>
+</html>
