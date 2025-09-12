@@ -1,156 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snake Game — Samuel Barnhurst</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snake — Samuel Barnhurst</title>
   <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #0d1117;
-      color: #e6edf3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100vh;
+    :root{
+      --bg:#0d1117; --card:#161b22; --ink:#e6edf3; --muted:#30363d; --accent:#00ffff; --accent-2:#00b3b3;
     }
-    h1 {
-      color: #00ffff;
-      margin: 0.5em;
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg); color:var(--ink);
+      min-height:100vh; display:flex; flex-direction:column; align-items:center; gap:.75rem; padding:1rem;
     }
-    canvas {
-      background: #161b22;
-      border: 2px solid #00ffff;
-      border-radius: 8px;
-      display: block;
+    h1{margin:.25rem 0; color:var(--accent); font-weight:800; letter-spacing:.5px}
+    .row{display:flex; gap:.75rem; flex-wrap:wrap; align-items:center; justify-content:center}
+    .card{background:var(--card); border:1px solid var(--muted); border-radius:12px; padding:.6rem .9rem}
+    select, .btn{
+      appearance:none; background:var(--card); color:var(--ink);
+      border:1px solid var(--muted); border-radius:10px; padding:.6rem .9rem;
+      font-weight:600; cursor:pointer; transition:background .2s,color .2s,transform .04s ease-in-out;
     }
-    .back, #restartBtn {
-      margin-top: 1em;
-      display: inline-block;
-      padding: 0.8em 1.5em;
-      border-radius: 8px;
-      background: #161b22;
-      border: 1px solid #30363d;
-      text-decoration: none;
-      color: #e6edf3;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.2s;
+    .btn:hover, select:hover{background:#17202a}
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{border-color:var(--accent-2)}
+    .btn.primary:hover{background:var(--accent-2); color:#fff}
+    .btn.accent{border-color:var(--accent)}
+    .btn.accent:hover{background:var(--accent); color:#001013}
+    .hud{
+      display:flex; align-items:center; justify-content:center; gap:1.5rem;
+      padding:.4rem .9rem; border-radius:10px; border:1px solid var(--muted); background:var(--card)
     }
-    .back:hover, #restartBtn:hover {
-      background: #00b3b3;
-      color: #fff;
+    .score{font-size:1.25rem; font-weight:800; color:var(--accent)}
+    .hi{opacity:.9}
+    .canvas-wrap{width:min(560px,100%)}
+    canvas{
+      width:100%; height:auto;
+      background:var(--card); border:2px solid var(--accent); border-radius:12px; display:block; margin:.5rem 0 0;
+      touch-action:none;
     }
-    #restartBtn { display: none; }
+    /* Overlay (pause & game over) */
+    .overlay{
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.55); backdrop-filter:blur(2px); z-index:10;
+    }
+    .overlay.show{display:flex}
+    .modal{
+      width:min(520px,92%); background:var(--card); border:1px solid var(--muted); border-radius:14px; padding:1.2rem;
+      text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .modal h2{margin:.25rem 0 .5rem; color:var(--accent)}
+    .modal p{margin:.25rem 0 .9rem; opacity:.9}
+    .modal .row{margin-top:.6rem}
+    /* Mobile on-screen D-pad */
+    .touch-controls{display:none; gap:.5rem; margin-top:.5rem; flex-wrap:wrap; justify-content:center}
+    .pad{min-width:86px; padding:.7rem 1rem; text-align:center; user-select:none}
+    @media (max-width: 768px){ .touch-controls{display:flex} }
+    :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
   </style>
 </head>
 <body>
-  <h1>🐍 Snake Game</h1>
-  <canvas id="gameCanvas" width="400" height="400"></canvas>
-  <a href="games.html" class="back">⬅ Back to Game Hub</a>
-  <button id="restartBtn">🔄 Restart Game</button>
+  <h1>🐍 Snake</h1>
+
+  <div class="row">
+    <label class="card" for="speed">Speed:
+      <select id="speed" aria-label="Game speed">
+        <option value="140">Slow</option>
+        <option value="110" selected>Normal</option>
+        <option value="80">Fast</option>
+        <option value="60">Insane</option>
+      </select>
+    </label>
+
+    <div class="hud">
+      <span>Score <span class="score" id="score">0</span></span>
+      <span class="hi">High&nbsp;Score: <strong id="hiScore">0</strong></span>
+    </div>
+
+    <div class="row">
+      <button class="btn primary" id="restartBtn" aria-label="Restart">🔁 Restart</button>
+      <button class="btn accent" id="pauseBtn" aria-label="Pause or resume">⏸️ Pause</button>
+      <button class="btn" id="backBtn" aria-label="Back">⬅ Back</button>
+    </div>
+  </div>
+
+  <div class="canvas-wrap">
+    <!-- Internal res is fixed 400x400; CSS scales responsively -->
+    <canvas id="board" width="400" height="400" aria-label="Snake game area"></canvas>
+  </div>
+
+  <!-- Mobile D-pad -->
+  <div class="touch-controls" aria-hidden="false">
+    <button class="btn pad" id="up">⬆ Up</button>
+    <div class="row">
+      <button class="btn pad" id="left">⬅ Left</button>
+      <button class="btn pad" id="right">➡ Right</button>
+    </div>
+    <button class="btn pad" id="down">⬇ Down</button>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+    <div class="modal">
+      <h2 id="ovTitle">Game Over</h2>
+      <p id="ovText">Score: 0</p>
+      <div class="row">
+        <button class="btn primary" id="ovRestart">🔁 Restart</button>
+        <button class="btn" id="ovBack">⬅ Back</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="card" style="max-width:560px">
+    <strong>Controls:</strong> Arrows to move · <kbd>P</kbd> Pause/Resume · <kbd>R</kbd> Restart
+  </p>
 
   <script>
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-    const restartBtn = document.getElementById("restartBtn");
+    // --- Elements
+    const canvas = document.getElementById('board');
+    const ctx = canvas.getContext('2d');
+    const speedSel = document.getElementById('speed');
+    const scoreEl = document.getElementById('score');
+    const hiScoreEl = document.getElementById('hiScore');
+    const restartBtn = document.getElementById('restartBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const backBtn = document.getElementById('backBtn');
+    const overlay = document.getElementById('overlay');
+    const ovTitle = document.getElementById('ovTitle');
+    const ovText = document.getElementById('ovText');
+    const ovRestart = document.getElementById('ovRestart');
+    const ovBack = document.getElementById('ovBack');
 
-    const gridSize = 20;
-    let snake, food, dx, dy, score, gameEnded;
+    // D-pad
+    const upBtn = document.getElementById('up');
+    const downBtn = document.getElementById('down');
+    const leftBtn = document.getElementById('left');
+    const rightBtn = document.getElementById('right');
 
-    function initGame() {
-      snake = [{x: 200, y: 200}];
-      dx = gridSize;
-      dy = 0;
+    // --- Config
+    const GRID = 20; // size of a cell in px
+    const COLS = canvas.width / GRID;
+    const ROWS = canvas.height / GRID;
+    const HI_KEY = 'snakeHighScore';
+
+    // --- State
+    let snake, dir, nextDir, food, score, tickMs, accMs, lastTs, running, paused, rafId;
+
+    function initState() {
+      snake = [{x: 10*GRID, y: 10*GRID}];            // start center-ish
+      dir = {x: GRID, y: 0};                         // moving right
+      nextDir = {...dir};
       food = spawnFood();
       score = 0;
-      gameEnded = false;
-      restartBtn.style.display = "none";
+      tickMs = Number(speedSel.value);               // step duration in ms
+      accMs = 0; lastTs = performance.now();
+      running = false; paused = false;
+      scoreEl.textContent = '0';
+      hiScoreEl.textContent = String(Number(localStorage.getItem(HI_KEY) || 0));
+      hideOverlay();
+      draw(); // initial frame
     }
 
     function spawnFood() {
-      return {
-        x: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize,
-        y: Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize
-      };
+      // Avoid placing food on the snake
+      while (true) {
+        const fx = Math.floor(Math.random()*COLS) * GRID;
+        const fy = Math.floor(Math.random()*ROWS) * GRID;
+        if (!snake.some(s => s.x===fx && s.y===fy)) return {x:fx, y:fy};
+      }
     }
 
-    function drawSnake() {
-      ctx.fillStyle = "#00ffff";
-      snake.forEach(segment => ctx.fillRect(segment.x, segment.y, gridSize, gridSize));
-    }
+    function update(dtMs) {
+      accMs += dtMs;
+      if (accMs < tickMs) return;          // step only when enough time elapsed
+      accMs %= tickMs;
 
-    function drawFood() {
-      ctx.fillStyle = "#ff6b6b";
-      ctx.fillRect(food.x, food.y, gridSize, gridSize);
-    }
+      // apply buffered input (prevents instant 180°)
+      if (!(nextDir.x === -dir.x && nextDir.y === -dir.y)) dir = nextDir;
 
-    function drawHUD() {
-      ctx.fillStyle = "#e6edf3";
-      ctx.font = "18px Arial";
-      ctx.fillText("Score: " + score, 10, 20);
-    }
+      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+      // wall collision
+      if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height) return gameOver();
+      // self collision
+      if (snake.some((s,i)=> i>0 && s.x===head.x && s.y===head.y)) return gameOver();
 
-    function updateSnake() {
-      const head = {x: snake[0].x + dx, y: snake[0].y + dy};
       snake.unshift(head);
 
-      // Check food collision
+      // food eat?
       if (head.x === food.x && head.y === food.y) {
-        score++;
+        score++; scoreEl.textContent = String(score);
+        // speed up a touch every 5 points (optional)
+        if (score % 5 === 0 && tickMs > 50) tickMs = Math.max(50, tickMs - 5);
         food = spawnFood();
       } else {
         snake.pop();
       }
-
-      // Check wall collision
-      if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height) {
-        gameOver();
-      }
-
-      // Check self collision
-      for (let i = 1; i < snake.length; i++) {
-        if (head.x === snake[i].x && head.y === snake[i].y) {
-          gameOver();
-        }
-      }
     }
 
-    function gameOver() {
-      gameEnded = true;
-      ctx.fillStyle = "#ff6b6b";
-      ctx.font = "36px Arial";
-      ctx.fillText("GAME OVER", canvas.width/2 - 100, canvas.height/2);
-      restartBtn.style.display = "inline-block";
+    function drawGrid(){
+      // subtle grid (optional): comment out if you prefer solid
+      ctx.strokeStyle = '#202733';
+      ctx.lineWidth = 1;
+      for(let x=GRID; x<canvas.width; x+=GRID){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
+      for(let y=GRID; y<canvas.height; y+=GRID){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
     }
 
-    function gameLoop() {
-      if (gameEnded) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function draw() {
+      ctx.fillStyle = '#161b22';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
 
-      updateSnake();
-      drawSnake();
-      drawFood();
-      drawHUD();
+      // draw grid
+      drawGrid();
 
-      setTimeout(gameLoop, 100); // control speed
+      // food
+      ctx.fillStyle = '#ff6b6b';
+      ctx.fillRect(food.x, food.y, GRID, GRID);
+
+      // snake
+      ctx.fillStyle = '#00ffff';
+      for (const seg of snake) ctx.fillRect(seg.x, seg.y, GRID, GRID);
+
+      // HUD (score text already in DOM, but draw in-canvas too)
+      ctx.fillStyle = '#e6edf3';
+      ctx.font = '18px Arial';
+      ctx.fillText('Score: ' + score, 10, 22);
     }
 
-    document.addEventListener("keydown", e => {
-      if (e.code === "ArrowUp" && dy === 0) { dx = 0; dy = -gridSize; }
-      if (e.code === "ArrowDown" && dy === 0) { dx = 0; dy = gridSize; }
-      if (e.code === "ArrowLeft" && dx === 0) { dx = -gridSize; dy = 0; }
-      if (e.code === "ArrowRight" && dx === 0) { dx = gridSize; dy = 0; }
+    function loop(ts) {
+      if (!running) return;
+      if (paused) { rafId = requestAnimationFrame(loop); return; }
+      const dt = ts - lastTs; lastTs = ts;
+      update(dt);
+      draw();
+      rafId = requestAnimationFrame(loop);
+    }
+
+    function start(){
+      if (running) return;
+      running = true; paused = false; lastTs = performance.now();
+      rafId = requestAnimationFrame(loop);
+      pauseBtn.textContent = '⏸️ Pause';
+    }
+    function stop(){
+      running = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    function restart(){
+      stop(); initState(); start();
+    }
+
+    function togglePause(){
+      if (!running) return;
+      paused = !paused;
+      pauseBtn.textContent = paused ? '▶️ Resume' : '⏸️ Pause';
+      showOverlay(paused, 'Paused', 'Press Resume to continue');
+      if (!paused) lastTs = performance.now();
+    }
+
+    function gameOver(){
+      stop();
+      // high score
+      try {
+        const old = Number(localStorage.getItem(HI_KEY) || 0);
+        if (score > old) localStorage.setItem(HI_KEY, String(score));
+        hiScoreEl.textContent = String(Math.max(score, old));
+      } catch {}
+      showOverlay(true, 'Game Over', `Score: ${score} · High: ${hiScoreEl.textContent}`);
+    }
+
+    // Overlay helpers
+    function showOverlay(show, title='Game Over', text=''){
+      overlay.classList.toggle('show', !!show);
+      if (show){ ovTitle.textContent = title; ovText.textContent = text || ovText.textContent; }
+    }
+    function hideOverlay(){ overlay.classList.remove('show'); }
+
+    // Input helpers
+    function setDirection(nx, ny){
+      const proposed = {x:nx, y:ny};
+      // block 180° reversals
+      if (proposed.x === -dir.x && proposed.y === -dir.y) return;
+      nextDir = proposed;
+    }
+
+    // Keyboard input
+    document.addEventListener('keydown', e=>{
+      const k = e.key;
+      if (k === 'ArrowUp') setDirection(0,-GRID);
+      else if (k === 'ArrowDown') setDirection(0, GRID);
+      else if (k === 'ArrowLeft') setDirection(-GRID,0);
+      else if (k === 'ArrowRight') setDirection(GRID,0);
+      else if (k === 'p' || k === 'P') togglePause();
+      else if (k === 'r' || k === 'R') restart();
     });
 
-    restartBtn.addEventListener("click", () => {
-      initGame();
-      gameLoop();
-    });
+    // D-pad (Pointer Events → works for mouse & touch)
+    function bindDir(btn, dx, dy){
+      btn.addEventListener('pointerdown', ev => { ev.preventDefault(); setDirection(dx,dy); });
+    }
+    bindDir(upBtn, 0,-GRID);
+    bindDir(downBtn, 0, GRID);
+    bindDir(leftBtn,-GRID, 0);
+    bindDir(rightBtn,GRID, 0);
 
-    initGame();
-    gameLoop();
+    // Buttons
+    restartBtn.addEventListener('click', restart);
+    pauseBtn.addEventListener('click', togglePause);
+    backBtn.addEventListener('click', e=>{
+      e.preventDefault();
+      if (window.history.length > 1) window.history.back();
+      else window.location.href = 'games.html'; // adjust path if nested
+    });
+    ovRestart.addEventListener('click', restart);
+    ovBack.addEventListener('click', ()=> backBtn.click());
+
+    // Speed changes restart (keeps feel consistent)
+    speedSel.addEventListener('change', ()=> restart());
+
+    // Auto-pause when tab hidden
+    document.addEventListener('visibilitychange', ()=>{ if (document.hidden && running && !paused) togglePause(); });
+
+    // Boot
+    initState();
+    start();
   </script>
 </body>
 </html>
