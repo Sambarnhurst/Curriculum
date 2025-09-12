@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lesson 3: Browsers & How They Read HTML</title>
-  <meta name="description" content="Lesson 3 of HTML Zero to Mastery: Browsers, rendering, and how HTML is interpreted." />
+  <title>HTML Zero → Mastery — Lesson 3: Browsers & How They Read HTML</title>
+  <meta name="description" content="How browsers fetch, parse, and render HTML; DOM, CSSOM, Render Tree; why valid HTML matters; practice + quiz." />
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="HTML Zero → Mastery — Lesson 3: Browsers & How They Read HTML" />
+  <meta property="og:description" content="Understand the browser pipeline: DOM, CSSOM, Render Tree, and why valid HTML matters." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sambarnhurst.github.io/Curriculum/lessons/lesson3.html" />
+  <meta property="og:image" content="https://sambarnhurst.github.io/Curriculum/images/lesson1picture1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#121212">
+
   <style>
     :root{
       --bg:#121212;
@@ -14,20 +24,46 @@
       --muted:#b6b6b6;
       --accent:#00ffff;
       --accent-2:#4de1ff;
+      --ok:#57e389;
+      --warn:#ffbf69;
+      --err:#ff6b6b;
       --code:#0d0d0d;
       --link:#7bd4ff;
       --border:#2a2a2a;
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       color:var(--text);
-      background:var(--bg);
+      /* Same background image as L1/L2 (relative to /lessons/lesson3.html) */
+      background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+        url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
+      background-color:#000; /* fallback */
     }
-    header{padding:24px 20px 8px; border-bottom:1px solid var(--border);}
+    a{color:var(--link)}
+
+    /* Skip link */
+    .skip-link{
+      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden
+    }
+    .skip-link:focus{
+      left:12px;top:12px;width:auto;height:auto;padding:.5rem .75rem;
+      background:#1c1c1c;border:1px solid var(--border);border-radius:8px;color:#eaeaea;z-index:1000
+    }
+
+    header{
+      padding:24px 20px 8px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(0,255,255,.07), transparent 60%);
+    }
     .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    h1{margin:0 0 6px; font-weight:800;}
+    h1{margin:0 0 6px;font-weight:800;letter-spacing:.2px}
+    .crumbs{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;font-size:.8rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);margin-left:.3rem}
+    .label{display:inline-block;font-size:.75rem;padding:.2rem .5rem;border-radius:6px;background:#0e2d2d;color:#a6f0f0;border:1px solid #123e3e;margin-left:.5rem}
     main{padding:20px 0 60px}
     section.card{
       background:var(--panel);
@@ -38,51 +74,114 @@
       box-shadow:0 4px 24px rgba(0,0,0,.25);
     }
     section.card h2{margin-top:0;color:var(--accent)}
-    section.card h3{margin:16px 0 8px;color:var(--accent-2)}
+    section.card h3{margin:22px 0 8px;color:var(--accent-2)}
+    .hint{border-left:4px solid var(--accent);padding:8px 12px;background:var(--soft);border-radius:8px}
     pre{
       background:var(--code);
       border:1px solid var(--border);
       border-radius:12px;
-      padding:14px;
-      overflow:auto;
-      margin:12px 0;
+      padding:14px;overflow:auto;margin:12px 0;
+      position:relative; /* for copy button */
     }
-    code, pre code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.95rem}
-    a{color:var(--link); text-decoration:none}
-    a:hover{text-decoration:underline}
-    .quiz li{margin:.4rem 0}
-    nav {margin-top:1em; font-size:1rem;}
+    code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:.95rem}
+    .footer-note{color:var(--muted);font-size:.95rem}
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+
+    /* Lesson navigation buttons */
+    .lesson-nav{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin:16px 0; padding:12px;
+      background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    }
+    .btn{
+      display:inline-block; text-decoration:none; color:var(--text);
+      padding:.6rem .9rem; border:1px solid var(--border); border-radius:999px;
+      background:var(--soft);
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn.back{border-color:#3f2f2f}
+    .btn.prev{border-color:#2f3f2f}
+    .btn.next{border-color:#1f3f3f}
+    .spacer{flex:1}
+
+    /* Copy button */
+    .copy-btn{
+      position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer
+    }
+
+    /* Dictionary UI */
+    .dict-search{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
+    .dict-search input[type="search"]{
+      flex:1; min-width:220px; padding:.55rem .7rem; border:1px solid var(--border);
+      border-radius:10px; background:var(--soft); color:var(--text)
+    }
+    .dict-meta{color:var(--muted);font-size:.9rem}
+    .dict-az{display:flex;gap:.4rem;flex-wrap:wrap;margin:8px 0 14px}
+    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+    .dictionary{margin:0}
+    .dictionary dt{margin-top:.6rem;font-weight:700}
+    .dictionary dd{margin:0 0 .6rem 0;color:var(--text)}
+    .dict-letter{
+      margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);
+      border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600
+    }
+    .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .preview{width:100%;height:260px;border:1px solid var(--border);border-radius:12px;background:#fff}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header>
     <div class="container">
-      <h1>Lesson 3 — Browsers & How They Read HTML</h1>
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 3: Browsers & How They Read HTML</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 3 — Browsers & How They Read HTML <span class="label">Render Pipeline</span></h1>
+
+      <!-- Top navigation buttons -->
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+        <a href="lesson2.html" class="btn prev">← Previous Lesson</a>
+        <span class="spacer" aria-hidden="true"></span>
+        <a href="lesson4.html" class="btn next">Next Lesson →</a>
+      </nav>
+
+      <div class="footer-note">Estimated time: 45–60 minutes · You’ll inspect the DOM and see parsing in action</div>
     </div>
   </header>
 
-  <main class="container">
+  <main id="main" class="container">
+    <!-- Learning Goals -->
     <section class="card">
       <h2>Learning Goals</h2>
       <ul>
         <li>Understand how browsers load and parse an HTML file.</li>
-        <li>Learn about the rendering process (DOM, CSSOM, Render Tree).</li>
+        <li>Learn about the rendering process (<strong>DOM</strong>, <strong>CSSOM</strong>, <strong>Render Tree</strong>).</li>
         <li>Recognize why clean, valid HTML is important.</li>
       </ul>
+      <div class="lesson-tools" style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0">
+        <a class="pill" target="_blank" rel="noopener"
+           href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fsambarnhurst.github.io%2FCurriculum%2Flessons%2Flesson3.html">
+           Validate this page
+        </a>
+      </div>
     </section>
 
+    <!-- Part 1 -->
     <section class="card">
       <h2>1 — The Browser’s Job</h2>
       <p>When you type a URL or open an HTML file, the browser:</p>
       <ol>
         <li><strong>Fetches</strong> the HTML file.</li>
-        <li><strong>Parses</strong> it into a tree-like structure (the DOM).</li>
+        <li><strong>Parses</strong> it into a tree-like structure (the <strong>DOM</strong>).</li>
         <li><strong>Loads resources</strong> referenced in HTML (CSS, JS, images).</li>
-        <li><strong>Builds the page</strong> combining DOM (structure), CSSOM (styles), and JS (behavior).</li>
+        <li><strong>Builds</strong> the page combining <strong>DOM</strong> (structure), <strong>CSSOM</strong> (styles), and <strong>JS</strong> (behavior).</li>
         <li><strong>Paints</strong> the final pixels on your screen.</li>
       </ol>
     </section>
 
+    <!-- Part 2 -->
     <section class="card">
       <h2>2 — Example: Simple HTML → Render</h2>
       <pre><code>&lt;!DOCTYPE html&gt;
@@ -102,21 +201,30 @@
       console.log("Page loaded!");
     &lt;/script&gt;
   &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+&lt;/html&gt;</code></pre>
+
       <p>The browser turns this code into a structured page with styled text, then runs the script.</p>
+
+      <details>
+        <summary>Live Preview</summary>
+        <iframe class="preview" title="Browser Demo Preview" sandbox
+          srcdoc="<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>Browser Demo</title><style>body{background:#121212;color:#eee;font-family:system-ui;margin:1rem}h1{color:cyan}</style></head><body><h1>Browser Rendering</h1><p>The browser parses HTML into a DOM, applies CSS, and executes JS.</p><script>console.log('Page loaded!');</script></body></html>">
+        </iframe>
+      </details>
     </section>
 
+    <!-- Part 3 -->
     <section class="card">
       <h2>3 — Why This Matters</h2>
       <ul>
-        <li>Broken HTML → unpredictable rendering.</li>
-        <li>Invalid nesting → browser may auto-correct incorrectly.</li>
-        <li>Performance → fewer blocking resources = faster rendering.</li>
+        <li><strong>Broken HTML</strong> → unpredictable rendering.</li>
+        <li><strong>Invalid nesting</strong> → browser may auto-correct incorrectly.</li>
+        <li><strong>Performance</strong> → fewer <em>blocking resources</em> = faster rendering.</li>
       </ul>
-      <div><strong>Tip:</strong> Use browser DevTools (<kbd>F12</kbd>) to see the DOM the browser created.</div>
+      <p class="hint"><strong>Tip:</strong> Use browser <strong>DevTools</strong> (<kbd>F12</kbd>) to see the DOM the browser created. Check the <em>Elements</em> and <em>Console</em> tabs.</p>
     </section>
 
+    <!-- Practice -->
     <section class="card">
       <h2>Practice Task</h2>
       <ol>
@@ -127,23 +235,197 @@
       </ol>
     </section>
 
+    <!-- Quiz -->
     <section class="card">
       <h2>Quick Quiz</h2>
-      <ol class="quiz">
+      <ol>
         <li>What does the browser build when it parses HTML?</li>
         <li>What happens if HTML is invalid or mis-nested?</li>
         <li>What three things combine to form the Render Tree?</li>
       </ol>
     </section>
 
-    <section class="card">
-      <h2>Navigation</h2>
-      <nav>
-        ⬅ <a href="lesson2.html">Previous Lesson</a> · 
-        🏠 <a href="../index.html">Main Menu</a> · 
-        ➡ <a href="lesson4.html">Next Lesson</a>
+    <!-- Bottom navigation buttons -->
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+      <a href="lesson2.html" class="btn prev">← Previous Lesson</a>
+      <span class="spacer" aria-hidden="true"></span>
+      <a href="lesson4.html" class="btn next">Next Lesson →</a>
+    </nav>
+
+    <!-- Dictionary (ONLY terms used in Lesson 3) -->
+    <section class="card" id="dictionary" aria-labelledby="dict-heading">
+      <h2 id="dict-heading">Lesson 3 Dictionary</h2>
+      <p class="footer-note">Terms mentioned or used in this lesson (scoped to Lesson 3 only).</p>
+
+      <!-- Search -->
+      <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+        <label for="dictSearch" class="visually-hidden">Search terms</label>
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms…" autocomplete="off" />
+        <span class="dict-meta"><span id="dictCount"></span> terms</span>
+        <button type="button" id="dictExport" class="pill">Export JSON</button>
+      </form>
+
+      <!-- A–Z jump (only letters we actually use) -->
+      <nav class="dict-az" aria-label="A to Z">
+        <a href="#dict-B">B</a><a href="#dict-C">C</a><a href="#dict-D">D</a>
+        <a href="#dict-F">F</a><a href="#dict-H">H</a><a href="#dict-I">I</a>
+        <a href="#dict-J">J</a><a href="#dict-P">P</a><a href="#dict-R">R</a><a href="#dict-U">U</a>
       </nav>
+
+      <dl class="dictionary" id="dictList">
+        <!-- B -->
+        <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+        <dt data-keys="browser parsing rendering devtools">Browser</dt>
+        <dd>The application that fetches, parses, and renders web pages.</dd>
+
+        <dt data-keys="blocking resources performance render delay">Blocking resource</dt>
+        <dd>A resource (often CSS/JS) that delays the render until it’s loaded/processed.</dd>
+
+        <dt data-keys="broken html errors">Broken HTML</dt>
+        <dd>Invalid or malformed markup that can cause unpredictable rendering.</dd>
+
+        <!-- C -->
+        <dt id="dict-C" aria-hidden="true" class="dict-letter">C</dt>
+        <dt data-keys="css presentation">CSS</dt>
+        <dd>Stylesheet language controlling presentation (colors, layout, spacing).</dd>
+
+        <dt data-keys="cssom styles tree">CSSOM</dt>
+        <dd>Tree of parsed CSS rules combined with the DOM to build the render tree.</dd>
+
+        <dt data-keys="console devtools logs">Console</dt>
+        <dd>DevTools tab showing logs, warnings, and errors from scripts.</dd>
+
+        <!-- D -->
+        <dt id="dict-D" aria-hidden="true" class="dict-letter">D</dt>
+        <dt data-keys="devtools inspector elements console">DevTools</dt>
+        <dd>Built-in browser tools used to inspect and debug pages.</dd>
+
+        <dt data-keys="dom document object model tree">DOM</dt>
+        <dd>Document Object Model — the tree built by parsing HTML.</dd>
+
+        <!-- F -->
+        <dt id="dict-F" aria-hidden="true" class="dict-letter">F</dt>
+        <dt data-keys="fetch network request">Fetch</dt>
+        <dd>Retrieving a resource (like an HTML file) over the network or filesystem.</dd>
+
+        <!-- H -->
+        <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
+        <dt data-keys="html hypertext markup language">HTML</dt>
+        <dd>Markup language that provides the structure and semantics of web pages.</dd>
+
+        <!-- I -->
+        <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
+        <dt data-keys="invalid nesting">Invalid nesting</dt>
+        <dd>Placing elements in disallowed positions, forcing the parser to auto-correct.</dd>
+
+        <!-- J -->
+        <dt id="dict-J" aria-hidden="true" class="dict-letter">J</dt>
+        <dt data-keys="javascript behavior">JavaScript (JS)</dt>
+        <dd>Programming language used for behavior; interacts with the DOM and CSSOM.</dd>
+
+        <!-- P -->
+        <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+        <dt data-keys="parse parser">Parse / Parser</dt>
+        <dd>The process/tool that reads HTML/CSS and builds the corresponding trees.</dd>
+
+        <dt data-keys="paint pixels render">Paint</dt>
+        <dd>Stage where the browser fills pixels (text, colors, borders) onto layers.</dd>
+
+        <dt data-keys="performance speed">Performance</dt>
+        <dd>How fast a page renders/responds; impacted by blocking resources.</dd>
+
+        <!-- R -->
+        <dt id="dict-R" aria-hidden="true" class="dict-letter">R</dt>
+        <dt data-keys="render tree dom cssom">Render Tree</dt>
+        <dd>Structure created by combining the DOM and CSSOM for layout/paint.</dd>
+
+        <dt data-keys="resources css js images">Resources</dt>
+        <dd>External files referenced by HTML, including CSS, JavaScript, and images.</dd>
+
+        <!-- U -->
+        <dt id="dict-U" aria-hidden="true" class="dict-letter">U</dt>
+        <dt data-keys="url address location">URL</dt>
+        <dd>The address the browser loads when fetching a page or resource.</dd>
+      </dl>
     </section>
+
+    <footer class="footer-note" style="padding:24px 0 40px">
+      © HTML Zero → Mastery · Lesson 3. This page is self-contained and works offline.
+    </footer>
   </main>
+
+  <script>
+    // Add "Copy" buttons to all code blocks
+    (function(){
+      document.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn'; btn.type = 'button'; btn.textContent = 'Copy';
+        btn.setAttribute('aria-label','Copy code to clipboard');
+        pre.appendChild(btn);
+        btn.addEventListener('click', async () => {
+          const code = pre.innerText;
+          try {
+            await navigator.clipboard.writeText(code);
+            btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
+          } catch { btn.textContent = 'Error'; }
+        });
+      });
+    })();
+
+    // Dictionary: filter + export + hide letter headings with no visible terms
+    (function(){
+      const list = document.getElementById('dictList');
+      const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
+        const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
+        return {dt, dd, text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')).toLowerCase()};
+      });
+      const input = document.getElementById('dictSearch');
+      const count = document.getElementById('dictCount');
+      const exportBtn = document.getElementById('dictExport');
+
+      function updateLetterVisibility(){
+        list.querySelectorAll('.dict-letter').forEach(letter => {
+          let next = letter.nextElementSibling, any=false;
+          while (next && !next.classList.contains('dict-letter')) {
+            if (next.style.display !== 'none') { any = true; break; }
+            next = next.nextElementSibling;
+          }
+          letter.style.display = any ? '' : 'none';
+        });
+      }
+      function updateCount(){
+        const visible = items.filter(i => i.dt.style.display !== 'none').length;
+        if (count) count.textContent = visible.toString();
+      }
+      function filter(q){
+        const needle = (q||'').trim().toLowerCase();
+        items.forEach(({dt, dd, text}) => {
+          const show = !needle || text.includes(needle);
+          dt.style.display = show ? '' : 'none';
+          if (dd) dd.style.display = show ? '' : 'none';
+        });
+        updateLetterVisibility();
+        updateCount();
+      }
+      input?.addEventListener('input', e => filter(e.target.value));
+      filter(''); // init
+
+      // Export JSON of Lesson 3 terms only (respects current filter)
+      exportBtn?.addEventListener('click', () => {
+        const data = items
+          .filter(({dt}) => dt.style.display !== 'none')
+          .map(({dt, dd}) => ({
+            term: dt.textContent.replace(/\s+/g,' ').trim(),
+            keys: (dt.dataset.keys||'').split(/\s+/).filter(Boolean),
+            definition: (dd?dd.textContent:'').replace(/\s+/g,' ').trim()
+          }));
+        const blob = new Blob([JSON.stringify({lesson: 3, updated: new Date().toISOString(), items:data}, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.lesson3.json'; a.click();
+        URL.revokeObjectURL(url);
+      });
+    })();
+  </script>
 </body>
 </html>
