@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTML Zero → Mastery — Lesson 1: What is HTML?</title>
   <meta name="description" content="Lesson 1 of HTML Zero to Mastery: What is HTML, why it matters, and how web pages are structured." />
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="HTML Zero → Mastery — Lesson 1: What is HTML?" />
+  <meta property="og:description" content="Learn HTML’s role, build your first page, and quiz yourself." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sambarnhurst.github.io/Curriculum/lessons/lesson1.html" />
+  <meta property="og:image" content="https://sambarnhurst.github.io/Curriculum/images/lesson1picture1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#121212">
+
   <style>
     :root{
       --bg:#121212;
@@ -34,6 +44,16 @@
       background-color:#000; /* fallback */
     }
     a{color:var(--link)}
+
+    /* Skip link */
+    .skip-link{
+      position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden
+    }
+    .skip-link:focus{
+      left:12px;top:12px;width:auto;height:auto;padding:.5rem .75rem;
+      background:#1c1c1c;border:1px solid #2a2a2a;border-radius:8px;color:#eaeaea;z-index:1000
+    }
+
     header{
       padding:24px 20px 8px;
       border-bottom:1px solid var(--border);
@@ -60,12 +80,13 @@
       background:var(--code);
       border:1px solid var(--border);
       border-radius:12px;
-      padding:14px;overflow:auto;margin:12px 0
+      padding:14px;overflow:auto;margin:12px 0;
+      position:relative; /* for copy button positioning */
     }
     code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:.95rem}
     .footer-note{color:var(--muted);font-size:.95rem}
 
-    /* --- Lesson navigation buttons --- */
+    /* Lesson navigation buttons */
     .lesson-nav{
       display:flex; gap:12px; flex-wrap:wrap; align-items:center;
       margin:16px 0; padding:12px;
@@ -80,17 +101,53 @@
     .btn.next{border-color:#1f3f3f}
     .btn.back{border-color:#3f2f2f}
     .spacer{flex:1}
+
+    /* Copy code button */
+    .copy-btn{
+      position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer
+    }
+
+    /* Live preview iframe */
+    .preview{
+      width:100%;height:220px;border:1px solid var(--border);border-radius:12px;background:#fff
+    }
+
+    /* Pills (used in links/tools) */
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+
+    /* Dictionary UI */
+    .dict-search{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
+    .dict-search input[type="search"]{
+      flex:1; min-width:220px; padding:.55rem .7rem; border:1px solid var(--border);
+      border-radius:10px; background:var(--soft); color:var(--text)
+    }
+    .dict-meta{color:var(--muted);font-size:.9rem}
+    .dict-az{display:flex;gap:.4rem;flex-wrap:wrap;margin:8px 0 14px}
+    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+    .dictionary{margin:0}
+    .dictionary dt{margin-top:.6rem;font-weight:700}
+    .dictionary dd{margin:0 0 .6rem 0;color:var(--text)}
+    .dict-letter{
+      margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);
+      border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600
+    }
+    .dict-placeholder{color:var(--muted)}
+    .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header>
     <div class="container">
       <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 1: What is HTML?</strong> <span class="badge">Foundations</span></div>
       <h1>Lesson 1 — What is HTML? <span class="label">Foundations</span></h1>
 
-      <!-- Top navigation buttons -->
+      <!-- Top navigation -->
       <nav class="lesson-nav" aria-label="Lesson navigation">
-        <a href="#" id="backBtn" class="btn back">← Back</a>
+        <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
         <span class="spacer" aria-hidden="true"></span>
         <a href="lesson2.html" class="btn next">Next Lesson →</a>
       </nav>
@@ -99,7 +156,7 @@
     </div>
   </header>
 
-  <main class="container">
+  <main id="main" class="container">
     <!-- Learning Goals -->
     <section class="card">
       <h2>Learning Goals</h2>
@@ -132,7 +189,25 @@
     &lt;p&gt;This is my first web page.&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-      <p class="footer-note">Save as <code>index.html</code> and open it in your browser.</p>
+
+      <!-- Live preview -->
+      <details>
+        <summary>Live Preview: Minimal Page</summary>
+        <iframe class="preview" title="Minimal HTML Preview" sandbox
+          srcdoc="<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>
+          <meta name='viewport' content='width=device-width,initial-scale=1'>
+          <title>Preview</title><style>body{font-family:system-ui;margin:1rem}</style></head>
+          <body><h1>Hello World</h1><p>This is my first webpage.</p></body></html>"></iframe>
+      </details>
+
+      <!-- Tools -->
+      <div class="lesson-tools" style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0">
+        <a class="pill" target="_blank" rel="noopener"
+           href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fsambarnhurst.github.io%2FCurriculum%2Flessons%2Flesson1.html">
+           Validate this page
+        </a>
+        <button class="pill" id="downloadHtml">Download minimal page</button>
+      </div>
     </section>
 
     <!-- Part 3 -->
@@ -159,12 +234,161 @@
       </ol>
     </section>
 
-    <!-- Bottom navigation buttons (repeat for convenience) -->
-    <nav class="lesson-nav" aria-label="Lesson navigation">
-      <a href="#" id="backBtnBottom" class="btn back">← Back</a>
-      <span class="spacer" aria-hidden="true"></span>
-      <a href="lesson2.html" class="btn next">Next Lesson →</a>
-    </nav>
+    <!-- Quiz -->
+    <section class="card">
+      <h2 id="quiz">Quick Quiz</h2>
+      <ol>
+        <li>What is HTML’s main role?</li>
+        <li>Which layer handles visual design?</li>
+        <li>What’s the difference between a tag and an element?</li>
+      </ol>
+
+      <details>
+        <summary><strong>Show sample answers</strong></summary>
+        <ul>
+          <li>HTML’s role: structure & meaning of content (not visual design or behavior).</li>
+          <li>Design: CSS.</li>
+          <li>Tag vs element: a tag is the markup keyword in angle brackets; an element is the tag plus its content (and attributes).</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- Glossary -->
+    <section class="card">
+      <h2>Glossary</h2>
+      <ul>
+        <li><strong>Tag</strong> — The markup keyword like <code>&lt;p&gt;</code>.</li>
+        <li><strong>Element</strong> — The tag plus its content (and attributes).</li>
+        <li><strong>Attribute</strong> — Extra info on an element: <code>alt</code>, <code>href</code>, <code>lang</code>.</li>
+      </ul>
+    </section>
+
+    <!-- Common Mistakes -->
+    <section class="card">
+      <h2>Common Mistakes (and Fixes)</h2>
+      <ul>
+        <li>Missing <code>&lt;!DOCTYPE html&gt;</code> → page may render in quirks mode.</li>
+        <li>Forgetting <code>lang="en"</code> on <code>&lt;html&gt;</code> → hurts accessibility.</li>
+        <li>Using <code>&lt;br&gt;</code> for spacing → use paragraphs and CSS margins instead.</li>
+      </ul>
+    </section>
+
+    <!-- Dictionary (ONLY terms/elements used in Lesson 1) -->
+    <section class="card" id="dictionary" aria-labelledby="dict-heading">
+      <h2 id="dict-heading">Lesson 1 Dictionary</h2>
+      <p class="footer-note">
+        These are the terms and elements introduced in Lesson 1. Search or jump by letter.
+      </p>
+
+      <!-- Search -->
+      <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+        <label for="dictSearch" class="visually-hidden">Search terms</label>
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
+        <span class="dict-meta"><span id="dictCount"></span> terms</span>
+        <button type="button" id="dictExport" class="pill">Export JSON</button>
+      </form>
+
+      <!-- A–Z jump -->
+      <nav class="dict-az" aria-label="A to Z">
+        <a href="#dict-A">A</a><a href="#dict-B">B</a><a href="#dict-C">C</a><a href="#dict-D">D</a>
+        <a href="#dict-E">E</a><a href="#dict-H">H</a><a href="#dict-L">L</a><a href="#dict-M">M</a>
+        <a href="#dict-P">P</a><a href="#dict-Q">Q</a><a href="#dict-T">T</a><a href="#dict-U">U</a><a href="#dict-V">V</a>
+      </nav>
+
+      <dl class="dictionary" id="dictList">
+        <!-- A -->
+        <dt id="dict-A" aria-hidden="true" class="dict-letter">A</dt>
+        <dt data-keys="attribute html attribute">Attribute</dt>
+        <dd>Extra information placed on an element’s start tag (e.g., <code>lang</code>, <code>charset</code>, <code>name</code>).</dd>
+
+        <!-- B -->
+        <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+        <dt data-keys="body root content">&lt;body&gt;</dt>
+        <dd>Document’s visible content container.</dd>
+
+        <dt data-keys="br line break">&lt;br&gt;</dt>
+        <dd>Line break. Use sparingly—prefer paragraphs and CSS spacing.</dd>
+
+        <!-- C -->
+        <dt id="dict-C" aria-hidden="true" class="dict-letter">C</dt>
+        <dt data-keys="charset encoding meta">charset (meta)</dt>
+        <dd>Declares character encoding, e.g., <code>&lt;meta charset="UTF-8"&gt;</code>.</dd>
+
+        <!-- D -->
+        <dt id="dict-D" aria-hidden="true" class="dict-letter">D</dt>
+        <dt data-keys="doctype standards mode">&lt;!DOCTYPE html&gt;</dt>
+        <dd>Tells the browser to use standards mode (avoids quirks mode).</dd>
+
+        <!-- E -->
+        <dt id="dict-E" aria-hidden="true" class="dict-letter">E</dt>
+        <dt data-keys="element html node">Element</dt>
+        <dd>A complete unit of markup: the tag(s) plus its content and attributes.</dd>
+
+        <dt data-keys="em emphasis italics">&lt;em&gt;</dt>
+        <dd>Emphasized text that affects meaning.</dd>
+
+        <!-- H -->
+        <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
+        <dt data-keys="html language hyper text">HTML</dt>
+        <dd>HyperText Markup Language — the structure and meaning of web pages.</dd>
+
+        <dt data-keys="html root element">&lt;html&gt;</dt>
+        <dd>Root element that wraps the entire page. Often includes a <code>lang</code> attribute.</dd>
+
+        <dt data-keys="head metadata">&lt;head&gt;</dt>
+        <dd>Metadata container: title, meta tags, links, etc.</dd>
+
+        <dt data-keys="heading h1 h2 h3 h4 h5 h6">Headings (&lt;h1&gt;…&lt;h6&gt;)</dt>
+        <dd>Define the document outline. <code>&lt;h1&gt;</code> is the top-level heading.</dd>
+
+        <dt data-keys="hr horizontal rule">&lt;hr&gt;</dt>
+        <dd>Thematic break (horizontal rule) between sections.</dd>
+
+        <dt data-keys="html comment">&lt;!-- comment --&gt;</dt>
+        <dd>Note for developers; not rendered by the browser.</dd>
+
+        <!-- L -->
+        <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
+        <dt data-keys="lang language attribute">lang (attribute)</dt>
+        <dd>Declares the language of the document or element, e.g., <code>&lt;html lang="en"&gt;</code>.</dd>
+
+        <!-- M -->
+        <dt id="dict-M" aria-hidden="true" class="dict-letter">M</dt>
+        <dt data-keys="meta tag">&lt;meta&gt;</dt>
+        <dd>Metadata: character set, viewport, descriptions, etc.</dd>
+
+        <!-- P -->
+        <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+        <dt data-keys="p paragraph">&lt;p&gt;</dt>
+        <dd>Paragraph of text.</dd>
+
+        <!-- Q -->
+        <dt id="dict-Q" aria-hidden="true" class="dict-letter">Q</dt>
+        <dt data-keys="quirks mode standards doctype">Quirks Mode</dt>
+        <dd>Legacy rendering mode triggered without a proper DOCTYPE. Avoid it.</dd>
+
+        <!-- T -->
+        <dt id="dict-T" aria-hidden="true" class="dict-letter">T</dt>
+        <dt data-keys="tag markup">&lt;tag&gt; (Tag)</dt>
+        <dd>The markup keyword in angle brackets (e.g., <code>&lt;p&gt;</code> or <code>&lt;/p&gt;</code>).</dd>
+
+        <dt data-keys="title document head">&lt;title&gt;</dt>
+        <dd>Page title shown in the browser tab and bookmarks.</dd>
+
+        <dt data-keys="strong importance bold">&lt;strong&gt;</dt>
+        <dd>Strong importance; conveys semantic emphasis.</dd>
+
+        <!-- U -->
+        <dt id="dict-U" aria-hidden="true" class="dict-letter">U</dt>
+        <dt data-keys="utf-8 unicode encoding">UTF-8</dt>
+        <dd>Unicode character encoding recommended for modern pages.</dd>
+
+        <!-- V -->
+        <dt id="dict-V" aria-hidden="true" class="dict-letter">V</dt>
+        <dt data-keys="viewport meta responsive">Viewport (meta)</dt>
+        <dd>Controls layout viewport on mobile (e.g., <code>width=device-width, initial-scale=1</code>).</dd>
+      </dl>
+    </section>
 
     <footer class="footer-note" style="padding:24px 0 40px">
       © HTML Zero → Mastery · Lesson 1. Page works offline.
@@ -172,22 +396,91 @@
   </main>
 
   <script>
-    // Back button behavior:
-    // If there's browser history, go back. Otherwise, fallback to the curriculum index.
+    // Add "Copy" buttons to all code blocks
     (function(){
-      function goBackFallback(e){
-        e.preventDefault();
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          // Change this path if your index is elsewhere
-          window.location.href = '../index.html';
-        }
+      document.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn'; btn.type = 'button'; btn.textContent = 'Copy';
+        btn.setAttribute('aria-label','Copy code to clipboard');
+        pre.appendChild(btn);
+        btn.addEventListener('click', async () => {
+          const code = pre.innerText;
+          try {
+            await navigator.clipboard.writeText(code);
+            btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
+          } catch { btn.textContent = 'Error'; }
+        });
+      });
+    })();
+
+    // Download minimal page helper
+    (function(){
+      const el = document.getElementById('downloadHtml');
+      if (!el) return;
+      el.addEventListener('click', () => {
+        const content = `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My First Page</title></head>
+<body><h1>Hello World</h1><p>This is my first webpage.</p></body></html>`;
+        const blob = new Blob([content], {type:'text/html'});
+        const url = URL.createObjectURL(blob);
+        const a = Object.assign(document.createElement('a'), {href:url, download:'index.html'});
+        a.click(); URL.revokeObjectURL(url);
+      });
+    })();
+
+    // Dictionary: filter + export + hide empty letter markers
+    (function(){
+      const list = document.getElementById('dictList');
+      const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
+        const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
+        return {dt, dd, text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')) .toLowerCase()};
+      });
+      const input = document.getElementById('dictSearch');
+      const count = document.getElementById('dictCount');
+      const exportBtn = document.getElementById('dictExport');
+
+      function updateLetterVisibility(){
+        list.querySelectorAll('.dict-letter').forEach(letter => {
+          let next = letter.nextElementSibling, any=false;
+          while (next && !next.classList.contains('dict-letter')) {
+            if (next.style.display !== 'none') { any = true; break; }
+            next = next.nextElementSibling;
+          }
+          letter.style.display = any ? '' : 'none';
+        });
       }
-      var topBack = document.getElementById('backBtn');
-      var bottomBack = document.getElementById('backBtnBottom');
-      if (topBack) topBack.addEventListener('click', goBackFallback);
-      if (bottomBack) bottomBack.addEventListener('click', goBackFallback);
+      function updateCount(){
+        const visible = items.filter(i => i.dt.style.display !== 'none').length;
+        if (count) count.textContent = visible.toString();
+      }
+      function filter(q){
+        const needle = q.trim().toLowerCase();
+        items.forEach(({dt, dd, text}) => {
+          const show = !needle || text.includes(needle);
+          dt.style.display = show ? '' : 'none';
+          if (dd) dd.style.display = show ? '' : 'none';
+        });
+        updateLetterVisibility();
+        updateCount();
+      }
+      input?.addEventListener('input', e => filter(e.target.value));
+      filter(''); // init
+
+      // Export JSON of Lesson 1 terms only (current filter if any)
+      exportBtn?.addEventListener('click', () => {
+        const data = items
+          .filter(({dt}) => dt.style.display !== 'none')
+          .map(({dt, dd}) => ({
+            term: dt.textContent.replace(/\s+/g,' ').trim(),
+            keys: (dt.dataset.keys||'').split(/\s+/).filter(Boolean),
+            definition: (dd?dd.textContent:'').replace(/\s+/g,' ').trim()
+          }));
+        const blob = new Blob([JSON.stringify({lesson: 1, updated: new Date().toISOString(), items:data}, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.lesson1.json'; a.click();
+        URL.revokeObjectURL(url);
+      });
     })();
   </script>
 </body>
