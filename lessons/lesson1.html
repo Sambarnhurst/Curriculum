@@ -1,87 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lesson 1: What is HTML?</title>
-  <meta name="description" content="Lesson 1 of HTML Zero to Mastery: What is HTML? Concept, role, and first page." />
+  <title>Lesson 1 — What is HTML?</title>
+  <meta name="description" content="Learn what HTML is, how it relates to CSS and JavaScript, and build your first page." />
   <style>
     :root{
-      --bg:#121212;
-      --panel:#1c1c1c;
-      --soft:#222;
-      --text:#eaeaea;
-      --muted:#b6b6b6;
-      --accent:#00ffff;
-      --accent-2:#4de1ff;
-      --code:#0d0d0d;
-      --link:#7bd4ff;
-      --border:#2a2a2a;
+      --bg:#0d1117; --card:#161b22; --ink:#e6edf3; --muted:#30363d;
+      --accent:#00ffff; --accent-2:#00b3b3; --good:#42d392; --warn:#ffcc66;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      color:var(--text);
-      background:var(--bg);
+    html,body{margin:0; background:var(--bg); color:var(--ink); font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; line-height:1.6}
+    a{color:var(--accent)}
+    header,main,footer{max-width:920px; margin-inline:auto; padding:1rem}
+    header{display:flex; flex-direction:column; gap:.5rem}
+    .crumbs{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; font-size:.95rem; opacity:.9}
+    .crumbs a{color:var(--ink)}
+    .pill{background:var(--card); border:1px solid var(--muted); border-radius:999px; padding:.2rem .6rem; font-weight:700}
+    h1{color:var(--accent); margin:.25rem 0}
+    .card{background:var(--card); border:1px solid var(--muted); border-radius:12px; padding:1rem}
+    .section{margin:1rem 0}
+    h2{margin:.25rem 0 .5rem}
+    .grid{display:grid; gap:.8rem}
+    .cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width:800px){ .cols-2{grid-template-columns:1fr} }
+    /* Code block */
+    pre{background:#0f1420; color:#e6edf3; border:1px solid var(--muted); border-radius:10px; padding:1rem; overflow:auto}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.95rem}
+    .codebar{display:flex; gap:.5rem; justify-content:flex-end; margin-bottom:.5rem}
+    .btn{
+      appearance:none; background:var(--card); color:var(--ink);
+      border:1px solid var(--muted); border-radius:10px; padding:.45rem .75rem;
+      font-weight:600; cursor:pointer; transition:background .2s,color .2s,transform .04s ease-in-out;
     }
-    header{padding:24px 20px 8px; border-bottom:1px solid var(--border);}
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    h1{margin:0 0 6px; font-weight:800;}
-    main{padding:20px 0 60px}
-    section.card{
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:20px;
-      margin:16px 0;
-      box-shadow:0 4px 24px rgba(0,0,0,.25);
+    .btn:hover{background:#17202a}
+    .btn.primary{border-color:var(--accent-2)}
+    .btn.primary:hover{background:var(--accent-2); color:#fff}
+    .btn.good{border-color:var(--good)}
+    .btn.good:hover{background:var(--good); color:#001013}
+    .list-tight li{margin:.25rem 0}
+    /* Tasks */
+    .task{display:flex; gap:.6rem; align-items:flex-start}
+    input[type="checkbox"]{transform:translateY(3px)}
+    .hint{font-size:.95rem; opacity:.9}
+    /* Quiz */
+    details{background:var(--card); border:1px solid var(--muted); border-radius:10px; padding:.6rem .8rem}
+    summary{cursor:pointer; font-weight:700}
+    /* Nav bar bottom */
+    .lesson-nav{display:flex; justify-content:space-between; gap:.5rem; margin:1rem 0 2rem}
+    .muted{opacity:.8}
+    /* Sticky back */
+    .sticky-back{
+      position:fixed; bottom:16px; left:16px; z-index:10;
+      padding:.6rem .9rem; border-radius:999px; border:1px solid var(--muted); background:var(--card);
     }
-    section.card h2{margin-top:0;color:var(--accent)}
-    section.card h3{margin:16px 0 8px;color:var(--accent-2)}
-    pre{
-      background:var(--code);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:14px;
-      overflow:auto;
-      margin:12px 0;
+    /* Print */
+    @media print{
+      .sticky-back,.lesson-nav,.codebar{display:none}
+      a{color:black; text-decoration:underline}
+      body{background:white; color:black}
+      .card{border-color:#ccc}
     }
-    code, pre code{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.95rem}
-    a{color:var(--link); text-decoration:none}
-    a:hover{text-decoration:underline}
-    .quiz li{margin:.4rem 0}
-    nav {margin-top:1em; font-size:1rem;}
   </style>
 </head>
 <body>
+  <a class="sticky-back btn" id="backBtn" href="#">⬅ Back</a>
+
   <header>
-    <div class="container">
-      <h1>Lesson 1 — What is HTML?</h1>
-    </div>
+    <nav class="crumbs">
+      <a href="../index.html">Lessons</a> › <span class="muted">Lesson 1</span>
+      <span class="pill">1 / 600</span>
+    </nav>
+    <h1>Lesson 1 — What is HTML?</h1>
+    <p class="muted">HTML defines the <em>structure &amp; semantics</em> of web documents. CSS handles visual design; JavaScript handles interactivity.</p>
   </header>
 
-  <main class="container">
-    <section class="card">
+  <main>
+    <section class="section card">
       <h2>Learning Goals</h2>
-      <ul>
-        <li>Explain <strong>what HTML is</strong> and what problems it solves.</li>
-        <li>Describe how HTML relates to <strong>CSS</strong> and <strong>JavaScript</strong>.</li>
-        <li>Recognize <strong>tags, elements, and attributes</strong>.</li>
-        <li>Build and open a <strong>first HTML page</strong>.</li>
+      <ul class="list-tight">
+        <li>Explain what HTML is and what problems it solves.</li>
+        <li>Describe how HTML relates to CSS and JavaScript.</li>
+        <li>Recognize tags, elements, and attributes.</li>
+        <li>Build and open a first HTML page.</li>
       </ul>
     </section>
 
-    <section class="card">
+    <section class="section card">
       <h2>HTML’s Job vs. Other Layers</h2>
-      <p><strong>HTML</strong> — Structure & semantics: headings, paragraphs, lists, links, images, forms.</p>
-      <p><strong>CSS</strong> — Styling: colors, spacing, typography, layout.</p>
-      <p><strong>JavaScript</strong> — Interactivity: dynamic updates, events, fetching data.</p>
+      <div class="grid cols-2">
+        <div><strong>HTML — Structure &amp; semantics</strong><br/>headings, paragraphs, lists, links, images, forms.</div>
+        <div><strong>CSS — Styling</strong><br/>colors, spacing, typography, layout.</div>
+        <div><strong>JavaScript — Interactivity</strong><br/>dynamic updates, events, fetching data.</div>
+      </div>
     </section>
 
-    <section class="card">
+    <section class="section card">
+      <div class="codebar">
+        <button class="btn" id="copyBtn">📋 Copy</button>
+        <button class="btn primary" id="openBtn">▶️ Open</button>
+      </div>
       <h2>Minimal Page Structure</h2>
-      <pre><code>&lt;!DOCTYPE html&gt;
+      <pre><code id="snippet">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
@@ -91,46 +112,91 @@
     &lt;h1&gt;Hello World&lt;/h1&gt;
     &lt;p&gt;This is my first webpage.&lt;/p&gt;
   &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+&lt;/html&gt;</code></pre>
+      <p class="hint">Tip: Use a new folder for your project. Save as <code>index.html</code>, then double-click to open in your browser.</p>
     </section>
 
-    <section class="card">
-      <h2>Tags, Elements, Attributes</h2>
-      <ul>
-        <li><strong>Tags</strong> — The angle-bracket keywords like <code>&lt;p&gt;</code>.</li>
-        <li><strong>Element</strong> — Tags plus content inside.</li>
-        <li><strong>Attributes</strong> — Extra info inside a tag, e.g. <code>&lt;img src="cat.jpg" alt="A cat"&gt;</code>.</li>
+    <section class="section card">
+      <h2>Practice Task</h2>
+      <ul class="list-tight">
+        <li class="task"><input type="checkbox" data-k="t1"/> Create a file <code>index.html</code>.</li>
+        <li class="task"><input type="checkbox" data-k="t2"/> Add a heading with your name.</li>
+        <li class="task"><input type="checkbox" data-k="t3"/> Add a short paragraph about yourself.</li>
+        <li class="task"><input type="checkbox" data-k="t4"/> Add a link to your favorite website.</li>
+        <li class="task"><input type="checkbox" data-k="t5"/> Add an image with meaningful <code>alt</code>.</li>
       </ul>
     </section>
 
-    <section class="card">
-      <h2>Practice Task</h2>
-      <ol>
-        <li>Create a file <code>index.html</code>.</li>
-        <li>Add a heading with your name.</li>
-        <li>Add a short paragraph about yourself.</li>
-        <li>Add a link to your favorite website.</li>
-        <li>Add an image with meaningful <code>alt</code>.</li>
-      </ol>
-    </section>
-
-    <section class="card">
+    <section class="section card">
       <h2>Quick Quiz</h2>
-      <ol class="quiz">
+      <ol class="list-tight">
         <li>What is HTML’s main role?</li>
         <li>Which handles design: HTML, CSS, or JS?</li>
         <li>What is the difference between a tag and an element?</li>
       </ol>
+      <details>
+        <summary>Show sample answers</summary>
+        <ul>
+          <li><strong>HTML’s role:</strong> structure &amp; meaning of content (not visual design or behavior).</li>
+          <li><strong>Design:</strong> CSS.</li>
+          <li><strong>Tag vs element:</strong> a tag is the markup keyword in angle brackets; an element is the tag plus its content (and attributes).</li>
+        </ul>
+      </details>
     </section>
 
-    <section class="card">
-      <h2>Navigation</h2>
-      <nav>
-        🏠 <a href="../index.html">Main Menu</a> · 
-        ➡ <a href="lesson2.html">Next Lesson</a>
-      </nav>
-    </section>
+    <nav class="lesson-nav">
+      <a class="btn" href="../index.html">⬅ Back to Lessons</a>
+      <div class="row">
+        <span class="btn muted" aria-disabled="true">Prev</span>
+        <a class="btn good" href="./lesson2.html">Next ➡</a>
+      </div>
+    </nav>
   </main>
+
+  <footer class="card" style="margin-bottom:3rem">
+    <small>© Samuel Barnhurst — Built with curiosity.</small>
+  </footer>
+
+  <script>
+    // Back button with history fallback
+    document.getElementById('backBtn').addEventListener('click', e=>{
+      e.preventDefault();
+      if (history.length > 1) history.back();
+      else location.href = '../index.html';
+    });
+
+    // Copy and Open for code snippet
+    const codeEl = document.getElementById('snippet');
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(codeEl.textContent);
+        flash('Copied!');
+      }catch{ flash('Copy failed'); }
+    });
+    document.getElementById('openBtn').addEventListener('click', ()=>{
+      const blob = new Blob([codeEl.textContent], {type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      setTimeout(()=>URL.revokeObjectURL(url), 60000);
+    });
+    function flash(msg){
+      const b = document.getElementById('copyBtn');
+      const txt = b.textContent;
+      b.textContent = '✓ ' + msg;
+      setTimeout(()=> b.textContent = txt, 900);
+    }
+
+    // Persist task checkboxes
+    const KEY = 'lesson1_tasks';
+    const boxes = [...document.querySelectorAll('input[type="checkbox"][data-k]')];
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    boxes.forEach(box=>{
+      if (saved[box.dataset.k]) box.checked = true;
+      box.addEventListener('change', ()=>{
+        saved[box.dataset.k] = box.checked;
+        localStorage.setItem(KEY, JSON.stringify(saved));
+      });
+    });
+  </script>
 </body>
 </html>
