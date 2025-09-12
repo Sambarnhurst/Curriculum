@@ -1,228 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Lesson 1 — What is HTML?</title>
-  <meta name="description" content="Learn what HTML is, how it relates to CSS and JavaScript, and build your first page."/>
-  <!-- Preload the background so it starts downloading ASAP -->
-  <link rel="preload" as="image" href="../images/lesson1picture1.jpg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Zero → Mastery — Lesson 2: HTML vs CSS vs JavaScript</title>
+  <meta name="description" content="Lesson 2 of HTML Zero to Mastery: HTML vs CSS vs JavaScript — roles, separation of concerns, render pipeline, and a complete layered mini-project." />
   <style>
     :root{
-      --ink:#e6edf3; --muted:#30363d; --accent:#00ffff; --accent-2:#00b3b3; --good:#42d392;
+      --bg:#121212;
+      --panel:#1c1c1c;
+      --soft:#222;
+      --text:#eaeaea;
+      --muted:#b6b6b6;
+      --accent:#00ffff;
+      --accent-2:#4de1ff;
+      --ok:#57e389;
+      --warn:#ffbf69;
+      --err:#ff6b6b;
+      --code:#0d0d0d;
+      --link:#7bd4ff;
+      --border:#2a2a2a;
     }
     *{box-sizing:border-box}
-
-    /* Full-page background: gradient overlay (top) + your image (underneath) */
-    html,body{
-      margin:0; color:var(--ink);
-      font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; line-height:1.6;
-      background-color:#0d1117; /* solid fallback */
-      background:
-        linear-gradient(to bottom, rgba(13,17,23,.68), rgba(13,17,23,.68)),
-        url('../images/lesson1picture1.jpg') center / cover no-repeat fixed;
-      /* first layer listed (gradient) is drawn on top */
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg); /* same as Lesson 1 */
     }
-    /* iOS Safari can glitch with background-attachment: fixed; use scroll on small screens */
-    @media (max-width: 820px){
-      html,body{ background-attachment: scroll; }
+    header{
+      padding:24px 20px 8px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(0,255,255,.07), transparent 60%);
     }
-
-    a{color:var(--accent)}
-    header,main,footer{max-width:960px; margin-inline:auto; padding:1rem}
-    header{display:flex; flex-direction:column; gap:.5rem}
-
-    .crumbs{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; font-size:.95rem; opacity:.9}
-    .crumbs a{color:var(--ink)}
-    .pill{
-      background:rgba(22,27,34,.9);
-      border:1px solid var(--muted);
-      border-radius:999px; padding:.2rem .6rem; font-weight:700;
-      backdrop-filter:saturate(110%) blur(2px);
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    h1{margin:0 0 6px;font-weight:800;letter-spacing:.2px}
+    .crumbs{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;font-size:.8rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);margin-left:.3rem}
+    .label{display:inline-block;font-size:.75rem;padding:.2rem .5rem;border-radius:6px;background:#0e2d2d;color:#a6f0f0;border:1px solid #123e3e;margin-left:.5rem}
+    main{padding:20px 0 60px}
+    section.card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:20px;
+      margin:16px 0;
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
     }
-    h1{color:var(--accent); margin:.25rem 0}
-    .muted{opacity:.85}
-
-    /* Cards stay readable on the photo */
-    .card{
-      background:rgba(22,27,34,.88);
-      border:1px solid var(--muted);
-      border-radius:12px; padding:1rem;
-      backdrop-filter: blur(2px);
+    section.card h2{margin-top:0;color:var(--accent)}
+    section.card h3{margin:22px 0 8px;color:var(--accent-2)}
+    .two-col{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start}
+    .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .hint{border-left:4px solid var(--accent);padding:8px 12px;background:var(--soft);border-radius:8px}
+    pre{
+      background:var(--code);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;overflow:auto;margin:12px 0
     }
-    .section{margin:1rem 0}
-    .grid{display:grid; gap:.8rem}
-    .cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width:800px){ .cols-2{grid-template-columns:1fr} }
-
-    /* Code block */
-    pre{background:#0f1420; color:#e6edf3; border:1px solid var(--muted); border-radius:10px; padding:1rem; overflow:auto}
-    code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.95rem}
-    .codebar{display:flex; gap:.5rem; justify-content:flex-end; margin-bottom:.5rem}
-
-    .btn{
-      appearance:none; background:rgba(22,27,34,.9); color:var(--ink);
-      border:1px solid var(--muted); border-radius:10px; padding:.45rem .75rem;
-      font-weight:600; cursor:pointer; transition:background .2s,color .2s,transform .04s;
-      backdrop-filter: blur(2px);
-    }
-    .btn:hover{background:#17202a}
-    .btn:active{transform:translateY(1px)}
-    .btn.primary{border-color:var(--accent-2)}
-    .btn.primary:hover{background:var(--accent-2); color:#001013}
-    .btn.good{border-color:var(--good)}
-    .btn.good:hover{background:var(--good); color:#001013}
-
-    .list-tight li{margin:.25rem 0}
-    .task{display:flex; gap:.6rem; align-items:flex-start}
-    input[type="checkbox"]{transform:translateY(3px)}
-
-    .lesson-nav{display:flex; justify-content:space-between; gap:.5rem; margin:1rem 0 2rem}
-
-    /* Sticky Back */
-    .sticky-back{
-      position:fixed; bottom:16px; left:16px; z-index:10;
-      padding:.6rem .9rem; border-radius:999px; border:1px solid var(--muted);
-      background:rgba(22,27,34,.9); backdrop-filter: blur(2px);
-    }
-
-    img{max-width:100%; height:auto; display:block}
-
-    @media print{
-      .sticky-back,.lesson-nav,.codebar{display:none}
-      body{background:#fff; color:#000}
-      .card{background:#fff; border-color:#ccc; backdrop-filter:none}
-      a{color:#000}
-    }
+    code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:.95rem}
+    details{background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:10px 12px;margin:10px 0}
+    details>summary{cursor:pointer;font-weight:600;color:var(--accent)}
+    .quiz li{margin:.4rem 0}
+    .checklist li{margin:.3rem 0}
+    .next{display:flex;gap:12px;flex-wrap:wrap}
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+    .footer-note{color:var(--muted);font-size:.95rem}
+    .kbd{border:1px solid var(--border);background:var(--soft);padding:0 .35rem;border-radius:6px;font-family:ui-monospace,monospace}
   </style>
 </head>
 <body>
-  <a class="sticky-back btn" id="backBtn" href="#">⬅ Back</a>
-
   <header>
-    <nav class="crumbs">
-      <a href="../index.html">Lessons</a> › <span class="muted">Lesson 1</span>
-      <span class="pill">1 / 600</span>
-    </nav>
-    <h1>Lesson 1 — What is HTML?</h1>
-    <p class="muted">HTML defines the <em>structure &amp; semantics</em> of web documents. CSS handles visual design; JavaScript handles interactivity.</p>
+    <div class="container">
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 2: HTML vs CSS vs JavaScript</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 2 — HTML vs CSS vs JavaScript <span class="label">Layer Roles & Separation</span></h1>
+      <div class="footer-note">Estimated time: 60–75 minutes · You’ll build a complete layered page</div>
+    </div>
   </header>
 
-  <main>
-    <section class="section card">
+  <main class="container">
+    <!-- Learning Goals -->
+    <section class="card">
       <h2>Learning Goals</h2>
-      <ul class="list-tight">
-        <li>Explain what HTML is and what problems it solves.</li>
-        <li>Describe how HTML relates to CSS and JavaScript.</li>
-        <li>Recognize tags, elements, and attributes.</li>
-        <li>Build and open a first HTML page.</li>
+      <ul>
+        <li>Explain the roles of <strong>HTML</strong> (structure), <strong>CSS</strong> (presentation), and <strong>JavaScript</strong> (behavior).</li>
+        <li>Apply <strong>separation of concerns</strong> with clean HTML/CSS/JS files.</li>
+        <li>Understand the <strong>DOM</strong>, <strong>CSSOM</strong>, and <strong>Render Tree</strong> mental model.</li>
+        <li>Build a triad mini-project with a <strong>theme toggle</strong> and local storage.</li>
+        <li>Avoid common <strong>anti-patterns</strong> (inline styles and inline event handlers).</li>
       </ul>
     </section>
 
-    <section class="section card">
-      <h2>HTML’s Job vs Other Layers</h2>
-      <div class="grid cols-2">
-        <div><strong>HTML — Structure &amp; semantics</strong><br/>headings, paragraphs, lists, links, images, forms.</div>
-        <div><strong>CSS — Styling</strong><br/>colors, spacing, typography, layout.</div>
-        <div><strong>JavaScript — Interactivity</strong><br/>dynamic updates, events, fetching data.</div>
+    <!-- Part 1 -->
+    <section class="card">
+      <h2>Part 1 — The Big Idea</h2>
+      <p>Web pages are best built in <strong>layers</strong> so each concern stays focused:</p>
+      <div class="two-col">
+        <div>
+          <h3>What each layer does</h3>
+          <ul>
+            <li><strong>HTML:</strong> structure & semantics — headings, paragraphs, links, forms, landmarks.</li>
+            <li><strong>CSS:</strong> presentation — layout, spacing, colors, typography, responsive rules.</li>
+            <li><strong>JavaScript:</strong> behavior — events, dynamic updates, data fetching, state.</li>
+          </ul>
+          <div class="hint"><strong>Key idea:</strong> HTML should be useful <em>even without</em> CSS/JS. CSS makes it beautiful; JS makes it interactive.</div>
+        </div>
+        <div>
+          <h3>What not to mix</h3>
+          <ul>
+            <li>Don’t style with HTML attributes or deprecated tags (e.g., <code>&lt;font&gt;</code>).</li>
+            <li>Don’t wire events inline (e.g., <code>onclick="..."</code>) — prefer JS listeners.</li>
+          </ul>
+          <p class="footer-note">Clean separation makes testing, maintenance, and teamwork far easier.</p>
+        </div>
       </div>
     </section>
 
-    <section class="section card">
-      <div class="codebar">
-        <button class="btn" id="copyBtn">📋 Copy</button>
-        <button class="btn primary" id="openBtn">▶️ Open</button>
-        <button class="btn" id="dlBtn">⬇ Download</button>
+    <!-- Part 2 -->
+    <section class="card">
+      <h2>Part 2 — Where Each Layer Fits</h2>
+      <div class="grid-3">
+        <div class="hint">
+          <h3>HTML</h3>
+          <p>All the content and semantic structure: <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;button&gt;</code>…</p>
+        </div>
+        <div class="hint">
+          <h3>CSS</h3>
+          <p>Visuals and layout: color schemes, spacing systems, grid/flex, fonts, animations.</p>
+        </div>
+        <div class="hint">
+          <h3>JS</h3>
+          <p>Behavior and state: event listeners, UI toggles, fetching data, saving preferences.</p>
+        </div>
       </div>
-      <h2>Minimal Page Structure</h2>
-      <pre><code id="snippet">&lt;!DOCTYPE html&gt;
+    </section>
+
+    <!-- Part 3 -->
+    <section class="card">
+      <h2>Part 3 — The Anatomy of a Triad Page</h2>
+      <p>This minimal triad demonstrates each layer in its proper place.</p>
+      <pre><code>&lt;!DOCTYPE html&gt; &lt;!-- modern mode --&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;My First Page&lt;/title&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;title&gt;Triad Example&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt; &lt;!-- CSS layer --&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;h1&gt;Hello World&lt;/h1&gt;
-    &lt;p&gt;This is my first webpage.&lt;/p&gt;
+    &lt;header&gt;
+      &lt;h1&gt;Hello, Triad!&lt;/h1&gt;
+      &lt;button id="themeBtn"&gt;Toggle Theme&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;article&gt;
+        &lt;h2&gt;Why separation of concerns?&lt;/h2&gt;
+        &lt;p&gt;Structure, style, and behavior live in their own layers.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
+    &lt;script src="app.js" defer&gt;&lt;/script&gt; &lt;!-- JS layer --&gt;
   &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-      <p class="muted">Tip: Save as <code>index.html</code>, then double-click to open in your browser.</p>
+&lt;/html&gt;
+</code></pre>
     </section>
 
-    <section class="section card">
-      <h2>Practice Task</h2>
-      <ul class="list-tight">
-        <li class="task"><input type="checkbox" data-k="t1"/> Create a file <code>index.html</code>.</li>
-        <li class="task"><input type="checkbox" data-k="t2"/> Add a heading with your name.</li>
-        <li class="task"><input type="checkbox" data-k="t3"/> Add a short paragraph about yourself.</li>
-        <li class="task"><input type="checkbox" data-k="t4"/> Add a link to your favorite website.</li>
-        <li class="task"><input type="checkbox" data-k="t5"/> Add an image with meaningful <code>alt</code>.</li>
-      </ul>
+    <!-- Part 4 -->
+    <section class="card">
+      <h2>Part 4 — Terms & Mental Model</h2>
+      <pre><code>HTML  →  Parser  →  DOM Tree
+CSS   →  Parser  →  CSSOM Tree
+DOM + CSSOM → Render Tree → Layout → Paint → Composite
+JS can read/modify DOM & CSSOM and trigger reflow/paint when needed.</code></pre>
+      <p class="footer-note">DevTools shows the live DOM and Computed styles so you can debug mismatches quickly.</p>
     </section>
 
-    <section class="section card">
-      <h2>Quick Quiz</h2>
-      <ol class="list-tight">
-        <li>What is HTML’s main role?</li>
-        <li>Which layer handles visual design?</li>
-        <li>What’s the difference between a tag and an element?</li>
+    <!-- Part 5 -->
+    <section class="card">
+      <h2>Part 5 — Build Your Layered Page (Step-by-Step)</h2>
+      <ol class="checklist">
+        <li>Create a folder <strong>lesson-02</strong>.</li>
+        <li>Create <strong>index.html</strong>, <strong>styles.css</strong>, and <strong>app.js</strong>.</li>
+        <li>Copy the HTML from Part 3 into <strong>index.html</strong>.</li>
+        <li>Add base styles and a theme modifier in <strong>styles.css</strong>.</li>
+        <li>Implement a <strong>theme toggle</strong> in <strong>app.js</strong> and store the preference.</li>
+        <li>Open <strong>index.html</strong> in the browser and test.</li>
       </ol>
-      <details>
-        <summary>Show sample answers</summary>
+      <details><summary>Starter CSS</summary>
+        <pre><code>:root { color-scheme: light dark; }
+body { font-family: system-ui, sans-serif; margin: 0; line-height: 1.6; padding: 1.25rem; }
+header { display: flex; gap: .75rem; align-items: center; justify-content: space-between; }
+button { padding: .5rem .75rem; border: 1px solid #ccc; border-radius: .5rem; background: #f4f4f4; cursor: pointer; }
+main { max-width: 60ch; }
+.dark body { background: #121212; color: #eaeaea; }
+.light body { background: #ffffff; color: #222; }</code></pre>
+      </details>
+      <details><summary>Starter JS</summary>
+        <pre><code>const btn = document.getElementById('themeBtn');
+const saved = localStorage.getItem('theme');
+if (saved) document.documentElement.className = saved;
+btn.addEventListener('click', () =&gt; {
+  const root = document.documentElement;
+  const next = root.classList.contains('dark') ? 'light' : 'dark';
+  root.className = next;
+  localStorage.setItem('theme', next);
+});</code></pre>
+      </details>
+    </section>
+
+    <!-- Part 6 -->
+    <section class="card">
+      <h2>Part 6 — Open, Refresh, and Inspect</h2>
+      <ul>
+        <li>Open <strong>index.html</strong> in your browser (double-click or drag to a tab).</li>
+        <li>Edit files, save (<span class="kbd">Ctrl</span>/<span class="kbd">Cmd</span> + <span class="kbd">S</span>), and refresh.</li>
+        <li>Right-click → <strong>Inspect</strong> → Elements &amp; Computed to see HTML and final styles.</li>
+      </ul>
+      <div class="hint"><strong>Tip:</strong> If the toggle “does nothing”, confirm the script is loaded with <code>defer</code> and check the Console for errors.</div>
+    </section>
+
+    <!-- Part 7 -->
+    <section class="card">
+      <h2>Part 7 — Common Anti-Patterns</h2>
+      <div class="two-col">
+        <div>
+          <h3>❌ Inline styles</h3>
+          <pre><code>&lt;p style="color:red;font-size:24px"&gt;Hi&lt;/p&gt;</code></pre>
+          <p><strong>Why it hurts:</strong> hard to reuse or override; mixes concerns.</p>
+        </div>
+        <div>
+          <h3>✅ Use classes + CSS</h3>
+          <pre><code>&lt;p class="warning"&gt;Hi&lt;/p&gt;
+/* CSS */ .warning { color:red; font-size:24px; }</code></pre>
+        </div>
+      </div>
+      <div class="two-col">
+        <div>
+          <h3>❌ Inline event handlers</h3>
+          <pre><code>&lt;button onclick="doThing()"&gt;Click&lt;/button&gt;</code></pre>
+        </div>
+        <div>
+          <h3>✅ Add listeners in JS</h3>
+          <pre><code>&lt;button id="doBtn"&gt;Click&lt;/button&gt;
+&lt;script&gt;
+  document.getElementById('doBtn').addEventListener('click', () =&gt; alert('Done!'));
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Part 8 -->
+    <section class="card">
+      <h2>Part 8 — Practice (Do First, Then Peek)</h2>
+      <ol>
+        <li>Add a <strong>nav</strong> with two links and ensure it remains readable with JS disabled.</li>
+        <li>Style the page title using CSS only (no inline styles).</li>
+        <li>Implement a button that reveals a hidden paragraph via JS (use the <code>hidden</code> attribute).</li>
+        <li>Break something on purpose (remove the stylesheet link) and use DevTools to diagnose.</li>
+      </ol>
+      <details><summary>Hints</summary>
         <ul>
-          <li><strong>HTML’s role:</strong> structure &amp; meaning of content (not visual design or behavior).</li>
-          <li><strong>Design:</strong> CSS.</li>
-          <li><strong>Tag vs element:</strong> a tag is the markup keyword in angle brackets; an element is the tag plus its content (and attributes).</li>
+          <li>Navigation is structural (HTML), not behavioral (JS).</li>
+          <li>Prefer classes for styling hooks.</li>
+          <li><code>elem.hidden = !elem.hidden;</code> toggles visibility accessibly.</li>
+        </ul>
+      </details>
+      <details><summary>One possible solution</summary>
+        <pre><code>&lt;nav&gt;&lt;a href="#"&gt;Home&lt;/a&gt; · &lt;a href="#"&gt;Docs&lt;/a&gt;&lt;/nav&gt;
+&lt;h1 class="title"&gt;Layered Page&lt;/h1&gt;
+&lt;p id="extra" hidden&gt;Surprise content!&lt;/p&gt;
+&lt;button id="revealBtn"&gt;Reveal&lt;/button&gt;</code></pre>
+        <pre><code>/* CSS */
+.title { color:#00ffff; font-weight:800; }
+#extra[hidden]{ display:none; }</code></pre>
+        <pre><code>// JS
+const extra = document.getElementById('extra');
+document.getElementById('revealBtn').addEventListener('click', () =&gt; {
+  extra.hidden = !extra.hidden;
+});</code></pre>
+      </details>
+    </section>
+
+    <!-- Part 9 -->
+    <section class="card">
+      <h2>Part 9 — Mini-Project: Profile Card (Layered)</h2>
+      <p>Create a profile card that looks good with CSS and has a small JS interaction (toggle extra details).</p>
+      <details><summary>Starter HTML</summary>
+        <pre><code>&lt;section class="card profile"&gt;
+  &lt;h2&gt;Your Name&lt;/h2&gt;
+  &lt;p&gt;Short bio line here.&lt;/p&gt;
+  &lt;button id="moreBtn"&gt;Show more&lt;/button&gt;
+  &lt;div id="more" hidden&gt;
+    &lt;p&gt;More details about you...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+      </details>
+      <details><summary>CSS &amp; JS sketch</summary>
+        <pre><code>.profile { max-width: 420px; margin: 1rem auto; background:#1c1c1c; padding:1rem; border-radius:12px; border:1px solid #2a2a2a; }
+#more[hidden]{ display:none; }</code></pre>
+        <pre><code>const more = document.getElementById('more');
+document.getElementById('moreBtn').addEventListener('click', () =&gt; {
+  more.hidden = !more.hidden;
+});</code></pre>
+      </details>
+    </section>
+
+    <!-- Quiz -->
+    <section class="card">
+      <h2>Check Yourself — Quick Quiz</h2>
+      <ol class="quiz">
+        <li>Which layer should define a page’s main heading and nav structure?</li>
+        <li>Which layer should change colors and spacing?</li>
+        <li>Which layer should respond when a button is clicked?</li>
+        <li>Why are inline styles considered a smell?</li>
+        <li>What’s the difference between the DOM and the CSSOM?</li>
+      </ol>
+      <details><summary>Suggested answers</summary>
+        <ul>
+          <li>HTML.</li>
+          <li>CSS.</li>
+          <li>JavaScript.</li>
+          <li>They mix concerns, are hard to override and reuse, and hurt maintainability.</li>
+          <li>DOM represents the HTML structure; CSSOM represents parsed CSS rules. Both combine to build the render tree.</li>
         </ul>
       </details>
     </section>
 
-    <nav class="lesson-nav">
-      <a class="btn" href="../index.html">⬅ Back to Lessons</a>
-      <div class="row">
-        <span class="btn muted" aria-disabled="true">Prev</span>
-        <a class="btn good" href="./lesson2.html">Next ➡</a>
+    <!-- Glossary -->
+    <section class="card">
+      <h2>Glossary</h2>
+      <ul>
+        <li><strong>Separation of Concerns</strong> — Keeping structure, style, and behavior in their own layers.</li>
+        <li><strong>DOM</strong> — Tree representation of HTML nodes.</li>
+        <li><strong>CSSOM</strong> — Tree of CSS rules and their specificity cascade.</li>
+        <li><strong>Render Tree</strong> — Combination used to layout and paint pixels.</li>
+      </ul>
+    </section>
+
+    <!-- Next -->
+    <section class="card">
+      <h2>Next Up</h2>
+      <div class="next">
+        <span class="pill">Lesson 3: Browsers & how they read HTML</span>
+        <span class="pill">Lesson 4: Install a code editor (VS Code)</span>
+        <span class="pill">Lesson 5: Your first index.html</span>
       </div>
-    </nav>
+      <p class="footer-note">You can continue right away, or review the quiz once more before moving on.</p>
+    </section>
+
+    <footer class="footer-note" style="padding:24px 0 40px">
+      © HTML Zero → Mastery · Lesson 2. This page is self-contained and works offline.
+    </footer>
   </main>
-
-  <footer class="card" style="margin-bottom:3rem">
-    <small>© Samuel Barnhurst — Built with curiosity.</small>
-  </footer>
-
-  <script>
-    // Back button with History API + fallback
-    document.getElementById('backBtn').addEventListener('click', (e)=>{
-      e.preventDefault();
-      if (history.length > 1) history.back();
-      else location.href = '../index.html';
-    });
-
-    // Copy / Open (Blob) / Download for the code sample
-    const codeEl = document.getElementById('snippet');
-    const copyBtn = document.getElementById('copyBtn');
-    const openBtn = document.getElementById('openBtn');
-    const dlBtn = document.getElementById('dlBtn');
-
-    copyBtn.addEventListener('click', async ()=>{
-      try { await navigator.clipboard.writeText(codeEl.textContent); flash(copyBtn, '✓ Copied'); }
-      catch { flash(copyBtn, 'Copy failed'); }
-    });
-
-    openBtn.addEventListener('click', ()=>{
-      const url = URL.createObjectURL(new Blob([codeEl.textContent], {type:'text/html'}));
-      window.open(url, '_blank', 'noopener,noreferrer');
-      setTimeout(()=>URL.revokeObjectURL(url), 60000);
-    });
-
-    dlBtn.addEventListener('click', ()=>{
-      const url = URL.createObjectURL(new Blob([codeEl.textContent], {type:'text/html'}));
-      const a = document.createElement('a'); a.href = url; a.download = 'lesson1-minimal.html';
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(()=>URL.revokeObjectURL(url), 1000);
-    });
-
-    function flash(btn, msg){ const prev = btn.textContent; btn.textContent = msg; setTimeout(()=> btn.textContent = prev, 900); }
-  </script>
 </body>
 </html>
