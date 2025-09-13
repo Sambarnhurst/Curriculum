@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HTML Zero → Mastery — Lesson 12: The &lt;meta name="viewport"&gt; Tag</title>
-  <meta name="description" content="Lesson 12 of HTML Zero to Mastery: Learn the viewport meta tag, why it's critical for mobile responsiveness, and best practices." />
+  <title>HTML Zero → Mastery — Lesson 12: Subheadings (&lt;h2&gt;–&lt;h6&gt;)</title>
+  <meta name="description" content="Lesson 12 of HTML Zero to Mastery: Learn HTML subheadings (<h2>–<h6>), their role in structure, accessibility, and best practices." />
   <meta name="theme-color" content="#121212">
   <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson12.html" />
 
@@ -78,8 +77,8 @@
 
   <header>
     <div class="container">
-      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 12: The &lt;meta name="viewport"&gt; Tag</strong> <span class="badge">Foundations</span></div>
-      <h1>Lesson 12 — The <code>&lt;meta name="viewport"&gt;</code> Tag <span class="label">Responsive Design</span></h1>
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 12: Subheadings (&lt;h2&gt;–&lt;h6&gt;)</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 12 — Subheadings <span class="label">&lt;h2&gt;–&lt;h6&gt;</span></h1>
 
       <!-- Top navigation -->
       <nav class="lesson-nav" aria-label="Lesson navigation">
@@ -89,7 +88,7 @@
         <a href="lesson13.html" class="btn next">Next Lesson →</a>
       </nav>
 
-      <div class="footer-note">Estimated time: 25–30 minutes · Learn why the viewport meta tag is critical for mobile-friendly pages</div>
+      <div class="footer-note">Estimated time: 25–35 minutes · Learn how subheadings organize content below &lt;h1&gt;</div>
     </div>
   </header>
 
@@ -98,44 +97,56 @@
     <section class="card">
       <h2>Learning Goals</h2>
       <ul>
-        <li>Understand the purpose of the <code>&lt;meta name="viewport"&gt;</code> tag.</li>
-        <li>Learn how it controls scaling and layout on mobile devices.</li>
-        <li>Apply best practices for responsive design.</li>
+        <li>Understand what <code>&lt;h2&gt;–&lt;h6&gt;</code> elements are for.</li>
+        <li>Learn how subheadings create structure under the main heading.</li>
+        <li>Use them properly for accessibility and SEO.</li>
       </ul>
     </section>
 
     <!-- Concept -->
     <section class="card">
-      <h2>Part 1 — What Does It Do?</h2>
-      <p>By default, many mobile browsers render pages as if they’re 980px wide, then scale them down. This often breaks responsive layouts.</p>
-      <p>The <code>&lt;meta name="viewport"&gt;</code> tag tells the browser how to size and scale the page. The most common setting is:</p>
-      <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre>
+      <h2>Part 1 — What are Subheadings?</h2>
+      <p>Subheadings <code>&lt;h2&gt;–&lt;h6&gt;</code> divide content into logical sections.  
+      <code>&lt;h2&gt;</code> is used for main sections under <code>&lt;h1&gt;</code>, then <code>&lt;h3&gt;</code> for subsections, and so on down to <code>&lt;h6&gt;</code>.</p>
+      <p><strong>Rule:</strong> Think of it like a book: <code>&lt;h1&gt;</code> is the title, <code>&lt;h2&gt;</code> are chapter titles, <code>&lt;h3&gt;</code> are subsections inside chapters.</p>
     </section>
 
     <!-- Example -->
     <section class="card">
       <h2>Part 2 — Example</h2>
-      <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-    &lt;title&gt;Responsive Page&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h1&gt;Hello on any screen!&lt;/h1&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+      <pre><code>&lt;body&gt;
+  &lt;h1&gt;My Travel Blog&lt;/h1&gt;
+
+  &lt;h2&gt;Europe&lt;/h2&gt;
+    &lt;h3&gt;France&lt;/h3&gt;
+    &lt;p&gt;I loved visiting Paris.&lt;/p&gt;
+    &lt;h3&gt;Italy&lt;/h3&gt;
+    &lt;p&gt;Rome and Venice were amazing.&lt;/p&gt;
+
+  &lt;h2&gt;Asia&lt;/h2&gt;
+    &lt;h3&gt;Japan&lt;/h3&gt;
+    &lt;p&gt;Tokyo was full of energy.&lt;/p&gt;
+&lt;/body&gt;</code></pre>
     </section>
 
     <!-- Best Practices -->
     <section class="card">
       <h2>Part 3 — Best Practices</h2>
       <ul>
-        <li>Always include the viewport tag for mobile-friendly pages.</li>
-        <li>Use <code>width=device-width</code> to match the screen size.</li>
-        <li>Set <code>initial-scale=1</code> for correct zoom.</li>
-        <li>Avoid disabling user zoom (<code>user-scalable=no</code>) unless absolutely necessary (it can hurt accessibility).</li>
+        <li>Use headings in order: <code>&lt;h1&gt;</code> → <code>&lt;h2&gt;</code> → <code>&lt;h3&gt;</code>, etc.</li>
+        <li>Don’t skip levels (avoid jumping from <code>&lt;h1&gt;</code> to <code>&lt;h4&gt;</code>).</li>
+        <li>Keep headings descriptive and short.</li>
+        <li>Use CSS for styling, not heading level misuse.</li>
+      </ul>
+    </section>
+
+    <!-- Common Mistakes -->
+    <section class="card">
+      <h2>Part 4 — Common Mistakes</h2>
+      <ul>
+        <li>❌ Using headings just to make text bigger/bolder.</li>
+        <li>❌ Skipping levels (e.g., <code>&lt;h1&gt;</code> → <code>&lt;h4&gt;</code>).</li>
+        <li>❌ Multiple <code>&lt;h1&gt;</code> headings but no <code>&lt;h2&gt;</code> structure.</li>
       </ul>
     </section>
 
@@ -143,18 +154,29 @@
     <section class="card">
       <h2>Quick Quiz</h2>
       <ol>
-        <li>Why do we need the viewport meta tag?</li>
-        <li>What does <code>width=device-width</code> mean?</li>
-        <li>Why should you avoid disabling user zoom?</li>
+        <li>Which heading level comes after <code>&lt;h2&gt;</code>?</li>
+        <li>True/False: You should skip from <code>&lt;h1&gt;</code> directly to <code>&lt;h4&gt;</code>.</li>
+        <li>Why are subheadings important for accessibility?</li>
       </ol>
       <details>
         <summary>Sample Answers</summary>
         <ul>
-          <li>It ensures pages scale correctly on mobile screens.</li>
-          <li>The page width adapts to the actual device screen width.</li>
-          <li>It can harm accessibility for users with vision impairments.</li>
+          <li><code>&lt;h3&gt;</code>.</li>
+          <li>False — avoid skipping levels.</li>
+          <li>They give screen readers and users a clear outline of page structure.</li>
         </ul>
       </details>
+    </section>
+
+    <!-- Project -->
+    <section class="card">
+      <h2>Mini Project — Outline a Page</h2>
+      <p>Create a page with:</p>
+      <ul>
+        <li>A <code>&lt;h1&gt;</code> title.</li>
+        <li>Two <code>&lt;h2&gt;</code> sections (e.g., “About Me” and “Projects”).</li>
+        <li>Inside each <code>&lt;h2&gt;</code>, at least one <code>&lt;h3&gt;</code> subsection.</li>
+      </ul>
     </section>
 
     <!-- Bottom nav -->
@@ -168,7 +190,7 @@
     <!-- Dictionary -->
     <section class="card" id="dictionary" aria-labelledby="dict-heading">
       <h2 id="dict-heading">Lesson 12 Dictionary</h2>
-      <p class="footer-note">Terms and attributes introduced/emphasized in this lesson.</p>
+      <p class="footer-note">Terms introduced in this lesson.</p>
 
       <!-- Search -->
       <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
@@ -180,29 +202,19 @@
 
       <!-- A–Z jump -->
       <nav class="dict-az" aria-label="A to Z">
-        <a href="#dict-I">I</a><a href="#dict-M">M</a><a href="#dict-V">V</a><a href="#dict-W">W</a>
+        <a href="#dict-H">H</a><a href="#dict-S">S</a>
       </nav>
 
       <dl class="dictionary" id="dictList">
-        <!-- I -->
-        <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
-        <dt data-keys="initial scale zoom">initial-scale</dt>
-        <dd>Sets the initial zoom level of the page when first loaded.</dd>
+        <!-- H -->
+        <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
+        <dt data-keys="h2 h3 h4 h5 h6 subheading">Subheading (&lt;h2&gt;–&lt;h6&gt;)</dt>
+        <dd>Headings below &lt;h1&gt; that divide content into sections and subsections.</dd>
 
-        <!-- M -->
-        <dt id="dict-M" aria-hidden="true" class="dict-letter">M</dt>
-        <dt data-keys="meta viewport mobile">Meta Viewport</dt>
-        <dd>A meta tag that controls how a page scales and fits on mobile devices.</dd>
-
-        <!-- V -->
-        <dt id="dict-V" aria-hidden="true" class="dict-letter">V</dt>
-        <dt data-keys="viewport browser window">Viewport</dt>
-        <dd>The visible area of a web page on a user’s device.</dd>
-
-        <!-- W -->
-        <dt id="dict-W" aria-hidden="true" class="dict-letter">W</dt>
-        <dt data-keys="width device width">width=device-width</dt>
-        <dd>Tells the browser to match the page width to the actual device screen width.</dd>
+        <!-- S -->
+        <dt id="dict-S" aria-hidden="true" class="dict-letter">S</dt>
+        <dt data-keys="semantic structure outline">Semantic Outline</dt>
+        <dd>The logical hierarchy of headings that gives meaning to a document.</dd>
       </dl>
     </section>
 
