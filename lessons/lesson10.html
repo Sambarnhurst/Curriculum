@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Zero → Mastery — Lesson 10: The &lt;title&gt; Element</title>
+  <meta name="description" content="Lesson 10 of HTML Zero to Mastery: Learn what the <title> element is, why it matters, and best practices." />
+  <meta name="theme-color" content="#121212">
+  <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson10.html" />
+
+  <style>
+    body {
+      margin: 0;
+      font: 16px/1.7 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      color: #eaeaea;
+      background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+        url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
+      background-color: #000;
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    h1, h2 { color: #00ffff; }
+    section { background: #1c1c1c; border: 1px solid #2a2a2a; border-radius: 12px; padding: 20px; margin: 20px 0; }
+    pre { background: #0d0d0d; padding: 12px; border-radius: 10px; overflow: auto; }
+    code { font-family: ui-monospace, Menlo, Consolas, monospace; color: #7bd4ff; }
+    .quiz, .project, .history, .faq { background: #222; padding: 12px; border-radius: 10px; margin: 16px 0; }
+    .lesson-nav { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:16px 0; padding:12px; background:#1c1c1c; border:1px solid #2a2a2a; border-radius:12px; }
+    .btn { display:inline-block; text-decoration:none; color:#eaeaea; padding:.6rem .9rem; border:1px solid #2a2a2a; border-radius:999px; background:#222; }
+    .btn:hover { filter:brightness(1.05); }
+    .spacer { flex:1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lesson 10 — The <code>&lt;title&gt;</code> Element</h1>
+
+    <!-- Navigation -->
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      <a href="../index.html" class="btn back">← Back to Curriculum</a>
+      <span class="spacer" aria-hidden="true"></span>
+      <a href="lesson11.html" class="btn next">Next Lesson →</a>
+    </nav>
+
+    <!-- Learning Goals -->
+    <section>
+      <h2>Learning Goals</h2>
+      <ul>
+        <li>Understand the purpose of the <code>&lt;title&gt;</code> element.</li>
+        <li>See where the title appears in browsers and search engines.</li>
+        <li>Learn best practices for writing good titles.</li>
+      </ul>
+    </section>
+
+    <!-- Concept / Explanation -->
+    <section>
+      <h2>Concept</h2>
+      <p>The <code>&lt;title&gt;</code> element defines the title of a web page. It appears in:</p>
+      <ul>
+        <li>The browser tab or window.</li>
+        <li>Bookmarks and history lists.</li>
+        <li>Search engine results.</li>
+      </ul>
+      <p>Although it’s not visible in the page content, it is one of the most important elements for usability, SEO, and accessibility.</p>
+    </section>
+
+    <!-- Example -->
+    <section>
+      <h2>Example</h2>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My Awesome Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Welcome to my site!&lt;/h1&gt;
+    &lt;p&gt;This page has a proper title in the browser tab.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <p><strong>Explanation:</strong> The <code>&lt;title&gt;</code> sets the browser tab text. Here it would show “My Awesome Page.”</p>
+    </section>
+
+    <!-- Common Mistakes -->
+    <section>
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forgetting the <code>&lt;title&gt;</code> (leads to “Untitled” pages in the browser).</li>
+        <li>Using the same title on every page (bad for navigation & SEO).</li>
+        <li>Making titles too long or too short (best is 50–60 characters).</li>
+      </ul>
+    </section>
+
+    <!-- Quick Quiz -->
+    <section class="quiz">
+      <h2>Quick Quiz</h2>
+      <ol>
+        <li>Where does the <code>&lt;title&gt;</code> element appear?</li>
+        <li>Is <code>&lt;title&gt;</code> placed in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code>?</li>
+        <li>Why is the <code>&lt;title&gt;</code> important for search engines?</li>
+      </ol>
+      <details>
+        <summary>Answers</summary>
+        <ul>
+          <li>In the browser tab, bookmarks, and search engine results.</li>
+          <li>Inside the <code>&lt;head&gt;</code>.</li>
+          <li>It tells search engines what the page is about.</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- Mini Project -->
+    <section class="project">
+      <h2>Mini Project</h2>
+      <p>Create a new HTML page and:</p>
+      <ul>
+        <li>Set the <code>&lt;title&gt;</code> to your name + “Portfolio.”</li>
+        <li>Add a heading and paragraph in the <code>&lt;body&gt;</code>.</li>
+        <li>Open it in your browser and confirm the tab shows your custom title.</li>
+      </ul>
+    </section>
+
+    <!-- Did You Know? -->
+    <section class="history">
+      <h2>Did You Know?</h2>
+      <p>The <code>&lt;title&gt;</code> tag is one of the earliest parts of HTML (present since 1991). Even though it looks small, it plays a huge role in web search ranking and user trust.</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <h2>FAQ</h2>
+      <p><strong>Q:</strong> Can I put emojis in a <code>&lt;title&gt;</code>?<br><strong>A:</strong> Yes, modern browsers support Unicode, but use them sparingly.</p>
+      <p><strong>Q:</strong> What happens if I skip the <code>&lt;title&gt;</code>?<br><strong>A:</strong> The browser may show the file name instead, which looks unprofessional.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top:40px;color:#b6b6b6">
+      © HTML Zero → Mastery · Lesson 10
+    </footer>
+  </div>
+</body>
+</html>
