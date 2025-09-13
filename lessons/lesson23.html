@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HTML Zero → Mastery — Lesson 23: Small Print (&lt;small&gt;)</title>
-  <meta name="description" content="Lesson 23 of HTML Zero to Mastery: Master the <small> element — side notes, disclaimers, legal text, accessibility, and best practices." />
+  <title>HTML Zero → Mastery — Lesson 23: Subscript (&lt;sub&gt;)</title>
+  <meta name="description" content="Lesson 23 of HTML Zero to Mastery: Learn the <sub> element for subscripts in math, chemistry, and notation. Includes examples, accessibility, and best practices." />
   <meta name="theme-color" content="#121212">
   <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson23.html" />
 
@@ -77,8 +77,8 @@
 
   <header>
     <div class="container">
-      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 23: Small Print (&lt;small&gt;)</strong> <span class="badge">Foundations</span></div>
-      <h1>Lesson 23 — Small Print <span class="label">&lt;small&gt;</span></h1>
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 23: Subscript (&lt;sub&gt;)</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 23 — Subscript <span class="label">&lt;sub&gt;</span></h1>
 
       <!-- Top navigation -->
       <nav class="lesson-nav" aria-label="Lesson navigation">
@@ -88,7 +88,7 @@
         <a href="lesson24.html" class="btn next">Next Lesson →</a>
       </nav>
 
-      <div class="footer-note">Estimated time: 25–35 minutes · Learn how to use &lt;small&gt; for side notes, disclaimers, and legal fine print</div>
+      <div class="footer-note">Estimated time: 25–35 minutes · Learn how to use &lt;sub&gt; for chemical formulas, math, and references</div>
     </div>
   </header>
 
@@ -97,65 +97,52 @@
     <section class="card">
       <h2>Learning Goals</h2>
       <ul>
-        <li>Understand the semantic meaning of the <code>&lt;small&gt;</code> element.</li>
-        <li>Learn historical context of <code>&lt;small&gt;</code> from early HTML to HTML5.</li>
-        <li>Apply <code>&lt;small&gt;</code> in real-world use cases (disclaimers, footnotes, legal text).</li>
-        <li>Avoid accessibility pitfalls when shrinking text too far.</li>
+        <li>Understand the semantic role of <code>&lt;sub&gt;</code>.</li>
+        <li>Use <code>&lt;sub&gt;</code> correctly in math, chemistry, and notation.</li>
+        <li>Learn accessibility concerns when using subscript.</li>
+        <li>Avoid misusing <code>&lt;sub&gt;</code> for visual layout.</li>
       </ul>
     </section>
 
     <!-- Concept -->
     <section class="card">
-      <h2>Part 1 — What is &lt;small&gt;?</h2>
-      <p>The <code>&lt;small&gt;</code> element is used for <strong>side comments, disclaimers, or fine print</strong>.  
-      It signals text of lesser importance without removing it entirely.  
-      In HTML5, its semantic meaning was clarified: it’s not “make text small” — it’s <em>“present text in a secondary or fine-print role.”</em></p>
+      <h2>Part 1 — What is &lt;sub&gt;?</h2>
+      <p>The <code>&lt;sub&gt;</code> element is used to display <strong>subscript text</strong> — text that appears slightly lower and smaller than the baseline.  
+      It’s common in <strong>scientific formulas, math notation, and chemical symbols</strong>.</p>
     </section>
 
     <!-- Example -->
     <section class="card">
       <h2>Part 2 — Example</h2>
-      <pre><code>&lt;p&gt;Price: $20 &lt;small&gt;(plus tax)&lt;/small&gt;&lt;/p&gt;
-&lt;p&gt;&lt;small&gt;* Limited time offer. Terms apply.&lt;/small&gt;&lt;/p&gt;</code></pre>
-      <p><strong>Result:</strong> The notes in <code>&lt;small&gt;</code> are visually smaller and clearly secondary to the main text.</p>
+      <pre><code>&lt;p&gt;Water formula: H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;
+&lt;p&gt;Math index: a&lt;sub&gt;n&lt;/sub&gt; = a&lt;sub&gt;n-1&lt;/sub&gt; + d&lt;/p&gt;</code></pre>
+      <p><strong>Result:</strong> The “2” in H<sub>2</sub>O is lowered, as are subscripts in the math equation.</p>
     </section>
 
     <!-- Best Practices -->
     <section class="card">
       <h2>Part 3 — Best Practices</h2>
       <ul>
-        <li>Use for <strong>legal disclaimers, copyright notices, or notes</strong>.</li>
-        <li>Pair with <code>&lt;footer&gt;</code> to mark metadata about a document.</li>
-        <li>Never use it to shrink important content — readers with low vision may miss it.</li>
+        <li>Use for **scientific or technical notation** only.</li>
+        <li>For styling text smaller/lower, use CSS instead.</li>
+        <li>Combine with <code>&lt;sup&gt;</code> (superscript) when writing mathematical series or chemical equations.</li>
       </ul>
     </section>
 
-    <!-- Accessibility Notes -->
+    <!-- Accessibility -->
     <section class="card">
       <h2>Part 4 — Accessibility Notes</h2>
-      <p>Because <code>&lt;small&gt;</code> reduces font size, ensure:</p>
-      <ul>
-        <li>Contrast remains high enough for readability.</li>
-        <li>Critical information is never hidden in fine print.</li>
-        <li>Screen readers still read <code>&lt;small&gt;</code> text normally — so it’s semantic, not hidden.</li>
-      </ul>
-    </section>
-
-    <!-- History -->
-    <section class="card">
-      <h2>Part 5 — Historical Notes</h2>
-      <p>In early HTML, <code>&lt;small&gt;</code> was purely visual.  
-      In HTML5, the specification redefined it as “side comments and small print.”  
-      This change reinforced semantic use, not just styling.</p>
+      <p>Screen readers read <code>&lt;sub&gt;</code> text as normal, without announcing “subscript.”  
+      To clarify meaning, provide surrounding context: e.g., <em>“the chemical formula for water, H2O.”</em></p>
     </section>
 
     <!-- Common Mistakes -->
     <section class="card">
-      <h2>Part 6 — Common Mistakes</h2>
+      <h2>Part 5 — Common Mistakes</h2>
       <ul>
-        <li>❌ Overusing <code>&lt;small&gt;</code> everywhere for styling.</li>
-        <li>❌ Shrinking text too much, making it unreadable.</li>
-        <li>❌ Using <code>&lt;small&gt;</code> for headings or emphasis (use <code>&lt;em&gt;</code> / <code>&lt;strong&gt;</code> instead).</li>
+        <li>❌ Using <code>&lt;sub&gt;</code> to make disclaimers or footnotes → use <code>&lt;small&gt;</code> instead.</li>
+        <li>❌ Overusing subscripts where plain text would suffice.</li>
+        <li>❌ Expecting browsers to style it identically everywhere (font differences exist).</li>
       </ul>
     </section>
 
@@ -163,29 +150,28 @@
     <section class="card">
       <h2>Quick Quiz</h2>
       <ol>
-        <li>What is the semantic purpose of <code>&lt;small&gt;</code>?</li>
-        <li>Why is accessibility a concern with <code>&lt;small&gt;</code>?</li>
-        <li>What’s the difference between <code>&lt;small&gt;</code> and CSS <code>font-size</code>?</li>
+        <li>What is the purpose of <code>&lt;sub&gt;</code>?</li>
+        <li>Give an example use case in chemistry.</li>
+        <li>Why should you avoid <code>&lt;sub&gt;</code> for disclaimers?</li>
       </ol>
       <details>
         <summary>Sample Answers</summary>
         <ul>
-          <li>To mark text as side comments, disclaimers, or fine print.</li>
-          <li>Small text can be hard to read if overused or styled poorly.</li>
-          <li><code>&lt;small&gt;</code> has semantic meaning; CSS <code>font-size</code> only changes appearance.</li>
+          <li>To display text as subscript (lowered below baseline).</li>
+          <li>In H<sub>2</sub>O, the 2 is a subscript.</li>
+          <li>Because <code>&lt;small&gt;</code> is semantically correct for disclaimers.</li>
         </ul>
       </details>
     </section>
 
     <!-- Project -->
     <section class="card">
-      <h2>Mini Project — Product Page with Fine Print</h2>
-      <p>Build a product listing that includes:</p>
+      <h2>Mini Project — Science Notes</h2>
+      <p>Create a page that displays:</p>
       <ul>
-        <li>Product title with price</li>
-        <li>A main description</li>
-        <li>A disclaimer in <code>&lt;small&gt;</code> (e.g., “*batteries not included*”)</li>
-        <li>Copyright note in a <code>&lt;footer&gt;</code> using <code>&lt;small&gt;</code></li>
+        <li>The formula for water (H<sub>2</sub>O)</li>
+        <li>Carbon dioxide (CO<sub>2</sub>)</li>
+        <li>A math sequence formula using subscripts (a<sub>n</sub>)</li>
       </ul>
     </section>
 
@@ -200,31 +186,18 @@
     <!-- Dictionary -->
     <section class="card" id="dictionary" aria-labelledby="dict-heading">
       <h2 id="dict-heading">Lesson 23 Dictionary</h2>
-      <p class="footer-note">Terms introduced in this lesson.</p>
-
-      <!-- Search -->
       <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
         <label for="dictSearch" class="visually-hidden">Search terms</label>
-        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms…" autocomplete="off" />
         <span class="dict-meta"><span id="dictCount"></span> terms</span>
         <button type="button" id="dictExport" class="pill">Export JSON</button>
       </form>
 
-      <!-- A–Z jump -->
-      <nav class="dict-az" aria-label="A to Z">
-        <a href="#dict-F">F</a><a href="#dict-S">S</a>
-      </nav>
-
       <dl class="dictionary" id="dictList">
-        <!-- F -->
-        <dt id="dict-F" aria-hidden="true" class="dict-letter">F</dt>
-        <dt data-keys="fine print small">Fine Print</dt>
-        <dd>Legal or secondary information often styled with <code>&lt;small&gt;</code>.</dd>
-
-        <!-- S -->
-        <dt id="dict-S" aria-hidden="true" class="dict-letter">S</dt>
-        <dt data-keys="small element fine print">&lt;small&gt; (Small Print)</dt>
-        <dd>Displays side notes, disclaimers, or copyright information in reduced size, carrying semantic meaning.</dd>
+        <dt data-keys="subscript">&lt;sub&gt; (Subscript)</dt>
+        <dd>Displays text slightly below the baseline (e.g., H<sub>2</sub>O).</dd>
+        <dt data-keys="baseline">Baseline</dt>
+        <dd>The invisible line on which most characters sit. Subscript text drops below it.</dd>
       </dl>
     </section>
 
@@ -252,27 +225,17 @@
     // Dictionary search + export
     (function(){
       const list=document.getElementById('dictList');
-      const items=Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt=>{
-        const dd=dt.nextElementSibling&&dt.nextElementSibling.tagName.toLowerCase()==='dd'?dt.nextElementSibling:null;
+      const items=Array.from(list.querySelectorAll('dt')).map(dt=>{
+        const dd=dt.nextElementSibling?.tagName.toLowerCase()==='dd'?dt.nextElementSibling:null;
         return {dt,dd,text:(dt.textContent+(dt.dataset.keys||'')+(dd?dd.textContent:'')).toLowerCase()};
       });
       const input=document.getElementById('dictSearch');
       const count=document.getElementById('dictCount');
       const exportBtn=document.getElementById('dictExport');
 
-      function updateLetterVisibility(){
-        list.querySelectorAll('.dict-letter').forEach(letter=>{
-          let next=letter.nextElementSibling,any=false;
-          while(next && !next.classList.contains('dict-letter')){
-            if(next.style.display!=='none'){any=true;break;}
-            next=next.nextElementSibling;
-          }
-          letter.style.display=any?'':'none';
-        });
-      }
       function updateCount(){
         const visible=items.filter(i=>i.dt.style.display!=='none').length;
-        if(count) count.textContent=visible.toString();
+        count.textContent=visible.toString();
       }
       function filter(q){
         const needle=(q||'').trim().toLowerCase();
@@ -281,7 +244,7 @@
           dt.style.display=show?'':'none';
           if(dd) dd.style.display=show?'':'none';
         });
-        updateLetterVisibility();updateCount();
+        updateCount();
       }
       input?.addEventListener('input',e=>filter(e.target.value));
       filter('');
