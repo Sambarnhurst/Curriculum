@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HTML Zero → Mastery — Lesson 13: Multiple Headings (&lt;h2&gt;–&lt;h6&gt;)</title>
-  <meta name="description" content="Lesson 13 of HTML Zero to Mastery: Learn how to use multiple levels of headings (<h2>–<h6>) to create a structured outline for your content." />
+  <title>HTML Zero → Mastery — Lesson 14: Line Breaks (&lt;br&gt;)</title>
+  <meta name="description" content="Lesson 14 of HTML Zero to Mastery: Learn how to use the <br> tag to insert line breaks in text and when to avoid it." />
   <meta name="theme-color" content="#121212">
-  <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson13.html" />
+  <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson14.html" />
 
   <style>
     :root{
@@ -77,18 +77,18 @@
 
   <header>
     <div class="container">
-      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 13: Multiple Headings (&lt;h2&gt;–&lt;h6&gt;)</strong> <span class="badge">Foundations</span></div>
-      <h1>Lesson 13 — Multiple Headings <span class="label">&lt;h2&gt;–&lt;h6&gt;</span></h1>
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 14: Line Breaks (&lt;br&gt;)</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 14 — Line Breaks <span class="label">&lt;br&gt;</span></h1>
 
       <!-- Top navigation -->
       <nav class="lesson-nav" aria-label="Lesson navigation">
         <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
-        <a href="lesson12.html" class="btn prev">← Previous Lesson</a>
+        <a href="lesson13.html" class="btn prev">← Previous Lesson</a>
         <span class="spacer" aria-hidden="true"></span>
-        <a href="lesson14.html" class="btn next">Next Lesson →</a>
+        <a href="lesson15.html" class="btn next">Next Lesson →</a>
       </nav>
 
-      <div class="footer-note">Estimated time: 25–35 minutes · Organize content with multiple levels of headings</div>
+      <div class="footer-note">Estimated time: 15–20 minutes · Learn when and how to insert line breaks in text</div>
     </div>
   </header>
 
@@ -97,43 +97,35 @@
     <section class="card">
       <h2>Learning Goals</h2>
       <ul>
-        <li>Understand how <code>&lt;h2&gt;–&lt;h6&gt;</code> extend structure below <code>&lt;h1&gt;</code>.</li>
-        <li>Learn how to create outlines with multiple heading levels.</li>
-        <li>Avoid misuse of heading levels for styling only.</li>
+        <li>Understand what the <code>&lt;br&gt;</code> tag does.</li>
+        <li>Learn when to use line breaks vs paragraphs.</li>
+        <li>Recognize common mistakes with <code>&lt;br&gt;</code>.</li>
       </ul>
     </section>
 
     <!-- Concept -->
     <section class="card">
-      <h2>Part 1 — Multiple Levels of Headings</h2>
-      <p>After your main <code>&lt;h1&gt;</code>, use <code>&lt;h2&gt;</code> for major sections, <code>&lt;h3&gt;</code> for subsections, and so on down to <code>&lt;h6&gt;</code>.</p>
-      <p>Headings create a logical outline — both humans and screen readers use this outline to understand your content’s hierarchy.</p>
+      <h2>Part 1 — What is &lt;br&gt;?</h2>
+      <p>The <code>&lt;br&gt;</code> element inserts a **line break** inside text, moving following content to the next line.  
+      It is an **empty element** (no closing tag).</p>
     </section>
 
     <!-- Example -->
     <section class="card">
       <h2>Part 2 — Example</h2>
-      <pre><code>&lt;h1&gt;Web Development&lt;/h1&gt;
-
-&lt;h2&gt;Frontend&lt;/h2&gt;
-  &lt;h3&gt;HTML&lt;/h3&gt;
-  &lt;h3&gt;CSS&lt;/h3&gt;
-  &lt;h3&gt;JavaScript&lt;/h3&gt;
-
-&lt;h2&gt;Backend&lt;/h2&gt;
-  &lt;h3&gt;Node.js&lt;/h3&gt;
-  &lt;h3&gt;Databases&lt;/h3&gt;
-    &lt;h4&gt;SQL&lt;/h4&gt;
-    &lt;h4&gt;NoSQL&lt;/h4&gt;</code></pre>
+      <pre><code>&lt;p&gt;Roses are red.&lt;br&gt;
+Violets are blue.&lt;br&gt;
+I am learning HTML.&lt;/p&gt;</code></pre>
+      <p><strong>Result:</strong> Each sentence appears on its own line inside the paragraph.</p>
     </section>
 
     <!-- Best Practices -->
     <section class="card">
       <h2>Part 3 — Best Practices</h2>
       <ul>
-        <li>Use one <code>&lt;h1&gt;</code> per page, then multiple <code>&lt;h2&gt;</code> for sections.</li>
-        <li>Keep headings short and descriptive.</li>
-        <li>Follow the hierarchy in order, don’t jump randomly.</li>
+        <li>Use <code>&lt;br&gt;</code> for poems, addresses, or content where single line breaks are meaningful.</li>
+        <li>Use <code>&lt;p&gt;</code> for separate paragraphs.</li>
+        <li>Don’t add multiple <code>&lt;br&gt;</code> for spacing — use CSS margins instead.</li>
       </ul>
     </section>
 
@@ -141,9 +133,9 @@
     <section class="card">
       <h2>Part 4 — Common Mistakes</h2>
       <ul>
-        <li>❌ Using headings for bold text instead of structure.</li>
-        <li>❌ Skipping from <code>&lt;h2&gt;</code> directly to <code>&lt;h5&gt;</code>.</li>
-        <li>❌ Having multiple <code>&lt;h1&gt;</code> headings but no clear outline.</li>
+        <li>❌ Using <code>&lt;br&gt;</code> repeatedly to create blank space.</li>
+        <li>❌ Adding a closing tag (<code>&lt;/br&gt;</code>) — it doesn’t exist.</li>
+        <li>❌ Overusing breaks instead of semantic structure.</li>
       </ul>
     </section>
 
@@ -151,42 +143,38 @@
     <section class="card">
       <h2>Quick Quiz</h2>
       <ol>
-        <li>What’s the difference between <code>&lt;h1&gt;</code> and <code>&lt;h2&gt;</code>?</li>
-        <li>How do <code>&lt;h3&gt;</code> and <code>&lt;h4&gt;</code> fit into the structure?</li>
-        <li>True/False: You can skip heading levels if it looks better visually.</li>
+        <li>What does <code>&lt;br&gt;</code> do?</li>
+        <li>True/False: You should use <code>&lt;br&gt;</code> to create vertical spacing.</li>
+        <li>Should you use <code>&lt;br&gt;</code> or <code>&lt;p&gt;</code> for a new paragraph?</li>
       </ol>
       <details>
         <summary>Sample Answers</summary>
         <ul>
-          <li><code>&lt;h1&gt;</code> is the page’s main title; <code>&lt;h2&gt;</code> are section titles.</li>
-          <li>They are subsections under higher levels, creating a tree structure.</li>
-          <li>False — skipping levels harms structure and accessibility.</li>
+          <li>It inserts a line break.</li>
+          <li>False — use CSS margins for spacing.</li>
+          <li><code>&lt;p&gt;</code> is correct for paragraphs.</li>
         </ul>
       </details>
     </section>
 
     <!-- Project -->
     <section class="card">
-      <h2>Mini Project — Build an Outline</h2>
-      <p>Create a document with:</p>
-      <ul>
-        <li>One <code>&lt;h1&gt;</code> title.</li>
-        <li>At least two <code>&lt;h2&gt;</code> sections.</li>
-        <li>Subsections using <code>&lt;h3&gt;</code> and <code>&lt;h4&gt;</code>.</li>
-      </ul>
+      <h2>Mini Project — Short Poem</h2>
+      <p>Create a page with a short poem using <code>&lt;br&gt;</code> for each new line.  
+      Then try rewriting it with <code>&lt;p&gt;</code> tags and compare the difference.</p>
     </section>
 
     <!-- Bottom nav -->
     <nav class="lesson-nav" aria-label="Lesson navigation">
       <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
-      <a href="lesson12.html" class="btn prev">← Previous Lesson</a>
+      <a href="lesson13.html" class="btn prev">← Previous Lesson</a>
       <span class="spacer" aria-hidden="true"></span>
-      <a href="lesson14.html" class="btn next">Next Lesson →</a>
+      <a href="lesson15.html" class="btn next">Next Lesson →</a>
     </nav>
 
     <!-- Dictionary -->
     <section class="card" id="dictionary" aria-labelledby="dict-heading">
-      <h2 id="dict-heading">Lesson 13 Dictionary</h2>
+      <h2 id="dict-heading">Lesson 14 Dictionary</h2>
       <p class="footer-note">Terms introduced in this lesson.</p>
 
       <!-- Search -->
@@ -199,29 +187,29 @@
 
       <!-- A–Z jump -->
       <nav class="dict-az" aria-label="A to Z">
-        <a href="#dict-H">H</a><a href="#dict-O">O</a><a href="#dict-S">S</a>
+        <a href="#dict-B">B</a><a href="#dict-L">L</a><a href="#dict-P">P</a>
       </nav>
 
       <dl class="dictionary" id="dictList">
-        <!-- H -->
-        <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
-        <dt data-keys="h2 h3 h4 h5 h6 multiple">Headings (&lt;h2&gt;–&lt;h6&gt;)</dt>
-        <dd>Define sections and subsections beneath &lt;h1&gt;.</dd>
+        <!-- B -->
+        <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+        <dt data-keys="br line break">br (&lt;br&gt;)</dt>
+        <dd>An empty element that forces a line break inside text.</dd>
 
-        <!-- O -->
-        <dt id="dict-O" aria-hidden="true" class="dict-letter">O</dt>
-        <dt data-keys="outline structure hierarchy">Outline</dt>
-        <dd>The hierarchical structure created by heading levels.</dd>
+        <!-- L -->
+        <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
+        <dt data-keys="line break poetry address">Line Break</dt>
+        <dd>A place where text continues on the next line without starting a new paragraph.</dd>
 
-        <!-- S -->
-        <dt id="dict-S" aria-hidden="true" class="dict-letter">S</dt>
-        <dt data-keys="semantic structure accessibility">Semantic Structure</dt>
-        <dd>Using HTML elements to give meaning to content for humans and assistive tech.</dd>
+        <!-- P -->
+        <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+        <dt data-keys="paragraph semantic">Paragraph (&lt;p&gt;)</dt>
+        <dd>A block-level element for separate text sections. Preferred over &lt;br&gt; for full paragraphs.</dd>
       </dl>
     </section>
 
     <footer class="footer-note" style="padding:24px 0 40px">
-      © HTML Zero → Mastery · Lesson 13
+      © HTML Zero → Mastery · Lesson 14
     </footer>
   </main>
 
@@ -284,9 +272,9 @@
           keys:(dt.dataset.keys||'').split(/\s+/).filter(Boolean),
           definition:(dd?dd.textContent:'').trim()
         }));
-        const blob=new Blob([JSON.stringify({lesson:13,updated:new Date().toISOString(),items:data},null,2)],{type:'application/json'});
+        const blob=new Blob([JSON.stringify({lesson:14,updated:new Date().toISOString(),items:data},null,2)],{type:'application/json'});
         const url=URL.createObjectURL(blob);
-        const a=document.createElement('a');a.href=url;a.download='dictionary.lesson13.json';a.click();
+        const a=document.createElement('a');a.href=url;a.download='dictionary.lesson14.json';a.click();
         URL.revokeObjectURL(url);
       });
     })();
