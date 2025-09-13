@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTML Zero → Mastery — Lesson 10: The &lt;title&gt; Element</title>
-  <meta name="description" content="Lesson 10 of HTML Zero to Mastery: Learn what the <title> element is, why it matters, and best practices." />
+  <meta name="description" content="Lesson 10 of HTML Zero to Mastery: Learn what the <title> element is, why it matters for SEO, accessibility, and user experience, and best practices." />
   <meta name="theme-color" content="#121212">
   <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson10.html" />
 
@@ -23,7 +23,7 @@
     section { background: #1c1c1c; border: 1px solid #2a2a2a; border-radius: 12px; padding: 20px; margin: 20px 0; }
     pre { background: #0d0d0d; padding: 12px; border-radius: 10px; overflow: auto; }
     code { font-family: ui-monospace, Menlo, Consolas, monospace; color: #7bd4ff; }
-    .quiz, .project, .history, .faq { background: #222; padding: 12px; border-radius: 10px; margin: 16px 0; }
+    .quiz, .project, .history, .faq, .tips { background: #222; padding: 12px; border-radius: 10px; margin: 16px 0; }
     .lesson-nav { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:16px 0; padding:12px; background:#1c1c1c; border:1px solid #2a2a2a; border-radius:12px; }
     .btn { display:inline-block; text-decoration:none; color:#eaeaea; padding:.6rem .9rem; border:1px solid #2a2a2a; border-radius:999px; background:#222; }
     .btn:hover { filter:brightness(1.05); }
@@ -45,22 +45,24 @@
     <section>
       <h2>Learning Goals</h2>
       <ul>
-        <li>Understand the purpose of the <code>&lt;title&gt;</code> element.</li>
-        <li>See where the title appears in browsers and search engines.</li>
-        <li>Learn best practices for writing good titles.</li>
+        <li>Understand the purpose of the <code>&lt;title&gt;</code> element in HTML.</li>
+        <li>Learn where titles appear: browser tabs, bookmarks, search results.</li>
+        <li>Explore accessibility and SEO importance of titles.</li>
+        <li>Apply best practices for writing effective titles.</li>
       </ul>
     </section>
 
     <!-- Concept / Explanation -->
     <section>
       <h2>Concept</h2>
-      <p>The <code>&lt;title&gt;</code> element defines the title of a web page. It appears in:</p>
+      <p>The <code>&lt;title&gt;</code> element is placed inside the <code>&lt;head&gt;</code> and sets the page’s official title. Unlike headings inside the <code>&lt;body&gt;</code>, the title does not show directly on the page — but it is crucial for how browsers, users, and search engines understand the page.</p>
+      <p>It serves four roles at once:</p>
       <ul>
-        <li>The browser tab or window.</li>
-        <li>Bookmarks and history lists.</li>
-        <li>Search engine results.</li>
+        <li><strong>Browser Tabs:</strong> Appears in the tab/window title bar.</li>
+        <li><strong>Bookmarks:</strong> Used when a page is saved/favorited.</li>
+        <li><strong>Search Engines:</strong> Appears as the main clickable link in search results (SEO).</li>
+        <li><strong>Accessibility:</strong> Screen readers announce the title to describe what the page is about.</li>
       </ul>
-      <p>Although it’s not visible in the page content, it is one of the most important elements for usability, SEO, and accessibility.</p>
     </section>
 
     <!-- Example -->
@@ -70,23 +72,40 @@
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;My Awesome Page&lt;/title&gt;
+    &lt;title&gt;Portfolio of Jane Doe&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;h1&gt;Welcome to my site!&lt;/h1&gt;
-    &lt;p&gt;This page has a proper title in the browser tab.&lt;/p&gt;
+    &lt;h1&gt;Welcome to my portfolio&lt;/h1&gt;
+    &lt;p&gt;I build websites and design apps.&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-      <p><strong>Explanation:</strong> The <code>&lt;title&gt;</code> sets the browser tab text. Here it would show “My Awesome Page.”</p>
+      <p><strong>Explanation:</strong> The page title shown in the browser tab is “Portfolio of Jane Doe,” while the visible content uses <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code>.</p>
+    </section>
+
+    <!-- Good vs Bad Examples -->
+    <section class="tips">
+      <h2>Good vs Bad Titles</h2>
+      <p>✅ <strong>Good:</strong> Short, descriptive, unique.</p>
+      <ul>
+        <li>“HTML Basics — Lesson 1”</li>
+        <li>“John Smith | Web Developer Portfolio”</li>
+      </ul>
+      <p>❌ <strong>Bad:</strong> Too vague or repetitive.</p>
+      <ul>
+        <li>“Home” (too generic, every site has one)</li>
+        <li>“Untitled Document” (forgot to set title)</li>
+        <li>“My Website My Website My Website” (keyword stuffing)</li>
+      </ul>
     </section>
 
     <!-- Common Mistakes -->
     <section>
       <h2>Common Mistakes</h2>
       <ul>
-        <li>Forgetting the <code>&lt;title&gt;</code> (leads to “Untitled” pages in the browser).</li>
-        <li>Using the same title on every page (bad for navigation & SEO).</li>
-        <li>Making titles too long or too short (best is 50–60 characters).</li>
+        <li>Leaving the title blank → browser shows “Untitled.”</li>
+        <li>Using the same title for all pages → confuses users and hurts SEO.</li>
+        <li>Making it too long → search engines cut it off after ~60 characters.</li>
+        <li>Placing <code>&lt;title&gt;</code> in the <code>&lt;body&gt;</code> instead of the <code>&lt;head&gt;</code>.</li>
       </ul>
     </section>
 
@@ -94,42 +113,50 @@
     <section class="quiz">
       <h2>Quick Quiz</h2>
       <ol>
-        <li>Where does the <code>&lt;title&gt;</code> element appear?</li>
-        <li>Is <code>&lt;title&gt;</code> placed in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code>?</li>
-        <li>Why is the <code>&lt;title&gt;</code> important for search engines?</li>
+        <li>Where should the <code>&lt;title&gt;</code> element be placed?</li>
+        <li>How does the title affect search engine results?</li>
+        <li>Why is it important for accessibility?</li>
+        <li>True/False: You can use multiple <code>&lt;title&gt;</code> elements on one page.</li>
       </ol>
       <details>
         <summary>Answers</summary>
         <ul>
-          <li>In the browser tab, bookmarks, and search engine results.</li>
-          <li>Inside the <code>&lt;head&gt;</code>.</li>
-          <li>It tells search engines what the page is about.</li>
+          <li>Inside the <code>&lt;head&gt;</code> section.</li>
+          <li>It becomes the clickable link in search results and signals relevance.</li>
+          <li>Screen readers announce it to help users identify the page.</li>
+          <li>False — only one <code>&lt;title&gt;</code> per page.</li>
         </ul>
       </details>
     </section>
 
     <!-- Mini Project -->
     <section class="project">
-      <h2>Mini Project</h2>
-      <p>Create a new HTML page and:</p>
+      <h2>Mini Project — Title Lab</h2>
+      <p>Create three HTML files, each with different titles:</p>
       <ul>
-        <li>Set the <code>&lt;title&gt;</code> to your name + “Portfolio.”</li>
-        <li>Add a heading and paragraph in the <code>&lt;body&gt;</code>.</li>
-        <li>Open it in your browser and confirm the tab shows your custom title.</li>
+        <li><strong>index.html:</strong> “My Name — Portfolio”</li>
+        <li><strong>about.html:</strong> “About Me — [Your Name]”</li>
+        <li><strong>contact.html:</strong> “Contact — [Your Name]”</li>
       </ul>
+      <p>Open all three in browser tabs and compare how the titles appear in:</p>
+      <ul>
+        <li>The browser tab bar.</li>
+        <li>Bookmarks (save each page).</li>
+        <li>History list (check browser history).</li>\n      </ul>
     </section>
 
     <!-- Did You Know? -->
     <section class="history">
       <h2>Did You Know?</h2>
-      <p>The <code>&lt;title&gt;</code> tag is one of the earliest parts of HTML (present since 1991). Even though it looks small, it plays a huge role in web search ranking and user trust.</p>
+      <p>The very first webpage in 1991 had the title <em>“The World Wide Web project.”</em> This simple <code>&lt;title&gt;</code> still works today and is considered one of the most historic HTML tags ever used.</p>
     </section>
 
     <!-- FAQ -->
     <section class="faq">
       <h2>FAQ</h2>
-      <p><strong>Q:</strong> Can I put emojis in a <code>&lt;title&gt;</code>?<br><strong>A:</strong> Yes, modern browsers support Unicode, but use them sparingly.</p>
-      <p><strong>Q:</strong> What happens if I skip the <code>&lt;title&gt;</code>?<br><strong>A:</strong> The browser may show the file name instead, which looks unprofessional.</p>
+      <p><strong>Q:</strong> Can I include branding in every title?<br><strong>A:</strong> Yes, but add unique page info before or after (e.g., “Blog — MyBrand”).</p>
+      <p><strong>Q:</strong> Should I use ALL CAPS in titles?<br><strong>A:</strong> Avoid it — it can look like shouting and reduce readability.</p>
+      <p><strong>Q:</strong> Do titles impact Google ranking?<br><strong>A:</strong> Yes, they are one of the strongest on-page SEO signals.</p>
     </section>
 
     <!-- Footer -->
