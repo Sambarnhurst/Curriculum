@@ -184,18 +184,69 @@
       <a href="lesson10.html" class="btn next">Next Lesson →</a>
     </nav>
 
-    <!-- Dictionary -->
-    <section class="card" id="dictionary" aria-labelledby="dict-heading">
-      <h2 id="dict-heading">Lesson 9 Dictionary</h2>
-      <dl class="dictionary" id="dictList">
-        <dt>&lt;body&gt;</dt>
-        <dd>The container for all visible content of a webpage.</dd>
-        <dt>Visible Content</dt>
-        <dd>Any element a user sees in the browser (text, images, links, lists, etc.).</dd>
-        <dt>Invalid Markup</dt>
-        <dd>Code that breaks rules — e.g., placing &lt;title&gt; inside &lt;body&gt; or using multiple body tags.</dd>
-      </dl>
-    </section>
+<!-- Dictionary -->
+<section class="card" id="dictionary" aria-labelledby="dict-heading">
+  <h2 id="dict-heading">Lesson 9 Dictionary</h2>
+  <p class="footer-note">
+    Terms and elements introduced in Lesson 9: the <code>&lt;body&gt;</code> section and its common contents.
+  </p>
+
+  <!-- Search -->
+  <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+    <label for="dictSearch" class="visually-hidden">Search terms</label>
+    <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
+    <span class="dict-meta"><span id="dictCount"></span> terms</span>
+    <button type="button" id="dictExport" class="pill">Export JSON</button>
+  </form>
+
+  <!-- A–Z jump -->
+  <nav class="dict-az" aria-label="A to Z">
+    <a href="#dict-B">B</a><a href="#dict-H">H</a><a href="#dict-I">I</a>
+    <a href="#dict-L">L</a><a href="#dict-P">P</a><a href="#dict-R">R</a>
+  </nav>
+
+  <dl class="dictionary" id="dictList">
+    <!-- B -->
+    <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+    <dt data-keys="body root visible">&lt;body&gt;</dt>
+    <dd>The container for all visible page content (text, images, links, media, forms).</dd>
+
+    <dt data-keys="break line">&lt;br&gt;</dt>
+    <dd>A line break. Use sparingly; prefer semantic structure.</dd>
+
+    <!-- H -->
+    <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
+    <dt data-keys="h1 heading">&lt;h1&gt;…&lt;h6&gt;</dt>
+    <dd>Headings that provide document structure. <code>&lt;h1&gt;</code> is the main heading.</dd>
+
+    <dt data-keys="hr horizontal rule">&lt;hr&gt;</dt>
+    <dd>A thematic break — renders as a horizontal line.</dd>
+
+    <!-- I -->
+    <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
+    <dt data-keys="img image">&lt;img&gt;</dt>
+    <dd>Embeds an image. Requires <code>src</code> and should include <code>alt</code> text for accessibility.</dd>
+
+    <!-- L -->
+    <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
+    <dt data-keys="link anchor">&lt;a&gt;</dt>
+    <dd>Anchor (link) element that connects to other pages or resources.</dd>
+
+    <dt data-keys="li list item">&lt;li&gt;</dt>
+    <dd>List item used inside ordered (<code>&lt;ol&gt;</code>) or unordered (<code>&lt;ul&gt;</code>) lists.</dd>
+
+    <!-- P -->
+    <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+    <dt data-keys="paragraph">&lt;p&gt;</dt>
+    <dd>Paragraph of text.</dd>
+
+    <!-- R -->
+    <dt id="dict-R" aria-hidden="true" class="dict-letter">R</dt>
+    <dt data-keys="root element visible content">Visible Content</dt>
+    <dd>Anything displayed to the user in the browser window — always inside <code>&lt;body&gt;</code>.</dd>
+  </dl>
+</section>
+
 
     <footer class="footer-note" style="padding:24px 0 40px">
       © HTML Zero → Mastery · Lesson 9
