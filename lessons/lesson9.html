@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML Zero → Mastery — Lesson 9: The <body> Section Basics</title>
+  <meta name="description" content="Lesson 9 of HTML Zero to Mastery: Learn the basics of the <body> section in HTML, what goes inside, best practices, and build a project." />
+  <meta name="theme-color" content="#121212">
+  <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson9.html" />
+  <style>
+    body{margin:0;font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;background:#121212;color:#eaeaea}
+    .container{max-width:1000px;margin:0 auto;padding:20px}
+    h1,h2{color:#00ffff}
+    section{background:#1c1c1c;border:1px solid #2a2a2a;border-radius:12px;padding:20px;margin:20px 0}
+    pre{background:#0d0d0d;padding:12px;border-radius:10px;overflow:auto}
+    code{font-family:ui-monospace,Menlo,Consolas,monospace;color:#7bd4ff}
+    .quiz,.project,.history,.faq{background:#222;padding:12px;border-radius:10px;margin:16px 0}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Lesson 9 — The <code>&lt;body&gt;</code> Section Basics</h1>
+
+    <section>
+      <h2>What is the <code>&lt;body&gt;</code>?</h2>
+      <p>The <code>&lt;body&gt;</code> element is where all the <strong>visible content</strong> of a webpage goes. If you can see it in the browser window — text, images, links, lists, tables, forms — it lives inside the <code>&lt;body&gt;</code>.</p>
+      <p><strong>Metaphor:</strong> Think of an HTML page as a house. The <code>&lt;head&gt;</code> is the blueprint (title, metadata, instructions). The <code>&lt;body&gt;</code> is the rooms, furniture, and everything you interact with.</p>
+    </section>
+
+    <section>
+      <h2>What Goes Inside?</h2>
+      <ul>
+        <li><strong>Headings:</strong> <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> structure your content.</li>
+        <li><strong>Paragraphs:</strong> <code>&lt;p&gt;</code> hold blocks of text.</li>
+        <li><strong>Images:</strong> <code>&lt;img&gt;</code> display pictures (always use <code>alt</code> text for accessibility).</li>
+        <li><strong>Links:</strong> <code>&lt;a&gt;</code> connect to other pages or sites.</li>
+        <li><strong>Lists:</strong> <code>&lt;ul&gt;</code> (bullets), <code>&lt;ol&gt;</code> (numbers), and <code>&lt;li&gt;</code> (items).</li>
+        <li><strong>Rules & breaks:</strong> <code>&lt;hr&gt;</code> adds a line, <code>&lt;br&gt;</code> adds a line break.</li>
+        <li><strong>Other elements:</strong> tables, forms, videos, audio, and more.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Example</h2>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Body Example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Welcome to My Page&lt;/h1&gt;
+    &lt;p&gt;This is inside the body.&lt;/p&gt;
+    &lt;img src="dog.jpg" alt="A happy dog"&gt;
+    &lt;hr&gt;
+    &lt;p&gt;Thanks for visiting!&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <p><strong>Explanation:</strong> The <code>&lt;h1&gt;</code> heading, <code>&lt;p&gt;</code> paragraphs, and <code>&lt;img&gt;</code> image all appear inside the <code>&lt;body&gt;</code>. The <code>&lt;hr&gt;</code> visually separates content.</p>
+    </section>
+
+    <section>
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Putting <code>&lt;title&gt;</code> or <code>&lt;meta&gt;</code> inside <code>&lt;body&gt;</code> (they belong in <code>&lt;head&gt;</code>).</li>
+        <li>Forgetting to close tags, like <code>&lt;p&gt;Hello</code> without <code>&lt;/p&gt;</code>.</li>
+        <li>Using multiple <code>&lt;body&gt;</code> tags — only one is allowed per page.</li>
+      </ul>
+    </section>
+
+    <section class="quiz">
+      <h2>Quick Quiz</h2>
+      <ol>
+        <li>What is the purpose of the <code>&lt;body&gt;</code> element?</li>
+        <li>Which of these belongs in the <code>&lt;head&gt;</code>, not the <code>&lt;body&gt;</code>: <code>&lt;title&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>?</li>
+        <li>True/False: You can have two <code>&lt;body&gt;</code> elements in the same HTML page.</li>
+      </ol>
+      <details>
+        <summary>Answers</summary>
+        <ul>
+          <li>The <code>&lt;body&gt;</code> holds all the visible content of a webpage.</li>
+          <li><code>&lt;title&gt;</code> belongs in <code>&lt;head&gt;</code>.</li>
+          <li>False — only one <code>&lt;body&gt;</code> per page.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="project">
+      <h2>Mini Project — Personal Homepage</h2>
+      <p>Create a simple homepage inside the <code>&lt;body&gt;</code> tag with the following:</p>
+      <ul>
+        <li>An <code>&lt;h1&gt;</code> with your name.</li>
+        <li>A <code>&lt;p&gt;</code> introducing yourself.</li>
+        <li>An <code>&lt;img&gt;</code> of something meaningful to you (with <code>alt</code> text).</li>
+        <li>A <code>&lt;ul&gt;</code> list of your 3 favorite hobbies.</li>
+        <li>An <code>&lt;a&gt;</code> link to your favorite website.</li>
+      </ul>
+      <p>Save it as <code>index.html</code> and open it in your browser to view your page!</p>
+    </section>
+
+    <section class="history">
+      <h2>Did You Know?</h2>
+      <p>HTML was invented by <strong>Tim Berners-Lee</strong> in 1991 at CERN. The very first webpage used a <code>&lt;body&gt;</code> section with simple text and links. That page still exists online as a piece of history.</p>
+    </section>
+
+    <section class="faq">
+      <h2>FAQ</h2>
+      <p><strong>Q: Do I need special software to write HTML?</strong><br>A: No — you can use any text editor and a browser.</p>
+      <p><strong>Q: Can I leave out the <code>&lt;body&gt;</code> tag?</strong><br>A: Browsers may try to fix it, but you should always include it for proper structure.</p>
+      <p><strong>Q: Can I style the <code>&lt;body&gt;</code>?</strong><br>A: Yes! CSS often targets the <code>&lt;body&gt;</code> to set fonts, colors, or backgrounds.</p>
+    </section>
+
+    <footer style="margin-top:40px;color:#b6b6b6">
+      © HTML Zero → Mastery · Lesson 9
+    </footer>
+  </div>
+</body>
+</html>
