@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTML Zero → Mastery — Lesson 1: What is HTML?</title>
   <meta name="description" content="Lesson 1 of HTML Zero to Mastery: What is HTML, why it matters, and how web pages are structured." />
+  <meta name="theme-color" content="#121212">
+  <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson1.html" />
+  <link rel="preload" as="image" href="../images/lesson1picture1.jpg" />
 
   <!-- Social preview (optional) -->
   <meta property="og:title" content="HTML Zero → Mastery — Lesson 1: What is HTML?" />
@@ -13,7 +17,6 @@
   <meta property="og:url" content="https://sambarnhurst.github.io/Curriculum/lessons/lesson1.html" />
   <meta property="og:image" content="https://sambarnhurst.github.io/Curriculum/images/lesson1picture1.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#121212">
 
   <style>
     :root{
@@ -35,7 +38,7 @@
     html,body{height:100%}
     body{
       margin:0;
-      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       color:var(--text);
       /* Background from images folder relative to /lessons/lesson1.html */
       background:
@@ -102,6 +105,11 @@
     .btn.back{border-color:#3f2f2f}
     .spacer{flex:1}
 
+    /* Focus states for keyboard users */
+    .btn:focus-visible, .pill:focus-visible, .copy-btn:focus-visible, input[type="search"]:focus-visible{
+      outline:2px solid var(--accent); outline-offset:2px; border-color:var(--accent);
+    }
+
     /* Copy code button */
     .copy-btn{
       position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);
@@ -135,6 +143,14 @@
     }
     .dict-placeholder{color:var(--muted)}
     .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+
+    /* Print-friendly */
+    @media print{
+      body{background:none;color:#000}
+      header, .lesson-nav{display:none}
+      section.card{box-shadow:none;border-color:#ccc}
+      a{color:#000}
+    }
   </style>
 </head>
 <body>
@@ -155,6 +171,9 @@
       <div class="footer-note">Estimated time: 30–45 minutes · You’ll build a simple “Hello, HTML” page</div>
     </div>
   </header>
+
+  <!-- ARIA live region for non-visual feedback (copy, dictionary count updates, etc.) -->
+  <div id="live" class="visually-hidden" aria-live="polite"></div>
 
   <main id="main" class="container">
     <!-- Learning Goals -->
@@ -193,7 +212,7 @@
       <!-- Live preview -->
       <details>
         <summary>Live Preview: Minimal Page</summary>
-        <iframe class="preview" title="Minimal HTML Preview" sandbox
+        <iframe class="preview" title="Minimal HTML Preview" sandbox loading="lazy"
           srcdoc="<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'>
           <meta name='viewport' content='width=device-width,initial-scale=1'>
           <title>Preview</title><style>body{font-family:system-ui;margin:1rem}</style></head>
@@ -283,8 +302,8 @@
       <!-- Search -->
       <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
         <label for="dictSearch" class="visually-hidden">Search terms</label>
-        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
-        <span class="dict-meta"><span id="dictCount"></span> terms</span>
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" aria-describedby="dictCountWrap" />
+        <span class="dict-meta" id="dictCountWrap"><span id="dictCount"></span> terms</span>
         <button type="button" id="dictExport" class="pill">Export JSON</button>
       </form>
 
@@ -396,7 +415,11 @@
   </main>
 
   <script>
-    // Add "Copy" buttons to all code blocks
+    const live = document.getElementById('live');
+
+    function announce(msg){ if(live){ live.textContent = msg; } }
+
+    // Add "Copy" buttons to all code blocks (copy only the <code> text, not the button)
     (function(){
       document.querySelectorAll('pre').forEach((pre) => {
         const btn = document.createElement('button');
@@ -404,11 +427,25 @@
         btn.setAttribute('aria-label','Copy code to clipboard');
         pre.appendChild(btn);
         btn.addEventListener('click', async () => {
-          const code = pre.innerText;
+          const codeEl = pre.querySelector('code');
+          const code = codeEl ? codeEl.textContent : pre.textContent;
           try {
             await navigator.clipboard.writeText(code);
-            btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
-          } catch { btn.textContent = 'Error'; }
+            btn.textContent = 'Copied!'; announce('Code copied to clipboard');
+            setTimeout(()=>btn.textContent='Copy',1200);
+          } catch (e) {
+            // Fallback for older browsers
+            try {
+              const ta = document.createElement('textarea');
+              ta.value = code; ta.style.position='fixed'; ta.style.opacity='0';
+              document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+              document.body.removeChild(ta);
+              btn.textContent = 'Copied!'; announce('Code copied to clipboard');
+              setTimeout(()=>btn.textContent='Copy',1200);
+            } catch {
+              btn.textContent = 'Error'; announce('Copy failed');
+            }
+          }
         });
       });
     })();
@@ -425,7 +462,9 @@
         const blob = new Blob([content], {type:'text/html'});
         const url = URL.createObjectURL(blob);
         const a = Object.assign(document.createElement('a'), {href:url, download:'index.html'});
-        a.click(); URL.revokeObjectURL(url);
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+        announce('Downloaded minimal HTML file');
       });
     })();
 
@@ -434,7 +473,7 @@
       const list = document.getElementById('dictList');
       const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
         const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
-        return {dt, dd, text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')) .toLowerCase()};
+        return {dt, dd, text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')).toLowerCase()};
       });
       const input = document.getElementById('dictSearch');
       const count = document.getElementById('dictCount');
@@ -452,7 +491,7 @@
       }
       function updateCount(){
         const visible = items.filter(i => i.dt.style.display !== 'none').length;
-        if (count) count.textContent = visible.toString();
+        if (count) { count.textContent = String(visible); announce(visible + ' terms visible'); }
       }
       function filter(q){
         const needle = q.trim().toLowerCase();
@@ -478,8 +517,10 @@
           }));
         const blob = new Blob([JSON.stringify({lesson: 1, updated: new Date().toISOString(), items:data}, null, 2)], {type:'application/json'});
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.lesson1.json'; a.click();
+        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.lesson1.json';
+        document.body.appendChild(a); a.click(); a.remove();
         URL.revokeObjectURL(url);
+        announce('Exported dictionary JSON');
       });
     })();
   </script>
