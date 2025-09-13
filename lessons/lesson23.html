@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTML Zero → Mastery — Lesson 23: Subscript (&lt;sub&gt;)</title>
-  <meta name="description" content="Lesson 23 of HTML Zero to Mastery: Learn the <sub> element for subscripts in math, chemistry, and notation. Includes examples, accessibility, and best practices." />
+  <meta name="description" content="Lesson 23 of HTML Zero to Mastery: Learn the <sub> element for subscripts in chemistry, math, and technical notation. Includes examples, accessibility, best practices, quiz, and a searchable dictionary with A–Z jump." />
   <meta name="theme-color" content="#121212">
   <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson23.html" />
 
@@ -20,12 +20,21 @@
     body{
       margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
       color:var(--text);
+      /* Same background as other lessons */
       background:
         linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
         url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
       background-color:#000;
     }
     a{color:var(--link)}
+
+    /* Skip link */
+    .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{
+      left:12px;top:12px;width:auto;height:auto;padding:.5rem .75rem;
+      background:#1c1c1c;border:1px solid var(--border);border-radius:8px;color:#eaeaea;z-index:1000
+    }
+
     header{
       padding:24px 20px 8px;
       border-bottom:1px solid var(--border);
@@ -43,31 +52,57 @@
       box-shadow:0 4px 24px rgba(0,0,0,.25);
     }
     section.card h2{margin-top:0;color:var(--accent)}
+    section.card h3{margin:22px 0 8px;color:var(--accent-2)}
+
     pre{
       background:var(--code); border:1px solid var(--border);
       border-radius:12px; padding:14px; overflow:auto; margin:12px 0;
       position:relative;
     }
     code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.95rem}
+
     .footer-note{color:var(--muted);font-size:.95rem}
-    .lesson-nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0;padding:12px;background:var(--panel);border:1px solid var(--border);border-radius:12px}
-    .btn{display:inline-block;text-decoration:none;color:var(--text);padding:.6rem .9rem;border:1px solid var(--border);border-radius:999px;background:var(--soft)}
+
+    /* Lesson navigation buttons */
+    .lesson-nav{
+      display:flex; gap:12px; flex-wrap:wrap; align-items:center;
+      margin:16px 0; padding:12px;
+      background:var(--panel); border:1px solid var(--border); border-radius:12px;
+    }
+    .btn{
+      display:inline-block; text-decoration:none; color:var(--text);
+      padding:.6rem .9rem; border:1px solid var(--border); border-radius:999px;
+      background:var(--soft);
+    }
     .btn:hover{filter:brightness(1.05)}
     .btn.back{border-color:#3f2f2f}
     .btn.prev{border-color:#2f3f2f}
     .btn.next{border-color:#1f3f3f}
     .spacer{flex:1}
-    .copy-btn{position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer}
 
-    /* Dictionary */
+    /* Copy button */
+    .copy-btn{
+      position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer
+    }
+
+    /* Dictionary (exact pattern from Lesson 8) */
     .dict-search{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
-    .dict-search input[type="search"]{flex:1;min-width:220px;padding:.55rem .7rem;border:1px solid var(--border);border-radius:10px;background:var(--soft);color:var(--text)}
+    .dict-search input[type="search"]{
+      flex:1; min-width:220px; padding:.55rem .7rem; border:1px solid var(--border);
+      border-radius:10px; background:var(--soft); color:var(--text)
+    }
     .dict-meta{color:var(--muted);font-size:.9rem}
     .dict-az{display:flex;gap:.4rem;flex-wrap:wrap;margin:8px 0 14px}
-    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);
+      border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+    .dictionary{margin:0}
     .dictionary dt{margin-top:.6rem;font-weight:700}
     .dictionary dd{margin:0 0 .6rem 0;color:var(--text)}
-    .dict-letter{margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600}
+    .dict-letter{
+      margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);
+      border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600
+    }
     .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
     .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
   </style>
@@ -88,7 +123,7 @@
         <a href="lesson24.html" class="btn next">Next Lesson →</a>
       </nav>
 
-      <div class="footer-note">Estimated time: 25–35 minutes · Learn how to use &lt;sub&gt; for chemical formulas, math, and references</div>
+      <div class="footer-note">Estimated time: 25–35 minutes · Use &lt;sub&gt; for chemistry, math indices, and technical notation</div>
     </div>
   </header>
 
@@ -97,82 +132,123 @@
     <section class="card">
       <h2>Learning Goals</h2>
       <ul>
-        <li>Understand the semantic role of <code>&lt;sub&gt;</code>.</li>
-        <li>Use <code>&lt;sub&gt;</code> correctly in math, chemistry, and notation.</li>
-        <li>Learn accessibility concerns when using subscript.</li>
-        <li>Avoid misusing <code>&lt;sub&gt;</code> for visual layout.</li>
+        <li>Explain what the <code>&lt;sub&gt;</code> element means semantically.</li>
+        <li>Write correct chemical formulas and math indices with <code>&lt;sub&gt;</code>.</li>
+        <li>Know accessibility considerations and when to prefer CSS.</li>
+        <li>Avoid common misuse (e.g., general “small print”).</li>
       </ul>
     </section>
 
-    <!-- Concept -->
+    <!-- Part 1 — Concept -->
     <section class="card">
       <h2>Part 1 — What is &lt;sub&gt;?</h2>
-      <p>The <code>&lt;sub&gt;</code> element is used to display <strong>subscript text</strong> — text that appears slightly lower and smaller than the baseline.  
-      It’s common in <strong>scientific formulas, math notation, and chemical symbols</strong>.</p>
+      <p><code>&lt;sub&gt;</code> marks <strong>subscript text</strong>—characters positioned slightly below the baseline and often rendered smaller. Use it for <strong>chemical formulas</strong> (H<sub>2</sub>O), <strong>indices</strong> (a<sub>n</sub>), and <strong>specialized notation</strong>.</p>
+      <div class="footer-note">Subscript is about <em>meaning</em>, not just appearance. If you only want a visual effect, use CSS.</div>
     </section>
 
-    <!-- Example -->
+    <!-- Part 2 — Minimal Examples -->
     <section class="card">
-      <h2>Part 2 — Example</h2>
-      <pre><code>&lt;p&gt;Water formula: H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;
-&lt;p&gt;Math index: a&lt;sub&gt;n&lt;/sub&gt; = a&lt;sub&gt;n-1&lt;/sub&gt; + d&lt;/p&gt;</code></pre>
-      <p><strong>Result:</strong> The “2” in H<sub>2</sub>O is lowered, as are subscripts in the math equation.</p>
+      <h2>Part 2 — Minimal Examples</h2>
+      <pre><code>&lt;p&gt;Water: H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;
+&lt;p&gt;Carbon dioxide: CO&lt;sub&gt;2&lt;/sub&gt;&lt;/p&gt;
+&lt;p&gt;Sequence term: a&lt;sub&gt;n&lt;/sub&gt; = a&lt;sub&gt;n-1&lt;/sub&gt; + d&lt;/p&gt;</code></pre>
+      <p><strong>Result:</strong> The 2s and the n are lowered as subscripts.</p>
     </section>
 
-    <!-- Best Practices -->
+    <!-- Part 3 — Best Practices -->
     <section class="card">
       <h2>Part 3 — Best Practices</h2>
       <ul>
-        <li>Use for **scientific or technical notation** only.</li>
-        <li>For styling text smaller/lower, use CSS instead.</li>
-        <li>Combine with <code>&lt;sup&gt;</code> (superscript) when writing mathematical series or chemical equations.</li>
+        <li>Use <code>&lt;sub&gt;</code> for semantic subscripts (science/math), not for generic “smaller text”.</li>
+        <li>Pair with <code>&lt;sup&gt;</code> when the notation needs both (e.g., x<sup>2</sup>, a<sub>n</sub>).</li>
+        <li>For purely visual lowering, prefer CSS: <code>vertical-align: sub;</code> or layout techniques.</li>
       </ul>
     </section>
 
-    <!-- Accessibility -->
+    <!-- Part 4 — Accessibility Notes -->
     <section class="card">
       <h2>Part 4 — Accessibility Notes</h2>
-      <p>Screen readers read <code>&lt;sub&gt;</code> text as normal, without announcing “subscript.”  
-      To clarify meaning, provide surrounding context: e.g., <em>“the chemical formula for water, H2O.”</em></p>
+      <p>Most screen readers read subscript as normal text. Provide context in surrounding copy (e.g., “the formula for carbon dioxide, CO<sub>2</sub>”). If subscripts encode critical meaning, consider clarifying textually as well.</p>
     </section>
 
-    <!-- Common Mistakes -->
+    <!-- Practice -->
     <section class="card">
-      <h2>Part 5 — Common Mistakes</h2>
-      <ul>
-        <li>❌ Using <code>&lt;sub&gt;</code> to make disclaimers or footnotes → use <code>&lt;small&gt;</code> instead.</li>
-        <li>❌ Overusing subscripts where plain text would suffice.</li>
-        <li>❌ Expecting browsers to style it identically everywhere (font differences exist).</li>
-      </ul>
+      <h2>Practice Tasks</h2>
+      <ol>
+        <li>Create <strong>lesson-23/index.html</strong> and write CO<sub>2</sub>, H<sub>2</sub>O, and a<sub>n</sub> correctly.</li>
+        <li>Add an equation mixing <code>&lt;sub&gt;</code> and <code>&lt;sup&gt;</code> (e.g., x<sup>2</sup> + y<sub>1</sub>).</li>
+        <li>Explain—right in the page—what each subscript conveys.</li>
+      </ol>
     </section>
 
     <!-- Quiz -->
     <section class="card">
       <h2>Quick Quiz</h2>
       <ol>
-        <li>What is the purpose of <code>&lt;sub&gt;</code>?</li>
-        <li>Give an example use case in chemistry.</li>
-        <li>Why should you avoid <code>&lt;sub&gt;</code> for disclaimers?</li>
+        <li>What is <code>&lt;sub&gt;</code> meant to represent semantically?</li>
+        <li>Give one valid scientific example and one math example.</li>
+        <li>Why not use <code>&lt;sub&gt;</code> for disclaimers/footnotes?</li>
       </ol>
       <details>
-        <summary>Sample Answers</summary>
+        <summary>Sample answers</summary>
         <ul>
-          <li>To display text as subscript (lowered below baseline).</li>
-          <li>In H<sub>2</sub>O, the 2 is a subscript.</li>
-          <li>Because <code>&lt;small&gt;</code> is semantically correct for disclaimers.</li>
+          <li>Subscript text (lowered below baseline) with domain meaning.</li>
+          <li>CO<sub>2</sub> in chemistry; a<sub>n</sub> in sequences.</li>
+          <li>Because that’s <code>&lt;small&gt;</code> content or CSS styling—not a subscript concept.</li>
         </ul>
       </details>
     </section>
 
-    <!-- Project -->
-    <section class="card">
-      <h2>Mini Project — Science Notes</h2>
-      <p>Create a page that displays:</p>
-      <ul>
-        <li>The formula for water (H<sub>2</sub>O)</li>
-        <li>Carbon dioxide (CO<sub>2</sub>)</li>
-        <li>A math sequence formula using subscripts (a<sub>n</sub>)</li>
-      </ul>
+    <!-- Dictionary (EXACT same layout pattern as Lesson 8) -->
+    <section class="card" id="dictionary" aria-labelledby="dict-heading">
+      <h2 id="dict-heading">Lesson 23 Dictionary</h2>
+      <p class="footer-note">Terms and concepts introduced in this lesson. Search or jump by letter.</p>
+
+      <!-- Search -->
+      <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+        <label for="dictSearch" class="visually-hidden">Search terms</label>
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
+        <span class="dict-meta"><span id="dictCount"></span> terms</span>
+        <button type="button" id="dictExport" class="pill">Export JSON</button>
+      </form>
+
+      <!-- A–Z jump (only letters used below) -->
+      <nav class="dict-az" aria-label="A to Z">
+        <a href="#dict-A">A</a><a href="#dict-B">B</a><a href="#dict-C">C</a>
+        <a href="#dict-I">I</a><a href="#dict-M">M</a><a href="#dict-S">S</a>
+      </nav>
+
+      <dl class="dictionary" id="dictList">
+        <!-- A -->
+        <dt id="dict-A" aria-hidden="true" class="dict-letter">A</dt>
+        <dt data-keys="accessibility context screen readers">Accessibility (context)</dt>
+        <dd>Clarifying meaning in surrounding text so subscripts aren’t ambiguous to assistive tech.</dd>
+
+        <!-- B -->
+        <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+        <dt data-keys="baseline typography line">Baseline</dt>
+        <dd>The invisible line on which most letters sit; subscript text is lowered below this line.</dd>
+
+        <!-- C -->
+        <dt id="dict-C" aria-hidden="true" class="dict-letter">C</dt>
+        <dt data-keys="chemistry formula molecule">Chemical formula</dt>
+        <dd>Notation for compounds that often uses subscripts to indicate atom counts (e.g., CO<sub>2</sub>).</dd>
+
+        <!-- I -->
+        <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
+        <dt data-keys="index indices sequence math">Index (math)</dt>
+        <dd>A subscript used to label terms in a sequence or components (e.g., a<sub>n</sub>).</dd>
+
+        <!-- M -->
+        <dt id="dict-M" aria-hidden="true" class="dict-letter">M</dt>
+        <dt data-keys="meaning semantics">Meaning (semantics)</dt>
+        <dd>The idea that <code>&lt;sub&gt;</code> conveys domain meaning (not just visual decoration).</dd>
+
+        <!-- S -->
+        <dt id="dict-S" aria-hidden="true" class="dict-letter">S</dt>
+        <dt data-keys="subscript html element">&lt;sub&gt; (Subscript)</dt>
+        <dd>HTML element that renders text as subscript for formulas, indices, and specialized notation.</dd>
+      </dl>
     </section>
 
     <!-- Bottom nav -->
@@ -183,81 +259,79 @@
       <a href="lesson24.html" class="btn next">Next Lesson →</a>
     </nav>
 
-    <!-- Dictionary -->
-    <section class="card" id="dictionary" aria-labelledby="dict-heading">
-      <h2 id="dict-heading">Lesson 23 Dictionary</h2>
-      <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
-        <label for="dictSearch" class="visually-hidden">Search terms</label>
-        <input id="dictSearch" name="q" type="search" placeholder="Search terms…" autocomplete="off" />
-        <span class="dict-meta"><span id="dictCount"></span> terms</span>
-        <button type="button" id="dictExport" class="pill">Export JSON</button>
-      </form>
-
-      <dl class="dictionary" id="dictList">
-        <dt data-keys="subscript">&lt;sub&gt; (Subscript)</dt>
-        <dd>Displays text slightly below the baseline (e.g., H<sub>2</sub>O).</dd>
-        <dt data-keys="baseline">Baseline</dt>
-        <dd>The invisible line on which most characters sit. Subscript text drops below it.</dd>
-      </dl>
-    </section>
-
     <footer class="footer-note" style="padding:24px 0 40px">
-      © HTML Zero → Mastery · Lesson 23
+      © HTML Zero → Mastery · Lesson 23. This page is self-contained and works offline.
     </footer>
   </main>
 
   <script>
-    // Copy buttons
+    // Add "Copy" buttons to all code blocks
     (function(){
       document.querySelectorAll('pre').forEach((pre) => {
         const btn = document.createElement('button');
         btn.className = 'copy-btn'; btn.type = 'button'; btn.textContent = 'Copy';
+        btn.setAttribute('aria-label','Copy code to clipboard');
         pre.appendChild(btn);
         btn.addEventListener('click', async () => {
+          const code = pre.innerText;
           try {
-            await navigator.clipboard.writeText(pre.innerText);
+            await navigator.clipboard.writeText(code);
             btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
           } catch { btn.textContent = 'Error'; }
         });
       });
     })();
 
-    // Dictionary search + export
+    // Dictionary: filter + export + hide empty letter markers (same logic as Lesson 8)
     (function(){
-      const list=document.getElementById('dictList');
-      const items=Array.from(list.querySelectorAll('dt')).map(dt=>{
-        const dd=dt.nextElementSibling?.tagName.toLowerCase()==='dd'?dt.nextElementSibling:null;
-        return {dt,dd,text:(dt.textContent+(dt.dataset.keys||'')+(dd?dd.textContent:'')).toLowerCase()};
+      const list = document.getElementById('dictList');
+      const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
+        const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
+        return {dt, dd, text: (dt.textContent + ' ' + (dt.dataset.keys||'') + ' ' + (dd?dd.textContent:'')).toLowerCase()};
       });
-      const input=document.getElementById('dictSearch');
-      const count=document.getElementById('dictCount');
-      const exportBtn=document.getElementById('dictExport');
+      const input = document.getElementById('dictSearch');
+      const count = document.getElementById('dictCount');
+      const exportBtn = document.getElementById('dictExport');
 
+      function updateLetterVisibility(){
+        list.querySelectorAll('.dict-letter').forEach(letter => {
+          let next = letter.nextElementSibling, any=false;
+          while (next && !next.classList.contains('dict-letter')) {
+            if (next.style.display !== 'none') { any = true; break; }
+            next = next.nextElementSibling;
+          }
+          letter.style.display = any ? '' : 'none';
+        });
+      }
       function updateCount(){
-        const visible=items.filter(i=>i.dt.style.display!=='none').length;
-        count.textContent=visible.toString();
+        const visible = items.filter(i => i.dt.style.display !== 'none').length;
+        if (count) count.textContent = visible.toString();
       }
       function filter(q){
-        const needle=(q||'').trim().toLowerCase();
-        items.forEach(({dt,dd,text})=>{
-          const show=!needle||text.includes(needle);
-          dt.style.display=show?'':'none';
-          if(dd) dd.style.display=show?'':'none';
+        const needle = (q||'').trim().toLowerCase();
+        items.forEach(({dt, dd, text}) => {
+          const show = !needle || text.includes(needle);
+          dt.style.display = show ? '' : 'none';
+          if (dd) dd.style.display = show ? '' : 'none';
         });
+        updateLetterVisibility();
         updateCount();
       }
-      input?.addEventListener('input',e=>filter(e.target.value));
-      filter('');
+      input?.addEventListener('input', e => filter(e.target.value));
+      filter(''); // init
 
-      exportBtn?.addEventListener('click',()=>{
-        const data=items.filter(({dt})=>dt.style.display!=='none').map(({dt,dd})=>({
-          term:dt.textContent.trim(),
-          keys:(dt.dataset.keys||'').split(/\s+/).filter(Boolean),
-          definition:(dd?dd.textContent:'').trim()
-        }));
-        const blob=new Blob([JSON.stringify({lesson:23,updated:new Date().toISOString(),items:data},null,2)],{type:'application/json'});
-        const url=URL.createObjectURL(blob);
-        const a=document.createElement('a');a.href=url;a.download='dictionary.lesson23.json';a.click();
+      // Export JSON of Lesson 23 terms only (current filter respected)
+      exportBtn?.addEventListener('click', () => {
+        const data = items
+          .filter(({dt}) => dt.style.display !== 'none')
+          .map(({dt, dd}) => ({
+            term: dt.textContent.replace(/\s+/g,' ').trim(),
+            keys: (dt.dataset.keys||'').split(/\s+/).filter(Boolean),
+            definition: (dd?dd.textContent:'').replace(/\s+/g,' ').trim()
+          }));
+        const blob = new Blob([JSON.stringify({lesson: 23, updated: new Date().toISOString(), items: data}, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'dictionary.lesson23.json'; a.click();
         URL.revokeObjectURL(url);
       });
     })();
