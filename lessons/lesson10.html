@@ -4,165 +4,221 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTML Zero → Mastery — Lesson 10: The &lt;title&gt; Element</title>
-  <meta name="description" content="Lesson 10 of HTML Zero to Mastery: Learn what the <title> element is, why it matters for SEO, accessibility, and user experience, and best practices." />
+  <meta name="description" content="Lesson 10 of HTML Zero to Mastery: Learn the <title> element, its purpose, SEO and accessibility impact, and best practices." />
+
+  <!-- Social preview -->
+  <meta property="og:title" content="HTML Zero → Mastery — Lesson 10: The &lt;title&gt; Element" />
+  <meta property="og:description" content="Master the <title> element: page titles, SEO best practices, accessibility, and common mistakes." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sambarnhurst.github.io/Curriculum/lessons/lesson10.html" />
+  <meta property="og:image" content="https://sambarnhurst.github.io/Curriculum/images/lesson1picture1.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#121212">
-  <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson10.html" />
 
   <style>
-    body {
-      margin: 0;
-      font: 16px/1.7 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-      color: #eaeaea;
+    :root{
+      --bg:#121212; --panel:#1c1c1c; --soft:#222; --text:#eaeaea;
+      --muted:#b6b6b6; --accent:#00ffff; --accent-2:#4de1ff;
+      --ok:#57e389; --warn:#ffbf69; --err:#ff6b6b;
+      --code:#0d0d0d; --link:#7bd4ff; --border:#2a2a2a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
       background:
         linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
         url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
-      background-color: #000;
+      background-color:#000;
     }
-    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-    h1, h2 { color: #00ffff; }
-    section { background: #1c1c1c; border: 1px solid #2a2a2a; border-radius: 12px; padding: 20px; margin: 20px 0; }
-    pre { background: #0d0d0d; padding: 12px; border-radius: 10px; overflow: auto; }
-    code { font-family: ui-monospace, Menlo, Consolas, monospace; color: #7bd4ff; }
-    .quiz, .project, .history, .faq, .tips { background: #222; padding: 12px; border-radius: 10px; margin: 16px 0; }
-    .lesson-nav { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:16px 0; padding:12px; background:#1c1c1c; border:1px solid #2a2a2a; border-radius:12px; }
-    .btn { display:inline-block; text-decoration:none; color:#eaeaea; padding:.6rem .9rem; border:1px solid #2a2a2a; border-radius:999px; background:#222; }
-    .btn:hover { filter:brightness(1.05); }
-    .spacer { flex:1; }
+    a{color:var(--link)}
+    header{
+      padding:24px 20px 8px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(0,255,255,.07), transparent 60%);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    h1{margin:0 0 6px;font-weight:800;letter-spacing:.2px}
+    .crumbs{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;font-size:.8rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);margin-left:.3rem}
+    .label{display:inline-block;font-size:.75rem;padding:.2rem .5rem;border-radius:6px;background:#0e2d2d;color:#a6f0f0;border:1px solid #123e3e;margin-left:.5rem}
+    main{padding:20px 0 60px}
+    section.card{
+      background:var(--panel); border:1px solid var(--border);
+      border-radius:14px; padding:20px; margin:16px 0;
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
+    }
+    section.card h2{margin-top:0;color:var(--accent)}
+    section.card h3{margin:22px 0 8px;color:var(--accent-2)}
+    pre{
+      background:var(--code); border:1px solid var(--border);
+      border-radius:12px; padding:14px; overflow:auto; margin:12px 0;
+      position:relative;
+    }
+    code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.95rem}
+    .footer-note{color:var(--muted);font-size:.95rem}
+    .lesson-nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0;padding:12px;background:var(--panel);border:1px solid var(--border);border-radius:12px}
+    .btn{display:inline-block;text-decoration:none;color:var(--text);padding:.6rem .9rem;border:1px solid var(--border);border-radius:999px;background:var(--soft)}
+    .btn:hover{filter:brightness(1.05)}
+    .btn.back{border-color:#3f2f2f}
+    .btn.prev{border-color:#2f3f2f}
+    .btn.next{border-color:#1f3f3f}
+    .spacer{flex:1}
+    .copy-btn{position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Lesson 10 — The <code>&lt;title&gt;</code> Element</h1>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Navigation -->
-    <nav class="lesson-nav" aria-label="Lesson navigation">
-      <a href="../index.html" class="btn back">← Back to Curriculum</a>
-      <span class="spacer" aria-hidden="true"></span>
-      <a href="lesson11.html" class="btn next">Next Lesson →</a>
-    </nav>
+  <header>
+    <div class="container">
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 10: The &lt;title&gt; Element</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 10 — The <code>&lt;title&gt;</code> Element <span class="label">Page Titles & SEO</span></h1>
 
+      <!-- Top navigation -->
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+        <a href="lesson9.html" class="btn prev">← Previous Lesson</a>
+        <span class="spacer" aria-hidden="true"></span>
+        <a href="lesson11.html" class="btn next">Next Lesson →</a>
+      </nav>
+
+      <div class="footer-note">Estimated time: 30–45 minutes · You’ll practice writing effective page titles for accessibility and SEO</div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
     <!-- Learning Goals -->
-    <section>
+    <section class="card">
       <h2>Learning Goals</h2>
       <ul>
-        <li>Understand the purpose of the <code>&lt;title&gt;</code> element in HTML.</li>
-        <li>Learn where titles appear: browser tabs, bookmarks, search results.</li>
-        <li>Explore accessibility and SEO importance of titles.</li>
-        <li>Apply best practices for writing effective titles.</li>
+        <li>Understand the purpose of the <code>&lt;title&gt;</code> element.</li>
+        <li>Learn how it appears in browser tabs, bookmarks, and search engines.</li>
+        <li>Apply best practices for accessibility and SEO.</li>
+        <li>Avoid common mistakes when setting page titles.</li>
       </ul>
     </section>
 
-    <!-- Concept / Explanation -->
-    <section>
-      <h2>Concept</h2>
-      <p>The <code>&lt;title&gt;</code> element is placed inside the <code>&lt;head&gt;</code> and sets the page’s official title. Unlike headings inside the <code>&lt;body&gt;</code>, the title does not show directly on the page — but it is crucial for how browsers, users, and search engines understand the page.</p>
-      <p>It serves four roles at once:</p>
+    <!-- Concept -->
+    <section class="card">
+      <h2>Part 1 — What <code>&lt;title&gt;</code> Does</h2>
+      <p>The <code>&lt;title&gt;</code> element sits in the <code>&lt;head&gt;</code> of your page and provides the official page title. Unlike <code>&lt;h1&gt;</code>, it does not show on the page itself, but it is visible in:</p>
       <ul>
-        <li><strong>Browser Tabs:</strong> Appears in the tab/window title bar.</li>
-        <li><strong>Bookmarks:</strong> Used when a page is saved/favorited.</li>
-        <li><strong>Search Engines:</strong> Appears as the main clickable link in search results (SEO).</li>
-        <li><strong>Accessibility:</strong> Screen readers announce the title to describe what the page is about.</li>
+        <li><strong>Browser Tabs:</strong> The clickable tab label.</li>
+        <li><strong>Bookmarks:</strong> Used when a user saves the page.</li>
+        <li><strong>Search Results:</strong> Appears as the main clickable headline in Google and other search engines.</li>
+        <li><strong>Accessibility:</strong> Screen readers announce it as the page’s name.</li>
       </ul>
+      <div class="footer-note">Think of it as the book title on the cover; <code>&lt;h1&gt;</code> is the chapter heading inside.</div>
     </section>
 
     <!-- Example -->
-    <section>
-      <h2>Example</h2>
+    <section class="card">
+      <h2>Part 2 — Example</h2>
       <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;Portfolio of Jane Doe&lt;/title&gt;
+    &lt;title&gt;My Portfolio — Jane Doe&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &lt;h1&gt;Welcome to my portfolio&lt;/h1&gt;
-    &lt;p&gt;I build websites and design apps.&lt;/p&gt;
+    &lt;p&gt;I design and build modern web applications.&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-      <p><strong>Explanation:</strong> The page title shown in the browser tab is “Portfolio of Jane Doe,” while the visible content uses <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code>.</p>
+      <p><strong>Result:</strong> The browser tab and bookmarks will show <em>“My Portfolio — Jane Doe”</em>, while the page heading is visible in the body.</p>
     </section>
 
-    <!-- Good vs Bad Examples -->
-    <section class="tips">
-      <h2>Good vs Bad Titles</h2>
-      <p>✅ <strong>Good:</strong> Short, descriptive, unique.</p>
+    <!-- Best Practices -->
+    <section class="card">
+      <h2>Part 3 — Best Practices</h2>
       <ul>
-        <li>“HTML Basics — Lesson 1”</li>
-        <li>“John Smith | Web Developer Portfolio”</li>
-      </ul>
-      <p>❌ <strong>Bad:</strong> Too vague or repetitive.</p>
-      <ul>
-        <li>“Home” (too generic, every site has one)</li>
-        <li>“Untitled Document” (forgot to set title)</li>
-        <li>“My Website My Website My Website” (keyword stuffing)</li>
+        <li>Keep it short (50–60 characters max).</li>
+        <li>Make it descriptive and unique per page.</li>
+        <li>Include your brand name if relevant.</li>
+        <li>Avoid vague titles like “Home” or “Untitled.”</li>
+        <li>Write for humans first — don’t stuff keywords.</li>
       </ul>
     </section>
 
     <!-- Common Mistakes -->
-    <section>
-      <h2>Common Mistakes</h2>
+    <section class="card">
+      <h2>Part 4 — Common Mistakes</h2>
       <ul>
-        <li>Leaving the title blank → browser shows “Untitled.”</li>
-        <li>Using the same title for all pages → confuses users and hurts SEO.</li>
-        <li>Making it too long → search engines cut it off after ~60 characters.</li>
-        <li>Placing <code>&lt;title&gt;</code> in the <code>&lt;body&gt;</code> instead of the <code>&lt;head&gt;</code>.</li>
+        <li>❌ Leaving the title empty → browser shows “Untitled.”</li>
+        <li>❌ Using the same title for all pages → confuses users & search engines.</li>
+        <li>❌ Making it too long → search engines truncate it.</li>
+        <li>❌ Putting <code>&lt;title&gt;</code> in the <code>&lt;body&gt;</code> → invalid markup.</li>
       </ul>
     </section>
 
-    <!-- Quick Quiz -->
-    <section class="quiz">
+    <!-- Quiz -->
+    <section class="card">
       <h2>Quick Quiz</h2>
       <ol>
         <li>Where should the <code>&lt;title&gt;</code> element be placed?</li>
-        <li>How does the title affect search engine results?</li>
-        <li>Why is it important for accessibility?</li>
-        <li>True/False: You can use multiple <code>&lt;title&gt;</code> elements on one page.</li>
+        <li>What role does it play in search engines?</li>
+        <li>How many <code>&lt;title&gt;</code> tags can you have per page?</li>
       </ol>
       <details>
-        <summary>Answers</summary>
+        <summary>Sample Answers</summary>
         <ul>
-          <li>Inside the <code>&lt;head&gt;</code> section.</li>
-          <li>It becomes the clickable link in search results and signals relevance.</li>
-          <li>Screen readers announce it to help users identify the page.</li>
-          <li>False — only one <code>&lt;title&gt;</code> per page.</li>
+          <li>Inside the <code>&lt;head&gt;</code>.</li>
+          <li>It’s the clickable headline in search results.</li>
+          <li>One — multiple <code>&lt;title&gt;</code> tags are invalid.</li>
         </ul>
       </details>
     </section>
 
-    <!-- Mini Project -->
-    <section class="project">
-      <h2>Mini Project — Title Lab</h2>
-      <p>Create three HTML files, each with different titles:</p>
+    <!-- Project -->
+    <section class="card">
+      <h2>Mini Project — Title Workshop</h2>
+      <p>Create three simple HTML files:</p>
       <ul>
-        <li><strong>index.html:</strong> “My Name — Portfolio”</li>
-        <li><strong>about.html:</strong> “About Me — [Your Name]”</li>
-        <li><strong>contact.html:</strong> “Contact — [Your Name]”</li>
+        <li><code>index.html</code> → “Portfolio — [Your Name]”</li>
+        <li><code>about.html</code> → “About Me — [Your Name]”</li>
+        <li><code>contact.html</code> → “Contact — [Your Name]”</li>
       </ul>
-      <p>Open all three in browser tabs and compare how the titles appear in:</p>
-      <ul>
-        <li>The browser tab bar.</li>
-        <li>Bookmarks (save each page).</li>
-        <li>History list (check browser history).</li>\n      </ul>
-    </section>
-
-    <!-- Did You Know? -->
-    <section class="history">
-      <h2>Did You Know?</h2>
-      <p>The very first webpage in 1991 had the title <em>“The World Wide Web project.”</em> This simple <code>&lt;title&gt;</code> still works today and is considered one of the most historic HTML tags ever used.</p>
+      <p>Open them in browser tabs, bookmark them, and observe how titles appear.</p>
     </section>
 
     <!-- FAQ -->
-    <section class="faq">
+    <section class="card">
       <h2>FAQ</h2>
-      <p><strong>Q:</strong> Can I include branding in every title?<br><strong>A:</strong> Yes, but add unique page info before or after (e.g., “Blog — MyBrand”).</p>
-      <p><strong>Q:</strong> Should I use ALL CAPS in titles?<br><strong>A:</strong> Avoid it — it can look like shouting and reduce readability.</p>
-      <p><strong>Q:</strong> Do titles impact Google ranking?<br><strong>A:</strong> Yes, they are one of the strongest on-page SEO signals.</p>
+      <p><strong>Q:</strong> Can I use emojis in titles?<br><strong>A:</strong> Yes, but sparingly — they may be cut off in some search results.</p>
+      <p><strong>Q:</strong> Should titles match <code>&lt;h1&gt;</code>?<br><strong>A:</strong> They should be similar, but the <code>&lt;title&gt;</code> can include branding or context.</p>
     </section>
 
-    <!-- Footer -->
-    <footer style="margin-top:40px;color:#b6b6b6">
-      © HTML Zero → Mastery · Lesson 10
+    <!-- Bottom nav -->
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+      <a href="lesson9.html" class="btn prev">← Previous Lesson</a>
+      <span class="spacer" aria-hidden="true"></span>
+      <a href="lesson11.html" class="btn next">Next Lesson →</a>
+    </nav>
+
+    <footer class="footer-note" style="padding:24px 0 40px">
+      © HTML Zero → Mastery · Lesson 10. Works offline.
     </footer>
-  </div>
+  </main>
+
+  <script>
+    // Copy buttons
+    (function(){
+      document.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn'; btn.type = 'button'; btn.textContent = 'Copy';
+        pre.appendChild(btn);
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(pre.innerText);
+            btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
+          } catch { btn.textContent = 'Error'; }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
