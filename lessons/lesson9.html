@@ -3,39 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HTML Zero → Mastery — Lesson 9: The <body> Section Basics</title>
+  <title>HTML Zero → Mastery — Lesson 9: The &lt;body&gt; Section Basics</title>
   <meta name="description" content="Lesson 9 of HTML Zero to Mastery: Learn the basics of the <body> section in HTML, what goes inside, best practices, and build a project." />
   <meta name="theme-color" content="#121212">
   <link rel="canonical" href="https://sambarnhurst.github.io/Curriculum/lessons/lesson9.html" />
+
   <style>
+    :root{
+      --bg:#121212; --panel:#1c1c1c; --soft:#222; --text:#eaeaea;
+      --muted:#b6b6b6; --accent:#00ffff; --accent-2:#4de1ff;
+      --ok:#57e389; --warn:#ffbf69; --err:#ff6b6b;
+      --code:#0d0d0d; --link:#7bd4ff; --border:#2a2a2a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0;
-      font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      color:#eaeaea;
+      margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
       background:
         linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
         url('../images/lesson1picture1.jpg') center / cover fixed no-repeat;
       background-color:#000;
     }
-    .container{max-width:1000px;margin:0 auto;padding:20px}
-    h1,h2{color:#00ffff}
-    section{background:#1c1c1c;border:1px solid #2a2a2a;border-radius:12px;padding:20px;margin:20px 0}
-    pre{background:#0d0d0d;padding:12px;border-radius:10px;overflow:auto}
-    code{font-family:ui-monospace,Menlo,Consolas,monospace;color:#7bd4ff}
-    .quiz,.project,.history,.faq{background:#222;padding:12px;border-radius:10px;margin:16px 0}
+    a{color:var(--link)}
+    header{
+      padding:24px 20px 8px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(0,255,255,.07), transparent 60%);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    h1{margin:0 0 6px;font-weight:800;letter-spacing:.2px}
+    .crumbs{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;font-size:.8rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;color:var(--muted);margin-left:.3rem}
+    .label{display:inline-block;font-size:.75rem;padding:.2rem .5rem;border-radius:6px;background:#0e2d2d;color:#a6f0f0;border:1px solid #123e3e;margin-left:.5rem}
+    main{padding:20px 0 60px}
+    section.card{
+      background:var(--panel); border:1px solid var(--border);
+      border-radius:14px; padding:20px; margin:16px 0;
+      box-shadow:0 4px 24px rgba(0,0,0,.25);
+    }
+    section.card h2{margin-top:0;color:var(--accent)}
+    pre{
+      background:var(--code); border:1px solid var(--border);
+      border-radius:12px; padding:14px; overflow:auto; margin:12px 0;
+      position:relative;
+    }
+    code, pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.95rem}
+    .footer-note{color:var(--muted);font-size:.95rem}
+    .lesson-nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:16px 0;padding:12px;background:var(--panel);border:1px solid var(--border);border-radius:12px}
+    .btn{display:inline-block;text-decoration:none;color:var(--text);padding:.6rem .9rem;border:1px solid var(--border);border-radius:999px;background:var(--soft)}
+    .btn:hover{filter:brightness(1.05)}
+    .btn.back{border-color:#3f2f2f}
+    .btn.prev{border-color:#2f3f2f}
+    .btn.next{border-color:#1f3f3f}
+    .spacer{flex:1}
+    .copy-btn{position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Lesson 9 — The <code>&lt;body&gt;</code> Section Basics</h1>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <section>
+  <header>
+    <div class="container">
+      <div class="crumbs">Curriculum ▸ HTML Zero → Mastery ▸ <strong>Lesson 9: The &lt;body&gt; Section Basics</strong> <span class="badge">Foundations</span></div>
+      <h1>Lesson 9 — The <code>&lt;body&gt;</code> Section Basics <span class="label">Visible Content</span></h1>
+
+      <!-- Top navigation -->
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+        <a href="lesson8.html" class="btn prev">← Previous Lesson</a>
+        <span class="spacer" aria-hidden="true"></span>
+        <a href="lesson10.html" class="btn next">Next Lesson →</a>
+      </nav>
+
+      <div class="footer-note">Estimated time: 30–40 minutes · You’ll explore what belongs inside the body and create your own homepage</div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <!-- Intro -->
+    <section class="card">
       <h2>What is the <code>&lt;body&gt;</code>?</h2>
       <p>The <code>&lt;body&gt;</code> element is where all the <strong>visible content</strong> of a webpage goes. If you can see it in the browser window — text, images, links, lists, tables, forms — it lives inside the <code>&lt;body&gt;</code>.</p>
       <p><strong>Metaphor:</strong> Think of an HTML page as a house. The <code>&lt;head&gt;</code> is the blueprint (title, metadata, instructions). The <code>&lt;body&gt;</code> is the rooms, furniture, and everything you interact with.</p>
     </section>
 
-    <section>
+    <!-- Content inside body -->
+    <section class="card">
       <h2>What Goes Inside?</h2>
       <ul>
         <li><strong>Headings:</strong> <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> structure your content.</li>
@@ -48,7 +102,8 @@
       </ul>
     </section>
 
-    <section>
+    <!-- Example -->
+    <section class="card">
       <h2>Example</h2>
       <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
@@ -64,10 +119,10 @@
     &lt;p&gt;Thanks for visiting!&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-      <p><strong>Explanation:</strong> The <code>&lt;h1&gt;</code> heading, <code>&lt;p&gt;</code> paragraphs, and <code>&lt;img&gt;</code> image all appear inside the <code>&lt;body&gt;</code>. The <code>&lt;hr&gt;</code> visually separates content.</p>
     </section>
 
-    <section>
+    <!-- Common Mistakes -->
+    <section class="card">
       <h2>Common Mistakes</h2>
       <ul>
         <li>Putting <code>&lt;title&gt;</code> or <code>&lt;meta&gt;</code> inside <code>&lt;body&gt;</code> (they belong in <code>&lt;head&gt;</code>).</li>
@@ -76,51 +131,92 @@
       </ul>
     </section>
 
-    <section class="quiz">
+    <!-- Quiz -->
+    <section class="card">
       <h2>Quick Quiz</h2>
       <ol>
         <li>What is the purpose of the <code>&lt;body&gt;</code> element?</li>
-        <li>Which of these belongs in the <code>&lt;head&gt;</code>, not the <code>&lt;body&gt;</code>: <code>&lt;title&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>?</li>
+        <li>Which belongs in the <code>&lt;head&gt;</code>, not the body: <code>&lt;title&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>?</li>
         <li>True/False: You can have two <code>&lt;body&gt;</code> elements in the same HTML page.</li>
       </ol>
       <details>
         <summary>Answers</summary>
         <ul>
-          <li>The <code>&lt;body&gt;</code> holds all the visible content of a webpage.</li>
-          <li><code>&lt;title&gt;</code> belongs in <code>&lt;head&gt;</code>.</li>
+          <li>The <code>&lt;body&gt;</code> holds all visible content of a webpage.</li>
+          <li><code>&lt;title&gt;</code> belongs in the <code>&lt;head&gt;</code>.</li>
           <li>False — only one <code>&lt;body&gt;</code> per page.</li>
         </ul>
       </details>
     </section>
 
-    <section class="project">
+    <!-- Project -->
+    <section class="card">
       <h2>Mini Project — Personal Homepage</h2>
-      <p>Create a simple homepage inside the <code>&lt;body&gt;</code> tag with the following:</p>
+      <p>Create a simple homepage inside the <code>&lt;body&gt;</code> with:</p>
       <ul>
         <li>An <code>&lt;h1&gt;</code> with your name.</li>
         <li>A <code>&lt;p&gt;</code> introducing yourself.</li>
-        <li>An <code>&lt;img&gt;</code> of something meaningful to you (with <code>alt</code> text).</li>
-        <li>A <code>&lt;ul&gt;</code> list of your 3 favorite hobbies.</li>
+        <li>An <code>&lt;img&gt;</code> with alt text.</li>
+        <li>A <code>&lt;ul&gt;</code> of your 3 favorite hobbies.</li>
         <li>An <code>&lt;a&gt;</code> link to your favorite website.</li>
       </ul>
-      <p>Save it as <code>index.html</code> and open it in your browser to view your page!</p>
     </section>
 
-    <section class="history">
+    <!-- History -->
+    <section class="card">
       <h2>Did You Know?</h2>
       <p>HTML was invented by <strong>Tim Berners-Lee</strong> in 1991 at CERN. The very first webpage used a <code>&lt;body&gt;</code> section with simple text and links. That page still exists online as a piece of history.</p>
     </section>
 
-    <section class="faq">
+    <!-- FAQ -->
+    <section class="card">
       <h2>FAQ</h2>
-      <p><strong>Q: Do I need special software to write HTML?</strong><br>A: No — you can use any text editor and a browser.</p>
-      <p><strong>Q: Can I leave out the <code>&lt;body&gt;</code> tag?</strong><br>A: Browsers may try to fix it, but you should always include it for proper structure.</p>
-      <p><strong>Q: Can I style the <code>&lt;body&gt;</code>?</strong><br>A: Yes! CSS often targets the <code>&lt;body&gt;</code> to set fonts, colors, or backgrounds.</p>
+      <p><strong>Q:</strong> Do I need special software to write HTML?<br><strong>A:</strong> No — you can use any text editor and a browser.</p>
+      <p><strong>Q:</strong> Can I leave out the <code>&lt;body&gt;</code>?<br><strong>A:</strong> Browsers may try to fix it, but you should always include it for proper structure.</p>
+      <p><strong>Q:</strong> Can I style the <code>&lt;body&gt;</code>?<br><strong>A:</strong> Yes! CSS often targets the body for fonts, colors, and backgrounds.</p>
     </section>
 
-    <footer style="margin-top:40px;color:#b6b6b6">
+    <!-- Bottom nav -->
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      <a href="https://sambarnhurst.github.io/Curriculum/index.html" class="btn back">← Back to Curriculum</a>
+      <a href="lesson8.html" class="btn prev">← Previous Lesson</a>
+      <span class="spacer" aria-hidden="true"></span>
+      <a href="lesson10.html" class="btn next">Next Lesson →</a>
+    </nav>
+
+    <!-- Dictionary -->
+    <section class="card" id="dictionary" aria-labelledby="dict-heading">
+      <h2 id="dict-heading">Lesson 9 Dictionary</h2>
+      <dl class="dictionary" id="dictList">
+        <dt>&lt;body&gt;</dt>
+        <dd>The container for all visible content of a webpage.</dd>
+        <dt>Visible Content</dt>
+        <dd>Any element a user sees in the browser (text, images, links, lists, etc.).</dd>
+        <dt>Invalid Markup</dt>
+        <dd>Code that breaks rules — e.g., placing &lt;title&gt; inside &lt;body&gt; or using multiple body tags.</dd>
+      </dl>
+    </section>
+
+    <footer class="footer-note" style="padding:24px 0 40px">
       © HTML Zero → Mastery · Lesson 9
     </footer>
-  </div>
+  </main>
+
+  <script>
+    // Copy buttons
+    (function(){
+      document.querySelectorAll('pre').forEach((pre) => {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn'; btn.type = 'button'; btn.textContent = 'Copy';
+        pre.appendChild(btn);
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(pre.innerText);
+            btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
+          } catch { btn.textContent = 'Error'; }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
