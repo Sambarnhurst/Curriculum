@@ -58,6 +58,18 @@
     .btn.next{border-color:#1f3f3f}
     .spacer{flex:1}
     .copy-btn{position:absolute;right:8px;top:8px;padding:.35rem .6rem;border:1px solid var(--border);border-radius:8px;background:var(--soft);color:var(--text);cursor:pointer}
+
+    /* Dictionary */
+    .dict-search{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
+    .dict-search input[type="search"]{flex:1;min-width:220px;padding:.55rem .7rem;border:1px solid var(--border);border-radius:10px;background:var(--soft);color:var(--text)}
+    .dict-meta{color:var(--muted);font-size:.9rem}
+    .dict-az{display:flex;gap:.4rem;flex-wrap:wrap;margin:8px 0 14px}
+    .dict-az a{display:inline-block;padding:.25rem .45rem;border:1px solid var(--border);border-radius:8px;background:var(--soft);text-decoration:none;color:var(--text);font-size:.9rem}
+    .dictionary dt{margin-top:.6rem;font-weight:700}
+    .dictionary dd{margin:0 0 .6rem 0;color:var(--text)}
+    .dict-letter{margin-top:1.2rem;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;display:inline-block;background:var(--soft);color:var(--muted);font-weight:600}
+    .pill{display:inline-block;padding:.5rem .75rem;border-radius:999px;border:1px solid var(--border);background:var(--soft);color:var(--text);text-decoration:none}
+    .visually-hidden{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
   </style>
 </head>
 <body>
@@ -184,69 +196,62 @@
       <a href="lesson10.html" class="btn next">Next Lesson →</a>
     </nav>
 
-<!-- Dictionary -->
-<section class="card" id="dictionary" aria-labelledby="dict-heading">
-  <h2 id="dict-heading">Lesson 9 Dictionary</h2>
-  <p class="footer-note">
-    Terms and elements introduced in Lesson 9: the <code>&lt;body&gt;</code> section and its common contents.
-  </p>
+    <!-- Dictionary -->
+    <section class="card" id="dictionary" aria-labelledby="dict-heading">
+      <h2 id="dict-heading">Lesson 9 Dictionary</h2>
+      <p class="footer-note">Terms and attributes introduced/emphasized in this lesson.</p>
 
-  <!-- Search -->
-  <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
-    <label for="dictSearch" class="visually-hidden">Search terms</label>
-    <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
-    <span class="dict-meta"><span id="dictCount"></span> terms</span>
-    <button type="button" id="dictExport" class="pill">Export JSON</button>
-  </form>
+      <!-- Search -->
+      <form class="dict-search" role="search" aria-label="Dictionary search" onsubmit="return false;">
+        <label for="dictSearch" class="visually-hidden">Search terms</label>
+        <input id="dictSearch" name="q" type="search" placeholder="Search terms, tags, attributes…" autocomplete="off" />
+        <span class="dict-meta"><span id="dictCount"></span> terms</span>
+        <button type="button" id="dictExport" class="pill">Export JSON</button>
+      </form>
 
-  <!-- A–Z jump -->
-  <nav class="dict-az" aria-label="A to Z">
-    <a href="#dict-B">B</a><a href="#dict-H">H</a><a href="#dict-I">I</a>
-    <a href="#dict-L">L</a><a href="#dict-P">P</a><a href="#dict-R">R</a>
-  </nav>
+      <!-- A–Z jump -->
+      <nav class="dict-az" aria-label="A to Z">
+        <a href="#dict-B">B</a><a href="#dict-D">D</a><a href="#dict-E">E</a><a href="#dict-H">H</a>
+        <a href="#dict-L">L</a><a href="#dict-P">P</a><a href="#dict-V">V</a>
+      </nav>
 
-  <dl class="dictionary" id="dictList">
-    <!-- B -->
-    <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
-    <dt data-keys="body root visible">&lt;body&gt;</dt>
-    <dd>The container for all visible page content (text, images, links, media, forms).</dd>
+      <dl class="dictionary" id="dictList">
+        <!-- B -->
+        <dt id="dict-B" aria-hidden="true" class="dict-letter">B</dt>
+        <dt data-keys="body visible container content">&lt;body&gt;</dt>
+        <dd>Container of all visible content in a webpage: text, images, links, etc.</dd>
 
-    <dt data-keys="break line">&lt;br&gt;</dt>
-    <dd>A line break. Use sparingly; prefer semantic structure.</dd>
+        <!-- D -->
+        <dt id="dict-D" aria-hidden="true" class="dict-letter">D</dt>
+        <dt data-keys="document doctype declaration">&lt;!DOCTYPE&gt;</dt>
+        <dd>Declaration that tells the browser to use modern HTML standards mode.</dd>
 
-    <!-- H -->
-    <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
-    <dt data-keys="h1 heading">&lt;h1&gt;…&lt;h6&gt;</dt>
-    <dd>Headings that provide document structure. <code>&lt;h1&gt;</code> is the main heading.</dd>
+        <!-- E -->
+        <dt id="dict-E" aria-hidden="true" class="dict-letter">E</dt>
+        <dt data-keys="example code snippet sample">Example</dt>
+        <dd>A sample piece of HTML illustrating structure or usage.</dd>
 
-    <dt data-keys="hr horizontal rule">&lt;hr&gt;</dt>
-    <dd>A thematic break — renders as a horizontal line.</dd>
+        <!-- H -->
+        <dt id="dict-H" aria-hidden="true" class="dict-letter">H</dt>
+        <dt data-keys="heading h1 h6 text hierarchy">&lt;h1&gt; … &lt;h6&gt;</dt>
+        <dd>Headings used to structure content into sections and subsections.</dd>
 
-    <!-- I -->
-    <dt id="dict-I" aria-hidden="true" class="dict-letter">I</dt>
-    <dt data-keys="img image">&lt;img&gt;</dt>
-    <dd>Embeds an image. Requires <code>src</code> and should include <code>alt</code> text for accessibility.</dd>
+        <!-- L -->
+        <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
+        <dt data-keys="link anchor tag">Link / &lt;a&gt;</dt>
+        <dd>Element used to navigate to other pages or locations via hyperlink.</dd>
 
-    <!-- L -->
-    <dt id="dict-L" aria-hidden="true" class="dict-letter">L</dt>
-    <dt data-keys="link anchor">&lt;a&gt;</dt>
-    <dd>Anchor (link) element that connects to other pages or resources.</dd>
+        <!-- P -->
+        <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
+        <dt data-keys="paragraph p">Paragraph (&lt;p&gt;)</dt>
+        <dd>Block of text grouped in its own paragraph.</dd>
 
-    <dt data-keys="li list item">&lt;li&gt;</dt>
-    <dd>List item used inside ordered (<code>&lt;ol&gt;</code>) or unordered (<code>&lt;ul&gt;</code>) lists.</dd>
-
-    <!-- P -->
-    <dt id="dict-P" aria-hidden="true" class="dict-letter">P</dt>
-    <dt data-keys="paragraph">&lt;p&gt;</dt>
-    <dd>Paragraph of text.</dd>
-
-    <!-- R -->
-    <dt id="dict-R" aria-hidden="true" class="dict-letter">R</dt>
-    <dt data-keys="root element visible content">Visible Content</dt>
-    <dd>Anything displayed to the user in the browser window — always inside <code>&lt;body&gt;</code>.</dd>
-  </dl>
-</section>
-
+        <!-- V -->
+        <dt id="dict-V" aria-hidden="true" class="dict-letter">V</dt>
+        <dt data-keys="visible content media audio video">Visible Content</dt>
+        <dd>Any content inside &lt;body&gt; that appears on screen: media, text, links, etc.</dd>
+      </dl>
+    </section>
 
     <footer class="footer-note" style="padding:24px 0 40px">
       © HTML Zero → Mastery · Lesson 9
@@ -266,6 +271,58 @@
             btn.textContent = 'Copied!'; setTimeout(()=>btn.textContent='Copy',1200);
           } catch { btn.textContent = 'Error'; }
         });
+      });
+    })();
+
+    // Dictionary search + export
+    (function(){
+      const list = document.getElementById('dictList');
+      const items = Array.from(list.querySelectorAll('dt:not(.dict-letter)')).map(dt => {
+        const dd = dt.nextElementSibling && dt.nextElementSibling.tagName.toLowerCase()==='dd' ? dt.nextElementSibling : null;
+        return {dt, dd, text:(dt.textContent+(dt.dataset.keys||'')+(dd?dd.textContent:'')).toLowerCase()};
+      });
+      const input = document.getElementById('dictSearch');
+      const count = document.getElementById('dictCount');
+      const exportBtn = document.getElementById('dictExport');
+
+      function updateLetterVisibility(){
+        list.querySelectorAll('.dict-letter').forEach(letter=>{
+          let next=letter.nextElementSibling, any=false;
+          while(next && !next.classList.contains('dict-letter')){
+            if(next.style.display!=='none'){any=true;break;}
+            next=next.nextElementSibling;
+          }
+          letter.style.display=any?'':'none';
+        });
+      }
+      function updateCount(){
+        const visible = items.filter(i=>i.dt.style.display!=='none').length;
+        if(count) count.textContent=visible.toString();
+      }
+      function filter(q){
+        const needle=(q||'').trim().toLowerCase();
+        items.forEach(({dt,dd,text})=>{
+          const show=!needle || text.includes(needle);
+          dt.style.display=show?'':'none';
+          if(dd) dd.style.display=show?'':'none';
+        });
+        updateLetterVisibility();updateCount();
+      }
+      input?.addEventListener('input',e=>filter(e.target.value));
+      filter('');
+
+      exportBtn?.addEventListener('click',()=>{
+        const data = items
+          .filter(({dt})=>dt.style.display!=='none')
+          .map(({dt,dd})=>({
+            term: dt.textContent.trim(),
+            keys:(dt.dataset.keys||'').split(/\s+/).filter(Boolean),
+            definition:(dd?dd.textContent:'').trim()
+          }));
+        const blob=new Blob([JSON.stringify({lesson:9,updated:new Date().toISOString(),items:data},null,2)],{type:'application/json'});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a');a.href=url;a.download='dictionary.lesson9.json';a.click();
+        URL.revokeObjectURL(url);
       });
     })();
   </script>
